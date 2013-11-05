@@ -18,6 +18,7 @@
 {
 	AVCaptureDevice *_camera;
 	AVCaptureDeviceInput *_videoInput;
+	AVCaptureStillImageOutput *_imageOutput;
 	AVCaptureSession *_captureSession;
 	DTVideoPreviewView *_videoPreview;
 }
@@ -49,6 +50,18 @@
 	
 	[_captureSession addInput:_videoInput];
 	
+	
+	_imageOutput = [AVCaptureStillImageOutput new];
+	
+	if (![_captureSession canAddOutput:_imageOutput])
+	{
+		NSLog(@"Unable to still image output to capture session");
+		return;
+	}
+	
+	[_captureSession addOutput:_imageOutput];
+	
+	// set the session to be previewed
 	_videoPreview.previewLayer.session = _captureSession;
 }
 
@@ -130,7 +143,58 @@
 
 - (IBAction)snap:(UIButton *)sender
 {
+	// find correct connection
+	AVCaptureConnection *videoConnection = nil;
 	
+	for (AVCaptureConnection *connection in _imageOutput.connections)
+	{
+		for (AVCaptureInputPort *port in [connection inputPorts])
+		{
+			if ([[port mediaType] isEqual:AVMediaTypeVideo] )
+			{
+				videoConnection = connection;
+				break;
+			}
+		}
+		
+		if (videoConnection)
+		{
+			break;
+		}
+	}
+	
+	if (!videoConnection)
+	{
+		NSLog(@"no video connection found");
+		return;
+	}
+	
+	[_imageOutput captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler:^(CMSampleBufferRef imageSampleBuffer, NSError *error) {
+		
+		if (error)
+		{
+			NSLog(@"error capturing still image: %@", [error localizedDescription]);
+			return;
+		}
+		
+		
+		CFDictionaryRef exifAttachments = CMGetAttachment(imageSampleBuffer, kCGImagePropertyExifDictionary, NULL);
+		
+		if (exifAttachments)
+		{
+			
+			
+			NSLog(@"attachements: %@", exifAttachments);
+		}
+		else
+		{
+			NSLog(@"no attachments");
+		}
+		
+		NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
+		UIImage *image = [UIImage imageWithData:imageData];
+		UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+	 }];
 }
 
 @end
