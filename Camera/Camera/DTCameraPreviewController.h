@@ -10,4 +10,6 @@
 
 @interface DTCameraPreviewController : UIViewController
 
+- (IBAction)snap:(UIButton *)sender;
+
 @end

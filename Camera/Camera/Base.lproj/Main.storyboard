@@ -12,10 +12,42 @@
                         <viewControllerLayoutGuide type="top" id="KB9-Vb-Jsd"/>
                         <viewControllerLayoutGuide type="bottom" id="Gt4-PG-Non"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
+                    <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS" customClass="DTVideoPreviewView">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TFp-b4-xMv">
+                                <rect key="frame" x="0.0" y="509" width="320" height="59"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i7t-lJ-Rfn">
+                                        <rect key="frame" x="140" y="15" width="40" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Snap!">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="snap:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="0HB-98-xtC"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="0.5" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="centerY" secondItem="i7t-lJ-Rfn" secondAttribute="centerY" id="9uP-DJ-e3Q"/>
+                                    <constraint firstAttribute="height" constant="59" id="ffB-WE-fpr"/>
+                                    <constraint firstAttribute="centerX" secondItem="i7t-lJ-Rfn" secondAttribute="centerX" id="tmY-aB-SMb"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="TFp-b4-xMv" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="7IO-v3-oYV"/>
+                            <constraint firstAttribute="bottom" secondItem="TFp-b4-xMv" secondAttribute="bottom" id="Adt-Wj-9ta"/>
+                            <constraint firstAttribute="trailing" secondItem="TFp-b4-xMv" secondAttribute="trailing" id="L8S-00-Vxq"/>
+                            <constraint firstItem="TFp-b4-xMv" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="VWm-hQ-ZLY"/>
+                            <constraint firstAttribute="trailing" secondItem="TFp-b4-xMv" secondAttribute="trailing" id="b1A-HK-yMQ"/>
+                            <constraint firstItem="Gt4-PG-Non" firstAttribute="top" secondItem="TFp-b4-xMv" secondAttribute="bottom" id="k8i-e1-VgF"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>

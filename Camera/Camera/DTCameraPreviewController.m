@@ -53,17 +53,13 @@
 }
 
 
-- (void)loadView
-{
-	// size does not matter, this will be taken care of by view controller presentation
-	_videoPreview = [DTVideoPreviewView new];
-	
-	self.view = _videoPreview;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+	NSAssert([self.view isKindOfClass:[DTVideoPreviewView class]], @"Wrong root view class %@ in %@", NSStringFromClass([self.view class]), NSStringFromClass([self class]));
+	
+	_videoPreview = (DTVideoPreviewView *)self.view;
 	
 	[self _setupCamera];
 }
@@ -72,6 +68,7 @@
 {
 	[super viewWillAppear:animated];
 	
+	// start session so that we don't see a black rectangle, but video
 	[_captureSession startRunning];
 }
 
@@ -129,10 +126,11 @@
 	}
 }
 
-- (void)didReceiveMemoryWarning
+#pragma mark - Actions
+
+- (IBAction)snap:(UIButton *)sender
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+	
 }
 
 @end
