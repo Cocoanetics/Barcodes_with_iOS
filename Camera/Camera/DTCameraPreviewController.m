@@ -55,7 +55,9 @@
 
 - (void)loadView
 {
-	_videoPreview = [[DTVideoPreviewView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
+	// size does not matter, this will be taken care of by view controller presentation
+	_videoPreview = [DTVideoPreviewView new];
+	
 	self.view = _videoPreview;
 }
 
