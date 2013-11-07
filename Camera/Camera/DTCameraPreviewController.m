@@ -150,7 +150,7 @@ AVCaptureVideoOrientation DTAVCaptureVideoOrientationForUIInterfaceOrientation(U
 	
 	if (![_captureSession canAddOutput:_imageOutput])
 	{
-		NSLog(@"Unable to still image output to capture session");
+		NSLog(@"Unable to add still image output to capture session");
 		return;
 	}
 	
