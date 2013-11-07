@@ -12,7 +12,9 @@
 
 - (IBAction)snap:(UIButton *)sender;
 - (IBAction)switchCam:(UIButton *)sender;
+- (IBAction)toggleTorch:(UIButton *)sender;
 
 @property (weak, nonatomic) IBOutlet UIButton *switchCamButton;
+@property (weak, nonatomic) IBOutlet UIButton *toggleTorchButton;
 
 @end

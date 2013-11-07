@@ -93,6 +93,7 @@ AVCaptureVideoOrientation DTAVCaptureVideoOrientationForUIInterfaceOrientation(U
 						
 						// need to do more setup because View Controller is already present
 						[self _setupCamSwitchButton];
+						[self _setupTorchToggleButton];
 						
 						// need to start capture session
 						[_captureSession startRunning];
@@ -220,6 +221,18 @@ AVCaptureVideoOrientation DTAVCaptureVideoOrientationForUIInterfaceOrientation(U
 	}
 }
 
+- (void)_setupTorchToggleButton
+{
+	if ([_camera hasTorch])
+	{
+		self.toggleTorchButton.hidden = NO;
+	}
+	else
+	{
+		self.toggleTorchButton.hidden = YES;
+	}
+}
+
 
 - (void)viewDidLoad
 {
@@ -240,6 +253,7 @@ AVCaptureVideoOrientation DTAVCaptureVideoOrientationForUIInterfaceOrientation(U
 	[_captureSession startRunning];
 	
 	[self _setupCamSwitchButton];
+	[self _setupTorchToggleButton];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -354,10 +368,40 @@ AVCaptureVideoOrientation DTAVCaptureVideoOrientationForUIInterfaceOrientation(U
 	// there are new connections, tell them about current UI orientation
 	[self _updateConnectionsForInterfaceOrientation:self.interfaceOrientation];
 	
-	// update the switch button
+	// update the buttons
 	[self _setupCamSwitchButton];
+	[self _setupTorchToggleButton];
 	
 	[_captureSession commitConfiguration];
+}
+
+- (IBAction)toggleTorch:(UIButton *)sender
+{
+	if ([_camera hasTorch])
+	{
+		BOOL torchActive = [_camera isTorchActive];
+		
+		// need to lock, without this there is an exception
+		if ([_camera lockForConfiguration:nil])
+		{
+			if (torchActive)
+			{
+				if ([_camera isTorchModeSupported:AVCaptureTorchModeOff])
+				{
+					[_camera setTorchMode:AVCaptureTorchModeOff];
+				}
+			}
+			else
+			{
+				if ([_camera isTorchModeSupported:AVCaptureTorchModeOn])
+				{
+					[_camera setTorchMode:AVCaptureTorchModeOn];
+				}
+			}
+			
+			[_camera unlockForConfiguration];
+		}
+	}
 }
 
 @end

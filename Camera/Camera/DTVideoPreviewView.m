@@ -18,8 +18,10 @@
 	
     if (self)
 	{
-		 self.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+		self.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+		self.backgroundColor = [UIColor blackColor];
     }
+	
     return self;
 }
 
