@@ -54,7 +54,7 @@ AVCaptureVideoOrientation DTAVCaptureVideoOrientationForUIInterfaceOrientation(U
 
 - (void)_informUserAboutCamNotAuthorized
 {
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cam Access" message:@"Access to the camera hardward has been disabled. This disables all related functionality in this app. Please enable it via device settings." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cam Access" message:@"Access to the camera hardware has been disabled. This disables all related functionality in this app. Please enable it via device settings." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
 	[alert show];
 }
 
@@ -160,6 +160,7 @@ AVCaptureVideoOrientation DTAVCaptureVideoOrientationForUIInterfaceOrientation(U
 	_videoPreview.previewLayer.session = _captureSession;
 }
 
+// applies settings to the currently active camera
 - (void)_configureCurrentCamera
 {
 	// if cam supports AV lock then we want to be able to get out of this
@@ -174,6 +175,7 @@ AVCaptureVideoOrientation DTAVCaptureVideoOrientationForUIInterfaceOrientation(U
 	}
 }
 
+// checks if there is an alternative camera to the current one
 - (AVCaptureDevice *)_alternativeCamToCurrent
 {
 	if (!_camera)
@@ -197,6 +199,7 @@ AVCaptureVideoOrientation DTAVCaptureVideoOrientationForUIInterfaceOrientation(U
 	return nil;
 }
 
+// update all capture connections for the current interface orientation
 - (void)_updateConnectionsForInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
 	AVCaptureVideoOrientation captureOrientation = DTAVCaptureVideoOrientationForUIInterfaceOrientation(interfaceOrientation);
@@ -215,6 +218,7 @@ AVCaptureVideoOrientation DTAVCaptureVideoOrientationForUIInterfaceOrientation(U
 	}
 }
 
+// configures cam switch button
 - (void)_setupCamSwitchButton
 {
 	AVCaptureDevice *alternativeCam = [self _alternativeCamToCurrent];
@@ -254,6 +258,7 @@ AVCaptureVideoOrientation DTAVCaptureVideoOrientationForUIInterfaceOrientation(U
 	}
 }
 
+// configure torch button for current cam
 - (void)_setupTorchToggleButton
 {
 	if ([_camera hasTorch])
@@ -315,6 +320,7 @@ AVCaptureVideoOrientation DTAVCaptureVideoOrientationForUIInterfaceOrientation(U
 
 #pragma mark - Interface Rotation
 
+// for demonstration all orientations are supported
 - (NSUInteger)supportedInterfaceOrientations
 {
 	return UIInterfaceOrientationMaskAll;
