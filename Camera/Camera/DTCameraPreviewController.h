@@ -11,5 +11,8 @@
 @interface DTCameraPreviewController : UIViewController
 
 - (IBAction)snap:(UIButton *)sender;
+- (IBAction)switchCam:(UIButton *)sender;
+
+@property (weak, nonatomic) IBOutlet UIButton *switchCamButton;
 
 @end

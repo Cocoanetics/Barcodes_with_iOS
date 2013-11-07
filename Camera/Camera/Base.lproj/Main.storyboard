@@ -30,6 +30,16 @@
                                             <action selector="snap:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="0HB-98-xtC"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x6n-IG-hHH">
+                                        <rect key="frame" x="20" y="15" width="83" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Switch Cam">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="switchCam:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="a2a-CC-YQL"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.19" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -49,6 +59,9 @@
                             <constraint firstItem="Gt4-PG-Non" firstAttribute="top" secondItem="TFp-b4-xMv" secondAttribute="bottom" id="k8i-e1-VgF"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="switchCamButton" destination="x6n-IG-hHH" id="CM9-8h-JHz"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>

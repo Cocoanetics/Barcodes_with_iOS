@@ -61,6 +61,14 @@ AVCaptureVideoOrientation DTAVCaptureVideoOrientationForUIInterfaceOrientation(U
 
 - (void)_setupCameraAfterCheckingAuthorization
 {
+	if (![[AVCaptureDevice class] respondsToSelector:@selector(authorizationStatusForMediaType:)])
+	{
+		// running on iOS 6, assume authorization
+		[self _setupCamera];
+		
+		return;
+	}
+	
 	AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
 	
 	switch (authStatus)
@@ -82,6 +90,9 @@ AVCaptureVideoOrientation DTAVCaptureVideoOrientationForUIInterfaceOrientation(U
 					if (granted)
 					{
 						[self _setupCamera];
+						
+						// need to do more setup because View Controller is already present
+						[self _setupCamSwitchButton];
 						
 						// need to start capture session
 						[_captureSession startRunning];
@@ -147,6 +158,68 @@ AVCaptureVideoOrientation DTAVCaptureVideoOrientationForUIInterfaceOrientation(U
 	_videoPreview.previewLayer.session = _captureSession;
 }
 
+- (AVCaptureDevice *)_alternativeCamToCurrent
+{
+	if (!_camera)
+	{
+		// no current camera
+		return nil;
+	}
+	
+	NSArray *allCams = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
+	
+	for (AVCaptureDevice *oneCam in allCams)
+	{
+		if (oneCam != _camera)
+		{
+			// found an alternative!
+			return oneCam;
+		}
+	}
+	
+	// no alternative cameras present
+	return nil;
+}
+
+- (void)_setupCamSwitchButton
+{
+	AVCaptureDevice *alternativeCam = [self _alternativeCamToCurrent];
+	
+	if (alternativeCam)
+	{
+		self.switchCamButton.hidden = NO;
+
+		NSString *title;
+		
+		switch (alternativeCam.position)
+		{
+			case AVCaptureDevicePositionBack:
+			{
+				title = @"Back";
+				break;
+			}
+				
+			case AVCaptureDevicePositionFront:
+			{
+				title = @"Front";
+				break;
+			}
+
+			case AVCaptureDevicePositionUnspecified:
+			{
+				title = @"Other";
+				break;
+			}
+		}
+		
+		[self.switchCamButton setTitle:title forState:UIControlStateNormal];
+	}
+	else
+	{
+		self.switchCamButton.hidden = YES;
+	}
+}
+
 
 - (void)viewDidLoad
 {
@@ -165,6 +238,8 @@ AVCaptureVideoOrientation DTAVCaptureVideoOrientationForUIInterfaceOrientation(U
 	
 	// start session so that we don't see a black rectangle, but video
 	[_captureSession startRunning];
+	
+	[self _setupCamSwitchButton];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -190,11 +265,9 @@ AVCaptureVideoOrientation DTAVCaptureVideoOrientationForUIInterfaceOrientation(U
 	return UIInterfaceOrientationMaskAll;
 }
 
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+- (void)_updateConnectionsForInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-	[super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
-	
-	AVCaptureVideoOrientation captureOrientation = DTAVCaptureVideoOrientationForUIInterfaceOrientation(toInterfaceOrientation);
+	AVCaptureVideoOrientation captureOrientation = DTAVCaptureVideoOrientationForUIInterfaceOrientation(interfaceOrientation);
 	
 	for (AVCaptureConnection *connection in _imageOutput.connections)
 	{
@@ -208,6 +281,13 @@ AVCaptureVideoOrientation DTAVCaptureVideoOrientationForUIInterfaceOrientation(U
 	{
 		_videoPreview.previewLayer.connection.videoOrientation = captureOrientation;
 	}
+}
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+	[super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+	
+	[self _updateConnectionsForInterfaceOrientation:toInterfaceOrientation];
 }
 
 #pragma mark - Actions
@@ -253,6 +333,31 @@ AVCaptureVideoOrientation DTAVCaptureVideoOrientationForUIInterfaceOrientation(U
 		
 		UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
 	 }];
+}
+
+- (IBAction)switchCam:(UIButton *)sender
+{
+	[_captureSession beginConfiguration];
+	
+	_camera = [self _alternativeCamToCurrent];
+	
+	// remove all old inputs
+	for (AVCaptureDeviceInput *input in _captureSession.inputs)
+	{
+		[_captureSession removeInput:input];
+	}
+	
+	// add new input
+	_videoInput = [AVCaptureDeviceInput deviceInputWithDevice:_camera error:nil];
+	[_captureSession addInput:_videoInput];
+	
+	// there are new connections, tell them about current UI orientation
+	[self _updateConnectionsForInterfaceOrientation:self.interfaceOrientation];
+	
+	// update the switch button
+	[self _setupCamSwitchButton];
+	
+	[_captureSession commitConfiguration];
 }
 
 @end
