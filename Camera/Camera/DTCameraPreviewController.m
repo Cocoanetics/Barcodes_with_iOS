@@ -197,6 +197,24 @@ AVCaptureVideoOrientation DTAVCaptureVideoOrientationForUIInterfaceOrientation(U
 	return nil;
 }
 
+- (void)_updateConnectionsForInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+	AVCaptureVideoOrientation captureOrientation = DTAVCaptureVideoOrientationForUIInterfaceOrientation(interfaceOrientation);
+	
+	for (AVCaptureConnection *connection in _imageOutput.connections)
+	{
+		if ([connection isVideoOrientationSupported])
+		{
+			connection.videoOrientation = captureOrientation;
+		}
+	}
+	
+	if ([_videoPreview.previewLayer.connection isVideoOrientationSupported])
+	{
+		_videoPreview.previewLayer.connection.videoOrientation = captureOrientation;
+	}
+}
+
 - (void)_setupCamSwitchButton
 {
 	AVCaptureDevice *alternativeCam = [self _alternativeCamToCurrent];
@@ -248,6 +266,7 @@ AVCaptureVideoOrientation DTAVCaptureVideoOrientationForUIInterfaceOrientation(U
 	}
 }
 
+#pragma mark - View Appearance
 
 - (void)viewDidLoad
 {
@@ -294,33 +313,18 @@ AVCaptureVideoOrientation DTAVCaptureVideoOrientationForUIInterfaceOrientation(U
 	return NO;
 }
 
+#pragma mark - Interface Rotation
+
 - (NSUInteger)supportedInterfaceOrientations
 {
 	return UIInterfaceOrientationMaskAll;
-}
-
-- (void)_updateConnectionsForInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-	AVCaptureVideoOrientation captureOrientation = DTAVCaptureVideoOrientationForUIInterfaceOrientation(interfaceOrientation);
-	
-	for (AVCaptureConnection *connection in _imageOutput.connections)
-	{
-		if ([connection isVideoOrientationSupported])
-		{
-			connection.videoOrientation = captureOrientation;
-		}
-	}
-	
-	if ([_videoPreview.previewLayer.connection isVideoOrientationSupported])
-	{
-		_videoPreview.previewLayer.connection.videoOrientation = captureOrientation;
-	}
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
 	[super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
 	
+	// need to update capture and preview connections
 	[self _updateConnectionsForInterfaceOrientation:toInterfaceOrientation];
 }
 
@@ -350,7 +354,7 @@ AVCaptureVideoOrientation DTAVCaptureVideoOrientationForUIInterfaceOrientation(U
 	
 	if (!videoConnection)
 	{
-		NSLog(@"no video connection found");
+		NSLog(@"Error: No Video connection found on still image output");
 		return;
 	}
 	
@@ -358,7 +362,7 @@ AVCaptureVideoOrientation DTAVCaptureVideoOrientationForUIInterfaceOrientation(U
 		
 		if (error)
 		{
-			NSLog(@"error capturing still image: %@", [error localizedDescription]);
+			NSLog(@"Error capturing still image: %@", [error localizedDescription]);
 			return;
 		}
 		
