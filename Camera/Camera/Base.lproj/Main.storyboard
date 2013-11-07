@@ -25,7 +25,7 @@
                                         <rect key="frame" x="126" y="15" width="69" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="69" id="N7F-qq-qNN"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="69" id="N7F-qq-qNN"/>
                                         </constraints>
                                         <state key="normal" title="Snap!">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -78,6 +78,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="snapButton" destination="i7t-lJ-Rfn" id="jAp-gq-FXP"/>
                         <outlet property="switchCamButton" destination="x6n-IG-hHH" id="CM9-8h-JHz"/>
                         <outlet property="toggleTorchButton" destination="vRX-Ww-jS7" id="TcJ-x7-BK2"/>
                     </connections>

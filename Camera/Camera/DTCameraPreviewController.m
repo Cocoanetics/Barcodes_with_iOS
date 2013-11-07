@@ -7,40 +7,9 @@
 //
 
 #import "DTCameraPreviewController.h"
+
+#import "DTAVFoundationFunctions.h"
 #import "DTVideoPreviewView.h"
-
-
-// helper function to convert interface orienation to correct video capture orientation
-AVCaptureVideoOrientation DTAVCaptureVideoOrientationForUIInterfaceOrientation(UIInterfaceOrientation interfaceOrientation)
-{
-	switch (interfaceOrientation)
-	{
-		case UIInterfaceOrientationLandscapeLeft:
-		{
-			return AVCaptureVideoOrientationLandscapeLeft;
-		}
-			
-		case UIInterfaceOrientationLandscapeRight:
-		{
-			return AVCaptureVideoOrientationLandscapeRight;
-		}
-			
-		case UIInterfaceOrientationPortrait:
-		{
-			return AVCaptureVideoOrientationPortrait;
-		}
-			
-		case UIInterfaceOrientationPortraitUpsideDown:
-		{
-			return AVCaptureVideoOrientationPortraitUpsideDown;
-		}
-	}
-}
-
-
-@interface DTCameraPreviewController ()
-
-@end
 
 @implementation DTCameraPreviewController
 {
@@ -51,6 +20,7 @@ AVCaptureVideoOrientation DTAVCaptureVideoOrientationForUIInterfaceOrientation(U
 	DTVideoPreviewView *_videoPreview;
 }
 
+#pragma mark - Internal Methods
 
 - (void)_informUserAboutCamNotAuthorized
 {
@@ -58,6 +28,64 @@ AVCaptureVideoOrientation DTAVCaptureVideoOrientationForUIInterfaceOrientation(U
 	[alert show];
 }
 
+- (void)_informUserAboutNoCam
+{
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cam Access" message:@"The current device does not have any cameras installed, are you running this in iOS Simulator?" delegate:nil cancelButtonTitle:@"Yes" otherButtonTitles:nil];
+	[alert show];
+}
+
+- (void)_setupCamera
+{
+	// get the camera
+	_camera = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+	
+	if (!_camera)
+	{
+		[self.snapButton setTitle:@"No Camera Found" forState:UIControlStateNormal];
+		self.snapButton.enabled = NO;
+		
+		[self _informUserAboutNoCam];
+		
+		return;
+	}
+	
+	[self _configureCurrentCamera];
+	
+	// connect camera to input
+	NSError *error;
+	_videoInput = [[AVCaptureDeviceInput alloc] initWithDevice:_camera error:&error];
+	
+	if (!_videoInput)
+	{
+		NSLog(@"Error connecting video input: %@", [error localizedDescription]);
+		return;
+	}
+	
+	// Create session (use default AVCaptureSessionPresetHigh)
+	_captureSession = [[AVCaptureSession alloc] init];
+	
+	if (![_captureSession canAddInput:_videoInput])
+	{
+		NSLog(@"Unable to add video input to capture session");
+		return;
+	}
+	
+	[_captureSession addInput:_videoInput];
+	
+	
+	_imageOutput = [AVCaptureStillImageOutput new];
+	
+	if (![_captureSession canAddOutput:_imageOutput])
+	{
+		NSLog(@"Unable to add still image output to capture session");
+		return;
+	}
+	
+	[_captureSession addOutput:_imageOutput];
+	
+	// set the session to be previewed
+	_videoPreview.previewLayer.session = _captureSession;
+}
 
 - (void)_setupCameraAfterCheckingAuthorization
 {
@@ -116,48 +144,6 @@ AVCaptureVideoOrientation DTAVCaptureVideoOrientationForUIInterfaceOrientation(U
 			break;
 		}
 	}
-}
-
-- (void)_setupCamera
-{
-	// get the camera
-	_camera = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-	[self _configureCurrentCamera];
-	
-	// connect camera to input
-	NSError *error;
-	_videoInput = [[AVCaptureDeviceInput alloc] initWithDevice:_camera error:&error];
-	
-	if (!_videoInput)
-	{
-		NSLog(@"Error connecting video input: %@", [error localizedDescription]);
-		return;
-	}
-	
-	// Create session (use default AVCaptureSessionPresetHigh)
-	_captureSession = [[AVCaptureSession alloc] init];
-	
-	if (![_captureSession canAddInput:_videoInput])
-	{
-		NSLog(@"Unable to add video input to capture session");
-		return;
-	}
-	
-	[_captureSession addInput:_videoInput];
-	
-	
-	_imageOutput = [AVCaptureStillImageOutput new];
-	
-	if (![_captureSession canAddOutput:_imageOutput])
-	{
-		NSLog(@"Unable to add still image output to capture session");
-		return;
-	}
-	
-	[_captureSession addOutput:_imageOutput];
-	
-	// set the session to be previewed
-	_videoPreview.previewLayer.session = _captureSession;
 }
 
 // applies settings to the currently active camera
@@ -338,6 +324,12 @@ AVCaptureVideoOrientation DTAVCaptureVideoOrientationForUIInterfaceOrientation(U
 
 - (IBAction)snap:(UIButton *)sender
 {
+	if (!_camera)
+	{
+		
+	}
+	
+	
 	// find correct connection
 	AVCaptureConnection *videoConnection = nil;
 	

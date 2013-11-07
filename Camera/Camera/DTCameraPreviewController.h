@@ -16,5 +16,6 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *switchCamButton;
 @property (weak, nonatomic) IBOutlet UIButton *toggleTorchButton;
+@property (weak, nonatomic) IBOutlet UIButton *snapButton;
 
 @end

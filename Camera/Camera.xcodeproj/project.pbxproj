@@ -20,6 +20,7 @@
 		A78FEEE018294665000E9C6B /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A78FEEDF18294665000E9C6B /* CoreMedia.framework */; };
 		A78FEEE21829469C000E9C6B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A78FEEE11829469C000E9C6B /* QuartzCore.framework */; };
 		A78FEEE4182946B5000E9C6B /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A78FEEE3182946B5000E9C6B /* ImageIO.framework */; };
+		A7D72707182BF7A4003CCB33 /* DTAVFoundationFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = A7D72706182BF7A4003CCB33 /* DTAVFoundationFunctions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,8 @@
 		A78FEEDF18294665000E9C6B /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		A78FEEE11829469C000E9C6B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		A78FEEE3182946B5000E9C6B /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		A7D72705182BF782003CCB33 /* DTAVFoundationFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTAVFoundationFunctions.h; path = Camera/DTAVFoundationFunctions.h; sourceTree = "<group>"; };
+		A7D72706182BF7A4003CCB33 /* DTAVFoundationFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTAVFoundationFunctions.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +69,8 @@
 		A78FEE9918291B07000E9C6B = {
 			isa = PBXGroup;
 			children = (
+				A7D72705182BF782003CCB33 /* DTAVFoundationFunctions.h */,
+				A7D72706182BF7A4003CCB33 /* DTAVFoundationFunctions.m */,
 				A78FEEAB18291B07000E9C6B /* Camera */,
 				A78FEEA418291B07000E9C6B /* Frameworks */,
 				A78FEEA318291B07000E9C6B /* Products */,
@@ -185,6 +190,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7D72707182BF7A4003CCB33 /* DTAVFoundationFunctions.m in Sources */,
 				A78FEEBC18291B07000E9C6B /* DTCameraPreviewController.m in Sources */,
 				A78FEEB618291B07000E9C6B /* AppDelegate.m in Sources */,
 				A78FEEB218291B07000E9C6B /* main.m in Sources */,
