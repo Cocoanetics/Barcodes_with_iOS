@@ -122,6 +122,7 @@ AVCaptureVideoOrientation DTAVCaptureVideoOrientationForUIInterfaceOrientation(U
 {
 	// get the camera
 	_camera = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+	[self _configureCurrentCamera];
 	
 	// connect camera to input
 	NSError *error;
@@ -157,6 +158,20 @@ AVCaptureVideoOrientation DTAVCaptureVideoOrientationForUIInterfaceOrientation(U
 	
 	// set the session to be previewed
 	_videoPreview.previewLayer.session = _captureSession;
+}
+
+- (void)_configureCurrentCamera
+{
+	// if cam supports AV lock then we want to be able to get out of this
+	if ([_camera isFocusModeSupported:AVCaptureFocusModeLocked])
+	{
+		if ([_camera lockForConfiguration:nil])
+		{
+			_camera.subjectAreaChangeMonitoringEnabled = YES;
+			
+			[_camera unlockForConfiguration];
+		}
+	}
 }
 
 - (AVCaptureDevice *)_alternativeCamToCurrent
@@ -246,6 +261,8 @@ AVCaptureVideoOrientation DTAVCaptureVideoOrientationForUIInterfaceOrientation(U
 	
 	UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
 	[self.view addGestureRecognizer:tap];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subjectChanged:) name:AVCaptureDeviceSubjectAreaDidChangeNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -357,6 +374,7 @@ AVCaptureVideoOrientation DTAVCaptureVideoOrientationForUIInterfaceOrientation(U
 	[_captureSession beginConfiguration];
 	
 	_camera = [self _alternativeCamToCurrent];
+	[self _configureCurrentCamera];
 	
 	// remove all old inputs
 	for (AVCaptureDeviceInput *input in _captureSession.inputs)
@@ -371,11 +389,11 @@ AVCaptureVideoOrientation DTAVCaptureVideoOrientationForUIInterfaceOrientation(U
 	// there are new connections, tell them about current UI orientation
 	[self _updateConnectionsForInterfaceOrientation:self.interfaceOrientation];
 	
+	[_captureSession commitConfiguration];
+	
 	// update the buttons
 	[self _setupCamSwitchButton];
 	[self _setupTorchToggleButton];
-	
-	[_captureSession commitConfiguration];
 }
 
 - (IBAction)toggleTorch:(UIButton *)sender
@@ -430,7 +448,35 @@ AVCaptureVideoOrientation DTAVCaptureVideoOrientationForUIInterfaceOrientation(U
 			// this focusses once and then changes to locked
 			[_camera setFocusMode:AVCaptureFocusModeAutoFocus];
 			
+			NSLog(@"Focus Mode: Locked to Focus Point");
+
 			[_camera unlockForConfiguration];
+		}
+	}
+}
+
+#pragma mark - Notifications
+
+- (void)subjectChanged:(NSNotification *)notification
+{
+	// switch back to continuous auto focus mode
+	if (_camera.focusMode == AVCaptureFocusModeLocked)
+	{
+		if ([_camera lockForConfiguration:nil])
+		{
+			// restore default focus point
+			if ([_camera isFocusPointOfInterestSupported])
+			{
+				_camera.focusPointOfInterest = CGPointMake(0.5, 0.5);
+			}
+			
+			// this focusses once and then changes to locked
+			if ([_camera isFocusModeSupported:AVCaptureFocusModeContinuousAutoFocus])
+			{
+				[_camera setFocusMode:AVCaptureFocusModeContinuousAutoFocus];
+			}
+			
+			NSLog(@"Focus Mode: Continuos");
 		}
 	}
 }
