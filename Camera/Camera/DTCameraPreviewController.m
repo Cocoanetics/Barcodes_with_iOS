@@ -10,6 +10,34 @@
 #import "DTVideoPreviewView.h"
 
 
+// helper function to convert interface orienation to correct video capture orientation
+AVCaptureVideoOrientation DTAVCaptureVideoOrientationForUIInterfaceOrientation(UIInterfaceOrientation interfaceOrientation)
+{
+	switch (interfaceOrientation)
+	{
+		case UIInterfaceOrientationLandscapeLeft:
+		{
+			return AVCaptureVideoOrientationLandscapeLeft;
+		}
+			
+		case UIInterfaceOrientationLandscapeRight:
+		{
+			return AVCaptureVideoOrientationLandscapeRight;
+		}
+			
+		case UIInterfaceOrientationPortrait:
+		{
+			return AVCaptureVideoOrientationPortrait;
+		}
+			
+		case UIInterfaceOrientationPortraitUpsideDown:
+		{
+			return AVCaptureVideoOrientationPortraitUpsideDown;
+		}
+	}
+}
+
+
 @interface DTCameraPreviewController ()
 
 @end
@@ -23,6 +51,60 @@
 	DTVideoPreviewView *_videoPreview;
 }
 
+
+- (void)_informUserAboutCamNotAuthorized
+{
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cam Access" message:@"Access to the camera hardward has been disabled. This disables all related functionality in this app. Please enable it via device settings." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+	[alert show];
+}
+
+
+- (void)_setupCameraAfterCheckingAuthorization
+{
+	AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+	
+	switch (authStatus)
+	{
+		case AVAuthorizationStatusAuthorized:
+		{
+			[self _setupCamera];
+			
+			break;
+		}
+			
+		case AVAuthorizationStatusNotDetermined:
+		{
+			[AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+				
+				// background thread, we want to setup on main thread
+				dispatch_async(dispatch_get_main_queue(), ^{
+					
+					if (granted)
+					{
+						[self _setupCamera];
+						
+						// need to start capture session
+						[_captureSession startRunning];
+					}
+					else
+					{
+						[self _informUserAboutCamNotAuthorized];
+					}
+				});
+			}];
+			
+			break;
+		}
+
+		case AVAuthorizationStatusRestricted:
+		case AVAuthorizationStatusDenied:
+		{
+			[self _informUserAboutCamNotAuthorized];
+			
+			break;
+		}
+	}
+}
 
 - (void)_setupCamera
 {
@@ -74,7 +156,7 @@
 	
 	_videoPreview = (DTVideoPreviewView *)self.view;
 	
-	[self _setupCamera];
+	[self _setupCameraAfterCheckingAuthorization];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -103,39 +185,28 @@
 	return NO;
 }
 
+- (NSUInteger)supportedInterfaceOrientations
+{
+	return UIInterfaceOrientationMaskAll;
+}
+
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-	if (![_videoPreview.previewLayer.connection isVideoOrientationSupported])
+	[super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+	
+	AVCaptureVideoOrientation captureOrientation = DTAVCaptureVideoOrientationForUIInterfaceOrientation(toInterfaceOrientation);
+	
+	for (AVCaptureConnection *connection in _imageOutput.connections)
 	{
-		return;
+		if ([connection isVideoOrientationSupported])
+		{
+			connection.videoOrientation = captureOrientation;
+		}
 	}
 	
-	switch (toInterfaceOrientation)
+	if ([_videoPreview.previewLayer.connection isVideoOrientationSupported])
 	{
-		case UIInterfaceOrientationLandscapeLeft:
-		{
-			_videoPreview.previewLayer.connection.videoOrientation = AVCaptureVideoOrientationLandscapeLeft;
-			break;
-		}
-			
-		case UIInterfaceOrientationLandscapeRight:
-		{
-			_videoPreview.previewLayer.connection.videoOrientation = AVCaptureVideoOrientationLandscapeRight;
-			break;
-		}
-
-		case UIInterfaceOrientationPortrait:
-		{
-			_videoPreview.previewLayer.connection.videoOrientation = AVCaptureVideoOrientationPortrait;
-			break;
-		}
-
-			
-		case UIInterfaceOrientationPortraitUpsideDown:
-		{
-			_videoPreview.previewLayer.connection.videoOrientation = AVCaptureVideoOrientationPortraitUpsideDown;
-			break;
-		}
+		_videoPreview.previewLayer.connection.videoOrientation = captureOrientation;
 	}
 }
 
@@ -177,22 +248,9 @@
 			return;
 		}
 		
-		
-		CFDictionaryRef exifAttachments = CMGetAttachment(imageSampleBuffer, kCGImagePropertyExifDictionary, NULL);
-		
-		if (exifAttachments)
-		{
-			
-			
-			NSLog(@"attachements: %@", exifAttachments);
-		}
-		else
-		{
-			NSLog(@"no attachments");
-		}
-		
 		NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
 		UIImage *image = [UIImage imageWithData:imageData];
+		
 		UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
 	 }];
 }
