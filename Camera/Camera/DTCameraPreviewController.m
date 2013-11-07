@@ -243,6 +243,9 @@ AVCaptureVideoOrientation DTAVCaptureVideoOrientationForUIInterfaceOrientation(U
 	_videoPreview = (DTVideoPreviewView *)self.view;
 	
 	[self _setupCameraAfterCheckingAuthorization];
+	
+	UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+	[self.view addGestureRecognizer:tap];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -398,6 +401,34 @@ AVCaptureVideoOrientation DTAVCaptureVideoOrientationForUIInterfaceOrientation(U
 					[_camera setTorchMode:AVCaptureTorchModeOn];
 				}
 			}
+			
+			[_camera unlockForConfiguration];
+		}
+	}
+}
+
+- (void)handleTap:(UITapGestureRecognizer *)gesture
+{
+	if (gesture.state == UIGestureRecognizerStateRecognized)
+	{
+		// require both focus point and autofocus
+		if (![_camera isFocusPointOfInterestSupported] || ![_camera isFocusModeSupported:AVCaptureFocusModeAutoFocus])
+		{
+			NSLog(@"Focus Point Not Supported by current camera");
+			
+			return;
+		}
+		
+		CGPoint locationInPreview = [gesture locationInView:_videoPreview];
+		CGPoint locationInCapture = [_videoPreview.previewLayer captureDevicePointOfInterestForPoint:locationInPreview];
+		
+		if ([_camera lockForConfiguration:nil])
+		{
+			// this alone does not trigger focussing
+			[_camera setFocusPointOfInterest:locationInCapture];
+			
+			// this focusses once and then changes to locked
+			[_camera setFocusMode:AVCaptureFocusModeAutoFocus];
 			
 			[_camera unlockForConfiguration];
 		}
