@@ -36,7 +36,7 @@
 
 - (void)_setupCamera
 {
-	// get the camera
+	// get the default camera, usually the one on the back
 	_camera = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
 	
 	if (!_camera)
