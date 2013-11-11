@@ -185,6 +185,24 @@
 	return nil;
 }
 
+- (AVCaptureConnection *)_captureConnection
+{
+	for (AVCaptureConnection *connection in _imageOutput.connections)
+	{
+		for (AVCaptureInputPort *port in [connection inputPorts])
+		{
+			if ([[port mediaType] isEqual:AVMediaTypeVideo] )
+			{
+				return connection;
+				break;
+			}
+		}
+	}
+	
+	// no connection found
+	return nil;
+}
+
 // update all capture connections for the current interface orientation
 - (void)_updateConnectionsForInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -326,29 +344,11 @@
 {
 	if (!_camera)
 	{
-		
+		return;
 	}
-	
 	
 	// find correct connection
-	AVCaptureConnection *videoConnection = nil;
-	
-	for (AVCaptureConnection *connection in _imageOutput.connections)
-	{
-		for (AVCaptureInputPort *port in [connection inputPorts])
-		{
-			if ([[port mediaType] isEqual:AVMediaTypeVideo] )
-			{
-				videoConnection = connection;
-				break;
-			}
-		}
-		
-		if (videoConnection)
-		{
-			break;
-		}
-	}
+	AVCaptureConnection *videoConnection = [self _captureConnection];
 	
 	if (!videoConnection)
 	{
