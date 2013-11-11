@@ -20,6 +20,12 @@
 	DTVideoPreviewView *_videoPreview;
 }
 
+
+- (void)dealloc
+{
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 #pragma mark - Internal Methods
 
 - (void)_informUserAboutCamNotAuthorized
@@ -472,7 +478,6 @@
 				_camera.focusPointOfInterest = CGPointMake(0.5, 0.5);
 			}
 			
-			// this focusses once and then changes to locked
 			if ([_camera isFocusModeSupported:AVCaptureFocusModeContinuousAutoFocus])
 			{
 				[_camera setFocusMode:AVCaptureFocusModeContinuousAutoFocus];
