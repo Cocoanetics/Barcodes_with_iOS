@@ -79,6 +79,7 @@
 	[_captureSession addInput:_videoInput];
 	
 	
+	// add still image output
 	_imageOutput = [AVCaptureStillImageOutput new];
 	
 	if (![_captureSession canAddOutput:_imageOutput])
