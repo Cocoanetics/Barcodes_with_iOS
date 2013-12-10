@@ -26,6 +26,8 @@
 	
 	AVCaptureMetadataOutput *_metaDataOutput;
 	dispatch_queue_t _metaDataQueue;
+	
+	NSMutableSet *_visibleCodes;
 }
 
 
@@ -55,7 +57,8 @@
 	_metaDataOutput = [[AVCaptureMetadataOutput alloc] init];
 	
 	// create a GCD queue on which recognized codes are to be delivered
-	_metaDataQueue = dispatch_queue_create("com.cocoanetics.metadata", NULL);
+	//_metaDataQueue = dispatch_queue_create("com.cocoanetics.metadata", NULL);
+	_metaDataQueue = dispatch_get_main_queue();
 
 	// set self as delegate, using the background queue
 	[_metaDataOutput setMetadataObjectsDelegate:self queue:_metaDataQueue];
@@ -375,6 +378,8 @@
 	
 	[self _setupCamSwitchButton];
 	[self _setupTorchToggleButton];
+	
+	_visibleCodes = [NSMutableSet new];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -415,13 +420,41 @@
 
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection
 {
+	NSMutableSet *reportedCodes = [NSMutableSet set];
+	
 	for (AVMetadataMachineReadableCodeObject *object in metadataObjects)
 	{
 		if ([object isKindOfClass:[AVMetadataMachineReadableCodeObject class]])
 		{
-			NSLog(@"Seeing Code: %@", object.stringValue);
+			NSString *code = object.stringValue;
+			
+			if (!code)
+			{
+				code = @"";
+			}
+			
+			[reportedCodes addObject:object.stringValue];
 		}
 	}
+	
+	// check which are new and which we saw in previous cycle
+	for (NSString *oneCode in _visibleCodes)
+	{
+		if (![reportedCodes containsObject:oneCode])
+		{
+			NSLog(@"code disappeared: %@", oneCode);
+		}
+	}
+	
+	for (NSString *oneCode in reportedCodes)
+	{
+		if (![_visibleCodes containsObject:oneCode])
+		{
+			NSLog(@"code appeared: %@", oneCode);
+		}
+	}
+	
+	_visibleCodes = reportedCodes;
 }
 
 
