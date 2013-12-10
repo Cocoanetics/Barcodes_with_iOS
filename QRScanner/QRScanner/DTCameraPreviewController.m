@@ -11,6 +11,11 @@
 #import "DTAVFoundationFunctions.h"
 #import "DTVideoPreviewView.h"
 
+
+// private interface to tag with metadata delegate protocol
+@interface DTCameraPreviewController () <AVCaptureMetadataOutputObjectsDelegate>
+@end
+
 @implementation DTCameraPreviewController
 {
 	AVCaptureDevice *_camera;
@@ -18,6 +23,9 @@
 	AVCaptureStillImageOutput *_imageOutput;
 	AVCaptureSession *_captureSession;
 	DTVideoPreviewView *_videoPreview;
+	
+	AVCaptureMetadataOutput *_metaDataOutput;
+	dispatch_queue_t _metaDataQueue;
 }
 
 
@@ -38,6 +46,61 @@
 {
 	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cam Access" message:@"The current device does not have any cameras installed, are you running this in iOS Simulator?" delegate:nil cancelButtonTitle:@"Yes" otherButtonTitles:nil];
 	[alert show];
+}
+
+
+- (void)_setupMetadataOutput
+{
+	// create a new metadata output
+	_metaDataOutput = [[AVCaptureMetadataOutput alloc] init];
+	
+	// create a GCD queue on which recognized codes are to be delivered
+	_metaDataQueue = dispatch_queue_create("com.cocoanetics.metadata", NULL);
+
+	// set self as delegate, using the background queue
+	[_metaDataOutput setMetadataObjectsDelegate:self queue:_metaDataQueue];
+	
+	// connect meta data output only if possible
+	if (![_captureSession canAddOutput:_metaDataOutput])
+	{
+		NSLog(@"Unable to add meta data output to capture session");
+		return;
+	}
+	
+	// connect it
+	[_captureSession addOutput:_metaDataOutput];
+	 
+	 // specify to scan for supported 2D barcode types
+	NSArray *barcodes2D = @[AVMetadataObjectTypePDF417Code, AVMetadataObjectTypeQRCode, AVMetadataObjectTypeAztecCode];
+	NSArray *availableTypes = [_metaDataOutput availableMetadataObjectTypes];
+	
+	if (![availableTypes count])
+	{
+		NSLog(@"Unable to get any available metadata types, did you forget the addOutput: on the capture session?");
+		return;
+	}
+	
+	// be extra defensive: only adds supported types, log unsupported
+	NSMutableArray *tmpArray = [NSMutableArray array];
+	
+	for (NSString *oneCodeType in barcodes2D)
+	{
+		if ([availableTypes containsObject:oneCodeType])
+		{
+			[tmpArray addObject:oneCodeType];
+		}
+		else
+		{
+			NSLog(@"Weird: Code type '%@' is not reported as supported on this device", oneCodeType);
+		}
+	}
+	
+	_metaDataOutput.metadataObjectTypes = tmpArray;
+	
+	if ([tmpArray count])
+	{
+		 _metaDataOutput.metadataObjectTypes = tmpArray;
+	}
 }
 
 - (void)_setupCamera
@@ -92,6 +155,9 @@
 	
 	// set the session to be previewed
 	_videoPreview.previewLayer.session = _captureSession;
+	
+	// setup the barcode scanner output
+	[self _setupMetadataOutput];
 }
 
 - (void)_setupCameraAfterCheckingAuthorization
@@ -344,6 +410,20 @@
 	// need to update capture and preview connections
 	[self _updateConnectionsForInterfaceOrientation:toInterfaceOrientation];
 }
+
+#pragma mark - AVCaptureMetadataOutputObjectsDelegate
+
+- (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection
+{
+	for (AVMetadataMachineReadableCodeObject *object in metadataObjects)
+	{
+		if ([object isKindOfClass:[AVMetadataMachineReadableCodeObject class]])
+		{
+			NSLog(@"Seeing Code: %@", object.stringValue);
+		}
+	}
+}
+
 
 #pragma mark - Actions
 
