@@ -28,6 +28,7 @@
 	dispatch_queue_t _metaDataQueue;
 	
 	NSMutableSet *_visibleCodes;
+	NSMutableDictionary *_visibleCodeShapes;
 }
 
 
@@ -380,6 +381,7 @@
 	[self _setupTorchToggleButton];
 	
 	_visibleCodes = [NSMutableSet new];
+	_visibleCodeShapes = [NSMutableDictionary new];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -426,14 +428,46 @@
 	{
 		if ([object isKindOfClass:[AVMetadataMachineReadableCodeObject class]])
 		{
-			NSString *code = object.stringValue;
+			NSString *code = [NSString stringWithFormat:@"%@:%@", object.type, object.stringValue];
+			[reportedCodes addObject:code];
 			
-			if (!code)
+			AVMetadataMachineReadableCodeObject *transformedObject = (AVMetadataMachineReadableCodeObject *)[_videoPreview.previewLayer transformedMetadataObjectForMetadataObject:object];
+			
+			CGMutablePathRef path = CGPathCreateMutable();
+			
+			CGPoint point;
+			CGPointMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)(transformedObject.corners[0]), &point);
+			
+			CGPathMoveToPoint(path, NULL, point.x, point.y);
+			
+			CGPointMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)(transformedObject.corners[1]), &point);
+			CGPathAddLineToPoint(path, NULL, point.x, point.y);
+			
+			CGPointMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)(transformedObject.corners[2]), &point);
+			CGPathAddLineToPoint(path, NULL, point.x, point.y);
+			
+			CGPointMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)(transformedObject.corners[3]), &point);
+			CGPathAddLineToPoint(path, NULL, point.x, point.y);
+			
+			CGPathCloseSubpath(path);
+			
+			
+			CAShapeLayer *shapeLayer = _visibleCodeShapes[code];
+			
+			if (!shapeLayer)
 			{
-				code = @"";
+				shapeLayer = [CAShapeLayer layer];
+				_visibleCodeShapes[code] = shapeLayer;
 			}
 			
-			[reportedCodes addObject:object.stringValue];
+			shapeLayer.frame = _videoPreview.bounds;
+			shapeLayer.path = path;
+			shapeLayer.strokeColor = [UIColor greenColor].CGColor;
+			shapeLayer.fillColor = [UIColor colorWithRed:0 green:1 blue:0 alpha:0.1].CGColor;
+			shapeLayer.lineWidth = 2;
+			[_videoPreview.layer addSublayer:shapeLayer];
+			
+			CGPathRelease(path);
 		}
 	}
 	
@@ -443,6 +477,11 @@
 		if (![reportedCodes containsObject:oneCode])
 		{
 			NSLog(@"code disappeared: %@", oneCode);
+			
+			CAShapeLayer *shape = _visibleCodeShapes[oneCode];
+			
+			[shape removeFromSuperlayer];
+			[_visibleCodeShapes removeObjectForKey:oneCode];
 		}
 	}
 	
