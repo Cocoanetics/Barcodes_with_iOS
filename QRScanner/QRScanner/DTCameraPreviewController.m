@@ -233,6 +233,11 @@
 		{
 			_camera.subjectAreaChangeMonitoringEnabled = YES;
 			
+			if ([_camera isSmoothAutoFocusSupported])
+			{
+				_camera.smoothAutoFocusEnabled = YES;
+			}
+			
 			[_camera unlockForConfiguration];
 		}
 	}
@@ -431,25 +436,8 @@
 			NSString *code = [NSString stringWithFormat:@"%@:%@", object.type, object.stringValue];
 			[reportedCodes addObject:code];
 			
-			AVMetadataMachineReadableCodeObject *transformedObject = (AVMetadataMachineReadableCodeObject *)[_videoPreview.previewLayer transformedMetadataObjectForMetadataObject:object];
-			
-			CGMutablePathRef path = CGPathCreateMutable();
-			
-			CGPoint point;
-			CGPointMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)(transformedObject.corners[0]), &point);
-			
-			CGPathMoveToPoint(path, NULL, point.x, point.y);
-			
-			CGPointMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)(transformedObject.corners[1]), &point);
-			CGPathAddLineToPoint(path, NULL, point.x, point.y);
-			
-			CGPointMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)(transformedObject.corners[2]), &point);
-			CGPathAddLineToPoint(path, NULL, point.x, point.y);
-			
-			CGPointMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)(transformedObject.corners[3]), &point);
-			CGPathAddLineToPoint(path, NULL, point.x, point.y);
-			
-			CGPathCloseSubpath(path);
+			// create a suitable CGPath for the barcode area
+			CGPathRef path = DTAVMetadataMachineReadableCodeObjectCreatePathForCorners(_videoPreview.previewLayer, object);
 			
 			// get previous shape for this code
 			CAShapeLayer *shapeLayer = _visibleCodeShapes[code];
@@ -474,6 +462,7 @@
 			shapeLayer.frame = _videoPreview.bounds;
 			shapeLayer.path = path;
 			
+			// need to release the path now
 			CGPathRelease(path);
 		}
 	}
