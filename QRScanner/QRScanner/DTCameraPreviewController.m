@@ -451,21 +451,28 @@
 			
 			CGPathCloseSubpath(path);
 			
-			
+			// get previous shape for this code
 			CAShapeLayer *shapeLayer = _visibleCodeShapes[code];
 			
+			// if none found then this is a new shape
 			if (!shapeLayer)
 			{
 				shapeLayer = [CAShapeLayer layer];
+				
+				// basic configuration, stays the same regardless of path
+				shapeLayer.strokeColor = [UIColor greenColor].CGColor;
+				shapeLayer.fillColor = [UIColor colorWithRed:0 green:1 blue:0 alpha:0.1].CGColor;
+				shapeLayer.lineWidth = 2;
+
+				[_videoPreview.layer addSublayer:shapeLayer];
+				
+				// add it to shape dictionary
 				_visibleCodeShapes[code] = shapeLayer;
 			}
 			
+			// configure shape, relative to video preview
 			shapeLayer.frame = _videoPreview.bounds;
 			shapeLayer.path = path;
-			shapeLayer.strokeColor = [UIColor greenColor].CGColor;
-			shapeLayer.fillColor = [UIColor colorWithRed:0 green:1 blue:0 alpha:0.1].CGColor;
-			shapeLayer.lineWidth = 2;
-			[_videoPreview.layer addSublayer:shapeLayer];
 			
 			CGPathRelease(path);
 		}
