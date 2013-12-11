@@ -553,7 +553,6 @@
 	[_captureSession beginConfiguration];
 	
 	_camera = [self _alternativeCamToCurrent];
-	[self _configureCurrentCamera];
 	
 	// remove all old inputs
 	for (AVCaptureDeviceInput *input in _captureSession.inputs)
@@ -569,6 +568,9 @@
 	[self _updateConnectionsForInterfaceOrientation:self.interfaceOrientation];
 	
 	[_captureSession commitConfiguration];
+	
+	// configure camera after session changes
+	[self _configureCurrentCamera];
 	
 	// update the buttons
 	[self _setupCamSwitchButton];
