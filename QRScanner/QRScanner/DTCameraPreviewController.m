@@ -131,10 +131,10 @@
 		NSLog(@"Error connecting video input: %@", [error localizedDescription]);
 		return;
 	}
-	
+
 	// Create session (use default AVCaptureSessionPresetHigh)
 	_captureSession = [[AVCaptureSession alloc] init];
-	
+
 	if (![_captureSession canAddInput:_videoInput])
 	{
 		NSLog(@"Unable to add video input to capture session");
@@ -142,7 +142,9 @@
 	}
 	
 	[_captureSession addInput:_videoInput];
-	
+
+	// configure cam here because active format depends on capture session
+	[self _configureCurrentCamera];
 	
 	// add still image output
 	_imageOutput = [AVCaptureStillImageOutput new];
@@ -157,9 +159,6 @@
 	
 	// set the session to be previewed
 	_videoPreview.previewLayer.session = _captureSession;
-	
-	// configure cam after the setup because this affects the active format
-	[self _configureCurrentCamera];
 	
 	// setup the barcode scanner output
 	[self _setupMetadataOutput];
@@ -240,7 +239,7 @@
 			}
 			
 			// get more pixels to image outputs
-			_camera.videoZoomFactor = MIN(_camera.activeFormat.videoZoomFactorUpscaleThreshold, 1.25);
+			_camera.videoZoomFactor = 10; //MIN(_camera.activeFormat.videoZoomFactorUpscaleThreshold, 1.25);
 			
 			[_camera unlockForConfiguration];
 		}
