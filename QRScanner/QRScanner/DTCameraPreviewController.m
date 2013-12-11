@@ -105,6 +105,8 @@
 	{
 		 _metaDataOutput.metadataObjectTypes = tmpArray;
 	}
+	
+	_metaDataOutput.rectOfInterest = CGRectMake(0.25, 0.25, 0.5, 0.5);
 }
 
 - (void)_setupCamera
@@ -360,6 +362,12 @@
 	}
 }
 
+- (void)_setRectOfInterest
+{
+	CGRect rect = [_videoPreview.previewLayer rectForMetadataOutputRectOfInterest:_metaDataOutput.rectOfInterest];
+	NSLog(@"rect %@", NSStringFromCGRect(rect));
+}
+
 #pragma mark - View Appearance
 
 - (void)viewDidLoad
@@ -387,9 +395,11 @@
 	
 	// need to update capture and preview connections
 	[self _updateConnectionsForInterfaceOrientation:self.interfaceOrientation];
-	
+
 	// start session so that we don't see a black rectangle, but video
 	[_captureSession startRunning];
+	
+	[self _setRectOfInterest];
 	
 	[self _setupCamSwitchButton];
 	[self _setupTorchToggleButton];

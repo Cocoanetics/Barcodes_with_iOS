@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class DTCameraPreviewController;
+@class DTVideoPreviewInterestBox;
 
 @protocol DTCameraPreviewControllerDelegate <NSObject>
 
@@ -23,6 +24,8 @@
 - (IBAction)snap:(UIButton *)sender;
 - (IBAction)switchCam:(UIButton *)sender;
 - (IBAction)toggleTorch:(UIButton *)sender;
+
+@property (weak, nonatomic) IBOutlet DTVideoPreviewInterestBox *interestBox;
 
 @property (weak, nonatomic) IBOutlet UIButton *switchCamButton;
 @property (weak, nonatomic) IBOutlet UIButton *toggleTorchButton;

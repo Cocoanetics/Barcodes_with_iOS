@@ -15,8 +15,38 @@
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS" customClass="DTVideoPreviewView">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vd5-7N-Ag7" customClass="DTVideoPreviewInterestBox">
+                                <rect key="frame" x="60" y="62" width="200" height="200"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scan Barcode Here" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sFT-Nj-Oqh">
+                                        <rect key="frame" x="25" y="179" width="150" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="e8K-qg-WP6"/>
+                                    <constraint firstAttribute="trailing" secondItem="sFT-Nj-Oqh" secondAttribute="trailing" constant="25" id="hdf-tb-gaA"/>
+                                    <constraint firstAttribute="width" constant="200" id="oTM-V7-YvP"/>
+                                    <constraint firstAttribute="bottom" secondItem="sFT-Nj-Oqh" secondAttribute="bottom" id="s5V-WY-eMp"/>
+                                    <constraint firstItem="sFT-Nj-Oqh" firstAttribute="leading" secondItem="vd5-7N-Ag7" secondAttribute="leading" constant="25" id="vKP-pV-UJZ"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="vd5-7N-Ag7" firstAttribute="top" secondItem="wn5-i2-Ftg" secondAttribute="bottom" constant="42" id="Hzy-LY-t24"/>
+                            <constraint firstItem="vd5-7N-Ag7" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="mJL-YM-DXa"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="interestBox" destination="vd5-7N-Ag7" id="zsC-23-p0L"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>

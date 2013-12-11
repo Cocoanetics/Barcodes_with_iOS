@@ -20,6 +20,7 @@
 		A7E290CC1857141800A9BE73 /* DTCameraPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E290C81857141800A9BE73 /* DTCameraPreviewController.m */; };
 		A7E290CD1857141800A9BE73 /* DTVideoPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E290CA1857141800A9BE73 /* DTVideoPreviewView.m */; };
 		A7E290CF1857142F00A9BE73 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7E290CE1857142F00A9BE73 /* AVFoundation.framework */; };
+		A7E290D41858A89B00A9BE73 /* DTVideoPreviewInterestBox.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E290D31858A89B00A9BE73 /* DTVideoPreviewInterestBox.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,8 @@
 		A7E290C91857141800A9BE73 /* DTVideoPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTVideoPreviewView.h; sourceTree = "<group>"; };
 		A7E290CA1857141800A9BE73 /* DTVideoPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTVideoPreviewView.m; sourceTree = "<group>"; };
 		A7E290CE1857142F00A9BE73 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		A7E290D21858A89B00A9BE73 /* DTVideoPreviewInterestBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTVideoPreviewInterestBox.h; sourceTree = "<group>"; };
+		A7E290D31858A89B00A9BE73 /* DTVideoPreviewInterestBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTVideoPreviewInterestBox.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +109,8 @@
 				A7E290C81857141800A9BE73 /* DTCameraPreviewController.m */,
 				A7E290C91857141800A9BE73 /* DTVideoPreviewView.h */,
 				A7E290CA1857141800A9BE73 /* DTVideoPreviewView.m */,
+				A7E290D21858A89B00A9BE73 /* DTVideoPreviewInterestBox.h */,
+				A7E290D31858A89B00A9BE73 /* DTVideoPreviewInterestBox.m */,
 				A7E29097185713BD00A9BE73 /* Supporting Files */,
 			);
 			path = QRScanner;
@@ -198,6 +203,7 @@
 				A7E290CD1857141800A9BE73 /* DTVideoPreviewView.m in Sources */,
 				A7E290CC1857141800A9BE73 /* DTCameraPreviewController.m in Sources */,
 				A7E290CB1857141800A9BE73 /* DTAVFoundationFunctions.m in Sources */,
+				A7E290D41858A89B00A9BE73 /* DTVideoPreviewInterestBox.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
