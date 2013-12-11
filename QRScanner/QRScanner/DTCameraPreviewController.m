@@ -10,6 +10,7 @@
 
 #import "DTAVFoundationFunctions.h"
 #import "DTVideoPreviewView.h"
+#import "DTVideoPreviewInterestBox.h"
 
 
 // private interface to tag with metadata delegate protocol
@@ -309,6 +310,19 @@
 	}
 }
 
+// updates the rect of interest for barcode scanning for the current interest box frame
+- (void)_updateMetadataRectOfInterest
+{
+	if (!_captureSession.isRunning)
+	{
+		NSLog(@"Capture Session is not running yet, so we wouldn't get a useful rect of interest");
+		return;
+	}
+	
+	CGRect rectOfInterest = [_videoPreview.previewLayer metadataOutputRectOfInterestForRect:_interestBox.frame];
+	_metaDataOutput.rectOfInterest = rectOfInterest;
+}
+
 // configures cam switch button
 - (void)_setupCamSwitchButton
 {
@@ -362,11 +376,6 @@
 	}
 }
 
-- (void)_setRectOfInterest
-{
-	CGRect rect = [_videoPreview.previewLayer rectForMetadataOutputRectOfInterest:_metaDataOutput.rectOfInterest];
-	NSLog(@"rect %@", NSStringFromCGRect(rect));
-}
 
 #pragma mark - View Appearance
 
@@ -387,6 +396,7 @@
 	[self.view addGestureRecognizer:tap];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subjectChanged:) name:AVCaptureDeviceSubjectAreaDidChangeNotification object:nil];
+	
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -398,8 +408,6 @@
 
 	// start session so that we don't see a black rectangle, but video
 	[_captureSession startRunning];
-	
-	[self _setRectOfInterest];
 	
 	[self _setupCamSwitchButton];
 	[self _setupTorchToggleButton];
@@ -440,6 +448,14 @@
 	
 	// need to update capture and preview connections
 	[self _updateConnectionsForInterfaceOrientation:toInterfaceOrientation];
+	
+}
+
+- (void)viewDidLayoutSubviews
+{
+	[super viewDidLayoutSubviews];
+	
+	[self _updateMetadataRectOfInterest];
 }
 
 #pragma mark - AVCaptureMetadataOutputObjectsDelegate
@@ -578,6 +594,8 @@
 	[self _updateConnectionsForInterfaceOrientation:self.interfaceOrientation];
 	
 	[_captureSession commitConfiguration];
+	
+	[self _updateMetadataRectOfInterest];
 	
 	// configure camera after session changes
 	[self _configureCurrentCamera];
