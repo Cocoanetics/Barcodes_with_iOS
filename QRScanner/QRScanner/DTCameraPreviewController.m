@@ -427,20 +427,41 @@
 
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection
 {
+	// set to take on codes that this pass of the method is reporting
 	NSMutableSet *reportedCodes = [NSMutableSet set];
+	
+	// dictionary to count the number of occurences of a type+stringValue
+	NSMutableDictionary *reportedCodesCount = [NSMutableDictionary dictionary];
 	
 	for (AVMetadataMachineReadableCodeObject *object in metadataObjects)
 	{
-		if ([object isKindOfClass:[AVMetadataMachineReadableCodeObject class]])
+		if ([object isKindOfClass:[AVMetadataMachineReadableCodeObject class]] && object.stringValue)
 		{
 			NSString *code = [NSString stringWithFormat:@"%@:%@", object.type, object.stringValue];
-			[reportedCodes addObject:code];
 			
+			// get the number of times this code was reported before in this loop
+			NSUInteger occurencesOfCode = [reportedCodesCount[code] unsignedIntegerValue] + 1;
+			reportedCodesCount[code] = @(occurencesOfCode);
+			NSString *numberedCode = [code stringByAppendingFormat:@"-%lu", (unsigned long)occurencesOfCode];
+
+			// if it was not previously visible it is new
+			if (![_visibleCodes containsObject:numberedCode])
+			{
+				NSLog(@"code appeared: %@", numberedCode);
+				
+				if ([_delegate respondsToSelector:@selector(previewController:didScanCode:ofType:)])
+				{
+					[_delegate previewController:self didScanCode:object.stringValue ofType:object.type];
+				}
+			}
+
+			[reportedCodes addObject:numberedCode];
+
 			// create a suitable CGPath for the barcode area
 			CGPathRef path = DTAVMetadataMachineReadableCodeObjectCreatePathForCorners(_videoPreview.previewLayer, object);
 			
 			// get previous shape for this code
-			CAShapeLayer *shapeLayer = _visibleCodeShapes[code];
+			CAShapeLayer *shapeLayer = _visibleCodeShapes[numberedCode];
 			
 			// if none found then this is a new shape
 			if (!shapeLayer)
@@ -449,13 +470,13 @@
 				
 				// basic configuration, stays the same regardless of path
 				shapeLayer.strokeColor = [UIColor greenColor].CGColor;
-				shapeLayer.fillColor = [UIColor colorWithRed:0 green:1 blue:0 alpha:0.1].CGColor;
+				shapeLayer.fillColor = [UIColor colorWithRed:0 green:1 blue:0 alpha:0.25].CGColor;
 				shapeLayer.lineWidth = 2;
 
 				[_videoPreview.layer addSublayer:shapeLayer];
 				
 				// add it to shape dictionary
-				_visibleCodeShapes[code] = shapeLayer;
+				_visibleCodeShapes[numberedCode] = shapeLayer;
 			}
 			
 			// configure shape, relative to video preview
@@ -467,7 +488,7 @@
 		}
 	}
 	
-	// check which are new and which we saw in previous cycle
+	// check which codes which we saw in previous cycle are no longer present
 	for (NSString *oneCode in _visibleCodes)
 	{
 		if (![reportedCodes containsObject:oneCode])
@@ -478,14 +499,6 @@
 			
 			[shape removeFromSuperlayer];
 			[_visibleCodeShapes removeObjectForKey:oneCode];
-		}
-	}
-	
-	for (NSString *oneCode in reportedCodes)
-	{
-		if (![_visibleCodes containsObject:oneCode])
-		{
-			NSLog(@"code appeared: %@", oneCode);
 		}
 	}
 	
