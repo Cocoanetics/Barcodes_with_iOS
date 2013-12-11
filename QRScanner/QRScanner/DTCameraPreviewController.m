@@ -239,7 +239,7 @@
 			}
 			
 			// get more pixels to image outputs
-			_camera.videoZoomFactor = 10; //MIN(_camera.activeFormat.videoZoomFactorUpscaleThreshold, 1.25);
+			_camera.videoZoomFactor = MIN(_camera.activeFormat.videoZoomFactorUpscaleThreshold, 1.25);
 			
 			[_camera unlockForConfiguration];
 		}
