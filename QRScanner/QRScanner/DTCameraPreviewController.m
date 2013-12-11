@@ -122,8 +122,6 @@
 		return;
 	}
 	
-	[self _configureCurrentCamera];
-	
 	// connect camera to input
 	NSError *error;
 	_videoInput = [[AVCaptureDeviceInput alloc] initWithDevice:_camera error:&error];
@@ -159,6 +157,9 @@
 	
 	// set the session to be previewed
 	_videoPreview.previewLayer.session = _captureSession;
+	
+	// configure cam after the setup because this affects the active format
+	[self _configureCurrentCamera];
 	
 	// setup the barcode scanner output
 	[self _setupMetadataOutput];
@@ -237,6 +238,9 @@
 			{
 				_camera.smoothAutoFocusEnabled = YES;
 			}
+			
+			// get more pixels to image outputs
+			_camera.videoZoomFactor = MIN(_camera.activeFormat.videoZoomFactorUpscaleThreshold, 1.25);
 			
 			[_camera unlockForConfiguration];
 		}
