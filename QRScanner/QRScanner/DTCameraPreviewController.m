@@ -367,6 +367,9 @@
 	
 	_videoPreview = (DTVideoPreviewView *)self.view;
 	
+	// default is resize aspect, we need aspect fill to avoid side bars on iPad
+	[_videoPreview.previewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
+	
 	[self _setupCameraAfterCheckingAuthorization];
 	
 	UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
@@ -378,6 +381,9 @@
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
+	
+	// need to update capture and preview connections
+	[self _updateConnectionsForInterfaceOrientation:self.interfaceOrientation];
 	
 	// start session so that we don't see a black rectangle, but video
 	[_captureSession startRunning];
