@@ -10,6 +10,12 @@
 
 #import "DTAVFoundationFunctions.h"
 #import "DTVideoPreviewView.h"
+#import "DTVideoPreviewInterestBox.h"
+
+
+// private interface to tag with metadata delegate protocol
+@interface DTCameraPreviewController () <AVCaptureMetadataOutputObjectsDelegate>
+@end
 
 @implementation DTCameraPreviewController
 {
@@ -18,6 +24,12 @@
 	AVCaptureStillImageOutput *_imageOutput;
 	AVCaptureSession *_captureSession;
 	DTVideoPreviewView *_videoPreview;
+	
+	AVCaptureMetadataOutput *_metaDataOutput;
+	dispatch_queue_t _metaDataQueue;
+	
+	NSMutableSet *_visibleCodes;
+	NSMutableDictionary *_visibleCodeShapes;
 }
 
 
@@ -40,9 +52,67 @@
 	[alert show];
 }
 
+
+- (void)_setupMetadataOutput
+{
+	// create a new metadata output
+	_metaDataOutput = [[AVCaptureMetadataOutput alloc] init];
+	
+	// create a GCD queue on which recognized codes are to be delivered
+	//_metaDataQueue = dispatch_queue_create("com.cocoanetics.metadata", NULL);
+	_metaDataQueue = dispatch_get_main_queue();
+
+	// set self as delegate, using the background queue
+	[_metaDataOutput setMetadataObjectsDelegate:self queue:_metaDataQueue];
+	
+	// connect meta data output only if possible
+	if (![_captureSession canAddOutput:_metaDataOutput])
+	{
+		NSLog(@"Unable to add meta data output to capture session");
+		return;
+	}
+	
+	// connect it
+	[_captureSession addOutput:_metaDataOutput];
+	 
+	 // specify to scan for supported 2D barcode types
+	NSArray *barcodes2D = @[AVMetadataObjectTypePDF417Code, AVMetadataObjectTypeQRCode, AVMetadataObjectTypeAztecCode];
+	NSArray *availableTypes = [_metaDataOutput availableMetadataObjectTypes];
+	
+	if (![availableTypes count])
+	{
+		NSLog(@"Unable to get any available metadata types, did you forget the addOutput: on the capture session?");
+		return;
+	}
+	
+	// be extra defensive: only adds supported types, log unsupported
+	NSMutableArray *tmpArray = [NSMutableArray array];
+	
+	for (NSString *oneCodeType in barcodes2D)
+	{
+		if ([availableTypes containsObject:oneCodeType])
+		{
+			[tmpArray addObject:oneCodeType];
+		}
+		else
+		{
+			NSLog(@"Weird: Code type '%@' is not reported as supported on this device", oneCodeType);
+		}
+	}
+	
+	_metaDataOutput.metadataObjectTypes = tmpArray;
+	
+	if ([tmpArray count])
+	{
+		 _metaDataOutput.metadataObjectTypes = tmpArray;
+	}
+	
+	_metaDataOutput.rectOfInterest = CGRectMake(0.25, 0.25, 0.5, 0.5);
+}
+
 - (void)_setupCamera
 {
-	// get the default camera, usually the one on the back
+	// get the camera
 	_camera = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
 	
 	if (!_camera)
@@ -55,8 +125,6 @@
 		return;
 	}
 	
-	[self _configureCurrentCamera];
-	
 	// connect camera to input
 	NSError *error;
 	_videoInput = [[AVCaptureDeviceInput alloc] initWithDevice:_camera error:&error];
@@ -66,10 +134,10 @@
 		NSLog(@"Error connecting video input: %@", [error localizedDescription]);
 		return;
 	}
-	
+
 	// Create session (use default AVCaptureSessionPresetHigh)
 	_captureSession = [[AVCaptureSession alloc] init];
-	
+
 	if (![_captureSession canAddInput:_videoInput])
 	{
 		NSLog(@"Unable to add video input to capture session");
@@ -77,7 +145,9 @@
 	}
 	
 	[_captureSession addInput:_videoInput];
-	
+
+	// configure cam here because active format depends on capture session
+	[self _configureCurrentCamera];
 	
 	// add still image output
 	_imageOutput = [AVCaptureStillImageOutput new];
@@ -92,6 +162,9 @@
 	
 	// set the session to be previewed
 	_videoPreview.previewLayer.session = _captureSession;
+	
+	// setup the barcode scanner output
+	[self _setupMetadataOutput];
 }
 
 - (void)_setupCameraAfterCheckingAuthorization
@@ -163,6 +236,14 @@
 		{
 			_camera.subjectAreaChangeMonitoringEnabled = YES;
 			
+			if ([_camera isSmoothAutoFocusSupported])
+			{
+				_camera.smoothAutoFocusEnabled = YES;
+			}
+			
+			// get more pixels to image outputs
+			_camera.videoZoomFactor = MIN(_camera.activeFormat.videoZoomFactorUpscaleThreshold, 1.25);
+			
 			[_camera unlockForConfiguration];
 		}
 	}
@@ -229,6 +310,19 @@
 	}
 }
 
+// updates the rect of interest for barcode scanning for the current interest box frame
+- (void)_updateMetadataRectOfInterest
+{
+	if (!_captureSession.isRunning)
+	{
+		NSLog(@"Capture Session is not running yet, so we wouldn't get a useful rect of interest");
+		return;
+	}
+	
+	CGRect rectOfInterest = [_videoPreview.previewLayer metadataOutputRectOfInterestForRect:_interestBox.frame];
+	_metaDataOutput.rectOfInterest = rectOfInterest;
+}
+
 // configures cam switch button
 - (void)_setupCamSwitchButton
 {
@@ -282,6 +376,7 @@
 	}
 }
 
+
 #pragma mark - View Appearance
 
 - (void)viewDidLoad
@@ -292,23 +387,33 @@
 	
 	_videoPreview = (DTVideoPreviewView *)self.view;
 	
+	// default is resize aspect, we need aspect fill to avoid side bars on iPad
+	[_videoPreview.previewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
+	
 	[self _setupCameraAfterCheckingAuthorization];
 	
 	UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
 	[self.view addGestureRecognizer:tap];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subjectChanged:) name:AVCaptureDeviceSubjectAreaDidChangeNotification object:nil];
+	
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
 	
+	// need to update capture and preview connections
+	[self _updateConnectionsForInterfaceOrientation:self.interfaceOrientation];
+
 	// start session so that we don't see a black rectangle, but video
 	[_captureSession startRunning];
 	
 	[self _setupCamSwitchButton];
 	[self _setupTorchToggleButton];
+	
+	_visibleCodes = [NSMutableSet new];
+	_visibleCodeShapes = [NSMutableDictionary new];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -343,7 +448,98 @@
 	
 	// need to update capture and preview connections
 	[self _updateConnectionsForInterfaceOrientation:toInterfaceOrientation];
+	
 }
+
+- (void)viewDidLayoutSubviews
+{
+	[super viewDidLayoutSubviews];
+	
+	[self _updateMetadataRectOfInterest];
+}
+
+#pragma mark - AVCaptureMetadataOutputObjectsDelegate
+
+- (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection
+{
+	// set to take on codes that this pass of the method is reporting
+	NSMutableSet *reportedCodes = [NSMutableSet set];
+	
+	// dictionary to count the number of occurences of a type+stringValue
+	NSMutableDictionary *reportedCodesCount = [NSMutableDictionary dictionary];
+	
+	for (AVMetadataMachineReadableCodeObject *object in metadataObjects)
+	{
+		if ([object isKindOfClass:[AVMetadataMachineReadableCodeObject class]] && object.stringValue)
+		{
+			NSString *code = [NSString stringWithFormat:@"%@:%@", object.type, object.stringValue];
+			
+			// get the number of times this code was reported before in this loop
+			NSUInteger occurencesOfCode = [reportedCodesCount[code] unsignedIntegerValue] + 1;
+			reportedCodesCount[code] = @(occurencesOfCode);
+			NSString *numberedCode = [code stringByAppendingFormat:@"-%lu", (unsigned long)occurencesOfCode];
+
+			// if it was not previously visible it is new
+			if (![_visibleCodes containsObject:numberedCode])
+			{
+				NSLog(@"code appeared: %@", numberedCode);
+				
+				if ([_delegate respondsToSelector:@selector(previewController:didScanCode:ofType:)])
+				{
+					[_delegate previewController:self didScanCode:object.stringValue ofType:object.type];
+				}
+			}
+
+			[reportedCodes addObject:numberedCode];
+
+			// create a suitable CGPath for the barcode area
+			CGPathRef path = DTAVMetadataMachineReadableCodeObjectCreatePathForCorners(_videoPreview.previewLayer, object);
+			
+			// get previous shape for this code
+			CAShapeLayer *shapeLayer = _visibleCodeShapes[numberedCode];
+			
+			// if none found then this is a new shape
+			if (!shapeLayer)
+			{
+				shapeLayer = [CAShapeLayer layer];
+				
+				// basic configuration, stays the same regardless of path
+				shapeLayer.strokeColor = [UIColor greenColor].CGColor;
+				shapeLayer.fillColor = [UIColor colorWithRed:0 green:1 blue:0 alpha:0.25].CGColor;
+				shapeLayer.lineWidth = 2;
+
+				[_videoPreview.layer addSublayer:shapeLayer];
+				
+				// add it to shape dictionary
+				_visibleCodeShapes[numberedCode] = shapeLayer;
+			}
+			
+			// configure shape, relative to video preview
+			shapeLayer.frame = _videoPreview.bounds;
+			shapeLayer.path = path;
+			
+			// need to release the path now
+			CGPathRelease(path);
+		}
+	}
+	
+	// check which codes which we saw in previous cycle are no longer present
+	for (NSString *oneCode in _visibleCodes)
+	{
+		if (![reportedCodes containsObject:oneCode])
+		{
+			NSLog(@"code disappeared: %@", oneCode);
+			
+			CAShapeLayer *shape = _visibleCodeShapes[oneCode];
+			
+			[shape removeFromSuperlayer];
+			[_visibleCodeShapes removeObjectForKey:oneCode];
+		}
+	}
+	
+	_visibleCodes = reportedCodes;
+}
+
 
 #pragma mark - Actions
 
@@ -383,7 +579,6 @@
 	[_captureSession beginConfiguration];
 	
 	_camera = [self _alternativeCamToCurrent];
-	[self _configureCurrentCamera];
 	
 	// remove all old inputs
 	for (AVCaptureDeviceInput *input in _captureSession.inputs)
@@ -399,6 +594,11 @@
 	[self _updateConnectionsForInterfaceOrientation:self.interfaceOrientation];
 	
 	[_captureSession commitConfiguration];
+	
+	[self _updateMetadataRectOfInterest];
+	
+	// configure camera after session changes
+	[self _configureCurrentCamera];
 	
 	// update the buttons
 	[self _setupCamSwitchButton];
