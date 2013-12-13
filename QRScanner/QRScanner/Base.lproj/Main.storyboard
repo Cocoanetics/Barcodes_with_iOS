@@ -82,7 +82,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="interestBox" destination="vd5-7N-Ag7" id="zsC-23-p0L"/>
+                        <outlet property="iBox" destination="vd5-7N-Ag7" id="Kdo-8W-OPm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
