@@ -6,10 +6,9 @@
 //  Copyright (c) 2013 Oliver Drobnik. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
+// the application's main window
 @property (strong, nonatomic) UIWindow *window;
 
 @end

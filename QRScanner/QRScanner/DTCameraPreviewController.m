@@ -1,6 +1,6 @@
 //
 //  ViewController.m
-//  Camera
+//  QRScanner
 //
 //  Created by Oliver Drobnik on 05.11.13.
 //  Copyright (c) 2013 Cocoanetics. All rights reserved.
@@ -14,7 +14,8 @@
 
 
 // private interface to tag with metadata delegate protocol
-@interface DTCameraPreviewController () <AVCaptureMetadataOutputObjectsDelegate>
+@interface DTCameraPreviewController ()
+                                <AVCaptureMetadataOutputObjectsDelegate>
 @end
 
 @implementation DTCameraPreviewController
@@ -32,7 +33,6 @@
 	NSMutableDictionary *_visibleCodeShapes;
 }
 
-
 - (void)dealloc
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -42,13 +42,29 @@
 
 - (void)_informUserAboutCamNotAuthorized
 {
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cam Access" message:@"Access to the camera hardware has been disabled. This disables all related functionality in this app. Please enable it via device settings." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+	NSString *msg = @"Access to the camera hardware has been disabled. "\
+               @"This disables all related functionality in this app. "\
+               @"Please enable it via device settings.";
+	
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cam Access"
+                                                   message:msg
+                                                  delegate:nil
+                                         cancelButtonTitle:@"Ok"
+                                         otherButtonTitles:nil];
 	[alert show];
 }
 
 - (void)_informUserAboutNoCam
 {
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cam Access" message:@"The current device does not have any cameras installed, are you running this in iOS Simulator?" delegate:nil cancelButtonTitle:@"Yes" otherButtonTitles:nil];
+   NSString *msg = @"The current device does not have any cameras "\
+                   @"installed, are you running this in iOS Simulator?";
+   
+   
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cam Access"
+                                                   message:msg
+                                                  delegate:nil
+                                         cancelButtonTitle:@"Yes"
+                                         otherButtonTitles:nil];
 	[alert show];
 }
 
@@ -59,11 +75,12 @@
 	_metaDataOutput = [[AVCaptureMetadataOutput alloc] init];
 	
 	// create a GCD queue on which recognized codes are to be delivered
-	//_metaDataQueue = dispatch_queue_create("com.cocoanetics.metadata", NULL);
+	//_metaDataQueue = dispatch_queue_create("com.me.metadata", NULL);
 	_metaDataQueue = dispatch_get_main_queue();
-
+   
 	// set self as delegate, using the background queue
-	[_metaDataOutput setMetadataObjectsDelegate:self queue:_metaDataQueue];
+	[_metaDataOutput setMetadataObjectsDelegate:self
+                                         queue:_metaDataQueue];
 	
 	// connect meta data output only if possible
 	if (![_captureSession canAddOutput:_metaDataOutput])
@@ -74,14 +91,18 @@
 	
 	// connect it
 	[_captureSession addOutput:_metaDataOutput];
-	 
-	 // specify to scan for supported 2D barcode types
-	NSArray *barcodes2D = @[AVMetadataObjectTypePDF417Code, AVMetadataObjectTypeQRCode, AVMetadataObjectTypeAztecCode];
-	NSArray *availableTypes = [_metaDataOutput availableMetadataObjectTypes];
+   
+   // specify to scan for supported 2D barcode types
+	NSArray *barcodes2D = @[AVMetadataObjectTypePDF417Code,
+                           AVMetadataObjectTypeQRCode,
+                           AVMetadataObjectTypeAztecCode];
+	NSArray *availableTypes = [_metaDataOutput
+                              availableMetadataObjectTypes];
 	
 	if (![availableTypes count])
 	{
-		NSLog(@"Unable to get any available metadata types, did you forget the addOutput: on the capture session?");
+		NSLog(@"Unable to get any available metadata types, "\
+            @"did you forget the addOutput: on the capture session?");
 		return;
 	}
 	
@@ -96,7 +117,8 @@
 		}
 		else
 		{
-			NSLog(@"Weird: Code type '%@' is not reported as supported on this device", oneCodeType);
+			NSLog(@"Weird: Code type '%@' is not reported as supported "\
+               @"on this device", oneCodeType);
 		}
 	}
 	
@@ -104,7 +126,7 @@
 	
 	if ([tmpArray count])
 	{
-		 _metaDataOutput.metadataObjectTypes = tmpArray;
+      _metaDataOutput.metadataObjectTypes = tmpArray;
 	}
 	
 	_metaDataOutput.rectOfInterest = CGRectMake(0.25, 0.25, 0.5, 0.5);
@@ -113,11 +135,13 @@
 - (void)_setupCamera
 {
 	// get the camera
-	_camera = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+	_camera = [AVCaptureDevice
+              defaultDeviceWithMediaType:AVMediaTypeVideo];
 	
 	if (!_camera)
 	{
-		[self.snapButton setTitle:@"No Camera Found" forState:UIControlStateNormal];
+		[self.snapButton setTitle:@"No Camera Found"
+                       forState:UIControlStateNormal];
 		self.snapButton.enabled = NO;
 		
 		[self _informUserAboutNoCam];
@@ -127,17 +151,19 @@
 	
 	// connect camera to input
 	NSError *error;
-	_videoInput = [[AVCaptureDeviceInput alloc] initWithDevice:_camera error:&error];
+	_videoInput = [[AVCaptureDeviceInput alloc] initWithDevice:_camera
+                                                        error:&error];
 	
 	if (!_videoInput)
 	{
-		NSLog(@"Error connecting video input: %@", [error localizedDescription]);
+		NSLog(@"Error connecting video input: %@",
+            [error localizedDescription]);
 		return;
 	}
-
+   
 	// Create session (use default AVCaptureSessionPresetHigh)
 	_captureSession = [[AVCaptureSession alloc] init];
-
+   
 	if (![_captureSession canAddInput:_videoInput])
 	{
 		NSLog(@"Unable to add video input to capture session");
@@ -145,7 +171,7 @@
 	}
 	
 	[_captureSession addInput:_videoInput];
-
+   
 	// configure cam here because active format depends on capture session
 	[self _configureCurrentCamera];
 	
@@ -169,7 +195,8 @@
 
 - (void)_setupCameraAfterCheckingAuthorization
 {
-	if (![[AVCaptureDevice class] respondsToSelector:@selector(authorizationStatusForMediaType:)])
+	if (![[AVCaptureDevice class] respondsToSelector:
+         @selector(authorizationStatusForMediaType:)])
 	{
 		// running on iOS 6, assume authorization
 		[self _setupCamera];
@@ -177,7 +204,8 @@
 		return;
 	}
 	
-	AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+	AVAuthorizationStatus authStatus =
+     [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
 	
 	switch (authStatus)
 	{
@@ -190,7 +218,8 @@
 			
 		case AVAuthorizationStatusNotDetermined:
 		{
-			[AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+			[AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo
+                                  completionHandler:^(BOOL granted) {
 				
 				// background thread, we want to setup on main thread
 				dispatch_async(dispatch_get_main_queue(), ^{
@@ -215,7 +244,7 @@
 			
 			break;
 		}
-
+         
 		case AVAuthorizationStatusRestricted:
 		case AVAuthorizationStatusDenied:
 		{
@@ -242,7 +271,9 @@
 			}
 			
 			// get more pixels to image outputs
-			_camera.videoZoomFactor = MIN(_camera.activeFormat.videoZoomFactorUpscaleThreshold, 1.25);
+			_camera.videoZoomFactor =
+             MIN(_camera.activeFormat.videoZoomFactorUpscaleThreshold,
+             1.25);
 			
 			[_camera unlockForConfiguration];
 		}
@@ -258,7 +289,8 @@
 		return nil;
 	}
 	
-	NSArray *allCams = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
+	NSArray *allCams = [AVCaptureDevice
+                       devicesWithMediaType:AVMediaTypeVideo];
 	
 	for (AVCaptureDevice *oneCam in allCams)
 	{
@@ -292,9 +324,12 @@
 }
 
 // update all capture connections for the current interface orientation
-- (void)_updateConnectionsForInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+- (void)_updateConnectionsForInterfaceOrientation:
+                            (UIInterfaceOrientation)interfaceOrientation
 {
-	AVCaptureVideoOrientation captureOrientation = DTAVCaptureVideoOrientationForUIInterfaceOrientation(interfaceOrientation);
+	AVCaptureVideoOrientation captureOrientation =
+      DTAVCaptureVideoOrientationForUIInterfaceOrientation
+         (interfaceOrientation);
 	
 	for (AVCaptureConnection *connection in _imageOutput.connections)
 	{
@@ -304,9 +339,11 @@
 		}
 	}
 	
-	if ([_videoPreview.previewLayer.connection isVideoOrientationSupported])
+   AVCaptureConnection *con = _videoPreview.previewLayer.connection;
+   
+	if ([con isVideoOrientationSupported])
 	{
-		_videoPreview.previewLayer.connection.videoOrientation = captureOrientation;
+		con.videoOrientation = captureOrientation;
 	}
 }
 
@@ -315,11 +352,14 @@
 {
 	if (!_captureSession.isRunning)
 	{
-		NSLog(@"Capture Session is not running yet, so we wouldn't get a useful rect of interest");
+		NSLog(@"Capture Session is not running yet, "\
+            @"so we wouldn't get a useful rect of interest");
 		return;
 	}
 	
-	CGRect rectOfInterest = [_videoPreview.previewLayer metadataOutputRectOfInterestForRect:_interestBox.frame];
+	CGRect rectOfInterest = [_videoPreview.previewLayer
+                            metadataOutputRectOfInterestForRect:
+                               _iBox.frame];
 	_metaDataOutput.rectOfInterest = rectOfInterest;
 }
 
@@ -331,7 +371,7 @@
 	if (alternativeCam)
 	{
 		self.switchCamButton.hidden = NO;
-
+      
 		NSString *title;
 		
 		switch (alternativeCam.position)
@@ -347,7 +387,7 @@
 				title = @"Front";
 				break;
 			}
-
+            
 			case AVCaptureDevicePositionUnspecified:
 			{
 				title = @"Other";
@@ -355,7 +395,8 @@
 			}
 		}
 		
-		[self.switchCamButton setTitle:title forState:UIControlStateNormal];
+		[self.switchCamButton setTitle:title
+                            forState:UIControlStateNormal];
 	}
 	else
 	{
@@ -381,22 +422,32 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-
-	NSAssert([self.view isKindOfClass:[DTVideoPreviewView class]], @"Wrong root view class %@ in %@", NSStringFromClass([self.view class]), NSStringFromClass([self class]));
+   [super viewDidLoad];
+   
+	NSAssert([self.view isKindOfClass:[DTVideoPreviewView class]],
+            @"Wrong root view class %@ in %@",
+            NSStringFromClass([self.view class]),
+            NSStringFromClass([self class]));
 	
 	_videoPreview = (DTVideoPreviewView *)self.view;
 	
 	// default is resize aspect, we need aspect fill to avoid side bars on iPad
-	[_videoPreview.previewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
+	[_videoPreview.previewLayer
+    setVideoGravity:AVLayerVideoGravityResizeAspectFill];
 	
 	[self _setupCameraAfterCheckingAuthorization];
 	
-	UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+	UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
+                                  initWithTarget:self
+                                  action:@selector(handleTap:)];
 	[self.view addGestureRecognizer:tap];
 	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subjectChanged:) name:AVCaptureDeviceSubjectAreaDidChangeNotification object:nil];
-	
+   NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+   
+	[center addObserver:self
+              selector:@selector(subjectChanged:)
+                  name:AVCaptureDeviceSubjectAreaDidChangeNotification
+                object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -404,8 +455,9 @@
 	[super viewWillAppear:animated];
 	
 	// need to update capture and preview connections
-	[self _updateConnectionsForInterfaceOrientation:self.interfaceOrientation];
-
+   UIInterfaceOrientation orientation = self.interfaceOrientation;
+	[self _updateConnectionsForInterfaceOrientation:orientation];
+   
 	// start session so that we don't see a black rectangle, but video
 	[_captureSession startRunning];
 	
@@ -425,7 +477,8 @@
 
 - (BOOL)shouldAutorotate
 {
-	if ([_videoPreview.previewLayer.connection isVideoOrientationSupported])
+   AVCaptureConnection *conn = _videoPreview.previewLayer.connection;
+	if ([conn isVideoOrientationSupported])
 	{
 		return YES;
 	}
@@ -442,13 +495,13 @@
 	return UIInterfaceOrientationMaskAll;
 }
 
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toO
+                                duration:(NSTimeInterval)duration
 {
-	[super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+	[super willRotateToInterfaceOrientation:toO duration:duration];
 	
 	// need to update capture and preview connections
-	[self _updateConnectionsForInterfaceOrientation:toInterfaceOrientation];
-	
+	[self _updateConnectionsForInterfaceOrientation:toO];
 }
 
 - (void)viewDidLayoutSubviews
@@ -460,40 +513,52 @@
 
 #pragma mark - AVCaptureMetadataOutputObjectsDelegate
 
-- (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection
+- (void)captureOutput:(AVCaptureOutput *)captureOutput
+                     didOutputMetadataObjects:(NSArray *)metadataObjects
+       fromConnection:(AVCaptureConnection *)connection
 {
 	// set to take on codes that this pass of the method is reporting
 	NSMutableSet *reportedCodes = [NSMutableSet set];
 	
 	// dictionary to count the number of occurences of a type+stringValue
-	NSMutableDictionary *reportedCodesCount = [NSMutableDictionary dictionary];
+	NSMutableDictionary *repCount = [NSMutableDictionary dictionary];
 	
 	for (AVMetadataMachineReadableCodeObject *object in metadataObjects)
 	{
-		if ([object isKindOfClass:[AVMetadataMachineReadableCodeObject class]] && object.stringValue)
+		if ([object isKindOfClass:
+           [AVMetadataMachineReadableCodeObject class]]
+          && object.stringValue)
 		{
-			NSString *code = [NSString stringWithFormat:@"%@:%@", object.type, object.stringValue];
+			NSString *code = [NSString stringWithFormat:@"%@:%@",
+                           object.type, object.stringValue];
 			
 			// get the number of times this code was reported before in this loop
-			NSUInteger occurencesOfCode = [reportedCodesCount[code] unsignedIntegerValue] + 1;
-			reportedCodesCount[code] = @(occurencesOfCode);
-			NSString *numberedCode = [code stringByAppendingFormat:@"-%lu", (unsigned long)occurencesOfCode];
-
+			NSUInteger occurencesOfCode = [repCount[code]
+                                        unsignedIntegerValue] + 1;
+			repCount[code] = @(occurencesOfCode);
+			NSString *numberedCode = [code stringByAppendingFormat:@"-%lu",
+                                   (unsigned long)occurencesOfCode];
+         
 			// if it was not previously visible it is new
 			if (![_visibleCodes containsObject:numberedCode])
 			{
 				NSLog(@"code appeared: %@", numberedCode);
 				
-				if ([_delegate respondsToSelector:@selector(previewController:didScanCode:ofType:)])
+				if ([_delegate respondsToSelector:
+                 @selector(previewController:didScanCode:ofType:)])
 				{
-					[_delegate previewController:self didScanCode:object.stringValue ofType:object.type];
+					[_delegate previewController:self
+                                didScanCode:object.stringValue
+                                     ofType:object.type];
 				}
 			}
-
+         
 			[reportedCodes addObject:numberedCode];
-
+         
 			// create a suitable CGPath for the barcode area
-			CGPathRef path = DTAVMetadataMachineReadableCodeObjectCreatePathForCorners(_videoPreview.previewLayer, object);
+			CGPathRef path =
+         DTAVMetadataMachineReadableCodeObjectCreatePathForCorners(
+                                    _videoPreview.previewLayer, object);
 			
 			// get previous shape for this code
 			CAShapeLayer *shapeLayer = _visibleCodeShapes[numberedCode];
@@ -505,9 +570,12 @@
 				
 				// basic configuration, stays the same regardless of path
 				shapeLayer.strokeColor = [UIColor greenColor].CGColor;
-				shapeLayer.fillColor = [UIColor colorWithRed:0 green:1 blue:0 alpha:0.25].CGColor;
+				shapeLayer.fillColor = [UIColor colorWithRed:0
+                                                   green:1
+                                                    blue:0
+                                                   alpha:0.25].CGColor;
 				shapeLayer.lineWidth = 2;
-
+            
 				[_videoPreview.layer addSublayer:shapeLayer];
 				
 				// add it to shape dictionary
@@ -559,19 +627,25 @@
 		return;
 	}
 	
-	[_imageOutput captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler:^(CMSampleBufferRef imageSampleBuffer, NSError *error) {
+	[_imageOutput
+    captureStillImageAsynchronouslyFromConnection:videoConnection
+    completionHandler:^(CMSampleBufferRef imageSampleBuffer,
+                        NSError *error) {
 		
 		if (error)
 		{
-			NSLog(@"Error capturing still image: %@", [error localizedDescription]);
+			NSLog(@"Error capturing still image: %@",
+               [error localizedDescription]);
 			return;
 		}
 		
-		NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
+		NSData *imageData = [AVCaptureStillImageOutput
+                           jpegStillImageNSDataRepresentation:
+                              imageSampleBuffer];
 		UIImage *image = [UIImage imageWithData:imageData];
 		
 		UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
-	 }];
+   }];
 }
 
 - (IBAction)switchCam:(UIButton *)sender
@@ -587,11 +661,13 @@
 	}
 	
 	// add new input
-	_videoInput = [AVCaptureDeviceInput deviceInputWithDevice:_camera error:nil];
+	_videoInput = [AVCaptureDeviceInput deviceInputWithDevice:_camera
+                                                       error:nil];
 	[_captureSession addInput:_videoInput];
 	
 	// there are new connections, tell them about current UI orientation
-	[self _updateConnectionsForInterfaceOrientation:self.interfaceOrientation];
+   UIInterfaceOrientation orientation = self.interfaceOrientation;
+	[self _updateConnectionsForInterfaceOrientation:orientation];
 	
 	[_captureSession commitConfiguration];
 	
@@ -639,26 +715,28 @@
 	if (gesture.state == UIGestureRecognizerStateRecognized)
 	{
 		// require both focus point and autofocus
-		if (![_camera isFocusPointOfInterestSupported] || ![_camera isFocusModeSupported:AVCaptureFocusModeAutoFocus])
+		if (![_camera isFocusPointOfInterestSupported] ||
+          ![_camera isFocusModeSupported:AVCaptureFocusModeAutoFocus])
 		{
 			NSLog(@"Focus Point Not Supported by current camera");
 			
 			return;
 		}
 		
-		CGPoint locationInPreview = [gesture locationInView:_videoPreview];
-		CGPoint locationInCapture = [_videoPreview.previewLayer captureDevicePointOfInterestForPoint:locationInPreview];
+		CGPoint loc = [gesture locationInView:_videoPreview];
+		CGPoint locInCapture = [_videoPreview.previewLayer
+                              captureDevicePointOfInterestForPoint:loc];
 		
 		if ([_camera lockForConfiguration:nil])
 		{
 			// this alone does not trigger focussing
-			[_camera setFocusPointOfInterest:locationInCapture];
+			[_camera setFocusPointOfInterest:locInCapture];
 			
 			// this focusses once and then changes to locked
 			[_camera setFocusMode:AVCaptureFocusModeAutoFocus];
 			
 			NSLog(@"Focus Mode: Locked to Focus Point");
-
+         
 			[_camera unlockForConfiguration];
 		}
 	}
@@ -679,9 +757,11 @@
 				_camera.focusPointOfInterest = CGPointMake(0.5, 0.5);
 			}
 			
-			if ([_camera isFocusModeSupported:AVCaptureFocusModeContinuousAutoFocus])
+			if ([_camera isFocusModeSupported:
+                                 AVCaptureFocusModeContinuousAutoFocus])
 			{
-				[_camera setFocusMode:AVCaptureFocusModeContinuousAutoFocus];
+				[_camera
+             setFocusMode:AVCaptureFocusModeContinuousAutoFocus];
 			}
 			
 			NSLog(@"Focus Mode: Continuos");

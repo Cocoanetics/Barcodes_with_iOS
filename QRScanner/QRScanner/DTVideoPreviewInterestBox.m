@@ -19,15 +19,15 @@
 	[[UIColor redColor] setStroke];
 	
 	CGFloat lineWidth=3;
-	CGRect drawRect = CGRectInset(self.bounds, lineWidth/2.0, lineWidth/2.0);
+	CGRect box = CGRectInset(self.bounds, lineWidth/2.0, lineWidth/2.0);
 	
 	CGContextSetLineWidth(ctx, lineWidth);
 	
-	CGFloat minX = CGRectGetMinX(drawRect);
-	CGFloat minY = CGRectGetMinY(drawRect);
+	CGFloat minX = CGRectGetMinX(box);
+	CGFloat minY = CGRectGetMinY(box);
 	
-	CGFloat maxX = CGRectGetMaxX(drawRect);
-	CGFloat maxY = CGRectGetMaxY(drawRect);
+	CGFloat maxX = CGRectGetMaxX(box);
+	CGFloat maxY = CGRectGetMaxY(box);
 	
 	// top left
 	CGContextMoveToPoint(ctx, minX, minY + EDGE_LENGTH);

@@ -6,8 +6,9 @@
 //  Copyright (c) 2013 Oliver Drobnik. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
+/**
+ Box representing the "finder videw" on a barcode scanner
+ */
 @interface DTVideoPreviewInterestBox : UIView
 
 @end

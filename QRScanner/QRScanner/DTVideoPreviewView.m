@@ -8,8 +8,6 @@
 
 #import "DTVideoPreviewView.h"
 
-#import <AVFoundation/AVFoundation.h>
-
 @implementation DTVideoPreviewView
 
 - (id)initWithFrame:(CGRect)frame
@@ -18,7 +16,8 @@
 	
     if (self)
 	{
-		self.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+		self.autoresizingMask = UIViewAutoresizingFlexibleHeight |
+                              UIViewAutoresizingFlexibleWidth;
 		self.backgroundColor = [UIColor blackColor];
     }
 	

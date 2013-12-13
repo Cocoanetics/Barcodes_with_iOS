@@ -37,10 +37,47 @@
                                     <constraint firstItem="sFT-Nj-Oqh" firstAttribute="leading" secondItem="vd5-7N-Ag7" secondAttribute="leading" constant="25" id="vKP-pV-UJZ"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qbm-Db-vvE">
+                                <rect key="frame" x="0.0" y="509" width="320" height="59"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lVo-bi-alB">
+                                        <rect key="frame" x="20" y="15" width="83" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Switch Cam">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="switchCam:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="jhP-Dd-il6"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j7H-ht-1zN">
+                                        <rect key="frame" x="254" y="15" width="38" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Torch">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="toggleTorch:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="qcW-Wv-mlc"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.19" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="j7H-ht-1zN" secondAttribute="trailing" constant="28" id="4cE-kk-oa7"/>
+                                    <constraint firstAttribute="centerY" secondItem="j7H-ht-1zN" secondAttribute="centerY" id="50q-7X-i9f"/>
+                                    <constraint firstItem="lVo-bi-alB" firstAttribute="leading" secondItem="Qbm-Db-vvE" secondAttribute="leading" constant="20" id="KqW-Qz-h75"/>
+                                    <constraint firstAttribute="bottom" secondItem="lVo-bi-alB" secondAttribute="bottom" constant="14" id="Oai-3j-Ew5"/>
+                                    <constraint firstAttribute="height" constant="59" id="d62-mg-bA8"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Qbm-Db-vvE" firstAttribute="centerX" secondItem="vd5-7N-Ag7" secondAttribute="centerX" id="2VP-Os-fcR"/>
+                            <constraint firstItem="Qbm-Db-vvE" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="Fqg-hh-smZ"/>
                             <constraint firstItem="vd5-7N-Ag7" firstAttribute="top" secondItem="wn5-i2-Ftg" secondAttribute="bottom" constant="42" id="Hzy-LY-t24"/>
+                            <constraint firstAttribute="bottom" secondItem="Qbm-Db-vvE" secondAttribute="bottom" id="cjm-r6-vhp"/>
                             <constraint firstItem="vd5-7N-Ag7" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="mJL-YM-DXa"/>
                         </constraints>
                     </view>

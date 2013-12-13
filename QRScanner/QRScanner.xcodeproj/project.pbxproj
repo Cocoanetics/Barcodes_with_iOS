@@ -10,11 +10,9 @@
 		A7E29091185713BD00A9BE73 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7E29090185713BD00A9BE73 /* Foundation.framework */; };
 		A7E29093185713BD00A9BE73 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7E29092185713BD00A9BE73 /* CoreGraphics.framework */; };
 		A7E29095185713BD00A9BE73 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7E29094185713BD00A9BE73 /* UIKit.framework */; };
-		A7E2909B185713BD00A9BE73 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A7E29099185713BD00A9BE73 /* InfoPlist.strings */; };
 		A7E2909D185713BD00A9BE73 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E2909C185713BD00A9BE73 /* main.m */; };
 		A7E290A1185713BD00A9BE73 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E290A0185713BD00A9BE73 /* AppDelegate.m */; };
 		A7E290A4185713BD00A9BE73 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7E290A2185713BD00A9BE73 /* Main.storyboard */; };
-		A7E290A7185713BD00A9BE73 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E290A6185713BD00A9BE73 /* ViewController.m */; };
 		A7E290A9185713BD00A9BE73 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7E290A8185713BD00A9BE73 /* Images.xcassets */; };
 		A7E290CB1857141800A9BE73 /* DTAVFoundationFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E290C61857141800A9BE73 /* DTAVFoundationFunctions.m */; };
 		A7E290CC1857141800A9BE73 /* DTCameraPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E290C81857141800A9BE73 /* DTCameraPreviewController.m */; };
@@ -29,14 +27,11 @@
 		A7E29092185713BD00A9BE73 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		A7E29094185713BD00A9BE73 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		A7E29098185713BD00A9BE73 /* QRScanner-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "QRScanner-Info.plist"; sourceTree = "<group>"; };
-		A7E2909A185713BD00A9BE73 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A7E2909C185713BD00A9BE73 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A7E2909E185713BD00A9BE73 /* QRScanner-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "QRScanner-Prefix.pch"; sourceTree = "<group>"; };
 		A7E2909F185713BD00A9BE73 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		A7E290A0185713BD00A9BE73 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		A7E290A3185713BD00A9BE73 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		A7E290A5185713BD00A9BE73 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		A7E290A6185713BD00A9BE73 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		A7E290A8185713BD00A9BE73 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A7E290AF185713BD00A9BE73 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		A7E290C51857141800A9BE73 /* DTAVFoundationFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTAVFoundationFunctions.h; sourceTree = "<group>"; };
@@ -100,8 +95,6 @@
 				A7E2909F185713BD00A9BE73 /* AppDelegate.h */,
 				A7E290A0185713BD00A9BE73 /* AppDelegate.m */,
 				A7E290A2185713BD00A9BE73 /* Main.storyboard */,
-				A7E290A5185713BD00A9BE73 /* ViewController.h */,
-				A7E290A6185713BD00A9BE73 /* ViewController.m */,
 				A7E290A8185713BD00A9BE73 /* Images.xcassets */,
 				A7E290C51857141800A9BE73 /* DTAVFoundationFunctions.h */,
 				A7E290C61857141800A9BE73 /* DTAVFoundationFunctions.m */,
@@ -120,9 +113,8 @@
 			isa = PBXGroup;
 			children = (
 				A7E29098185713BD00A9BE73 /* QRScanner-Info.plist */,
-				A7E29099185713BD00A9BE73 /* InfoPlist.strings */,
-				A7E2909C185713BD00A9BE73 /* main.m */,
 				A7E2909E185713BD00A9BE73 /* QRScanner-Prefix.pch */,
+				A7E2909C185713BD00A9BE73 /* main.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -185,7 +177,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A7E290A9185713BD00A9BE73 /* Images.xcassets in Resources */,
-				A7E2909B185713BD00A9BE73 /* InfoPlist.strings in Resources */,
 				A7E290A4185713BD00A9BE73 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -197,7 +188,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A7E290A7185713BD00A9BE73 /* ViewController.m in Sources */,
 				A7E290A1185713BD00A9BE73 /* AppDelegate.m in Sources */,
 				A7E2909D185713BD00A9BE73 /* main.m in Sources */,
 				A7E290CD1857141800A9BE73 /* DTVideoPreviewView.m in Sources */,
@@ -210,14 +200,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		A7E29099185713BD00A9BE73 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A7E2909A185713BD00A9BE73 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
 		A7E290A2185713BD00A9BE73 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -354,6 +336,7 @@
 				A7E290C1185713BD00A9BE73 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
