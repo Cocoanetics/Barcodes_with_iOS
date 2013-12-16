@@ -6,8 +6,6 @@
 //  Copyright (c) 2013 Oliver Drobnik. All rights reserved.
 //
 
-@class AVCaptureVideoPreviewLayer;
-
 /**
  This wraps an `AVCaptureVideoPreviewLayer` so that it plays nicely with UIKit frame animations and auto layout.
  */
