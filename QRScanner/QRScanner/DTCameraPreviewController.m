@@ -314,7 +314,6 @@
 			if ([[port mediaType] isEqual:AVMediaTypeVideo] )
 			{
 				return connection;
-				break;
 			}
 		}
 	}
@@ -431,10 +430,6 @@
 	
 	_videoPreview = (DTVideoPreviewView *)self.view;
 	
-	// default is resize aspect, we need aspect fill to avoid side bars on iPad
-	[_videoPreview.previewLayer
-    setVideoGravity:AVLayerVideoGravityResizeAspectFill];
-	
 	[self _setupCameraAfterCheckingAuthorization];
 	
 	UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
@@ -452,17 +447,17 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-	[super viewWillAppear:animated];
+   [super viewWillAppear:animated];
 	
-	// need to update capture and preview connections
+   // need to update capture and preview connections
    UIInterfaceOrientation orientation = self.interfaceOrientation;
-	[self _updateConnectionsForInterfaceOrientation:orientation];
+   [self _updateConnectionsForInterfaceOrientation:orientation];
    
-	// start session so that we don't see a black rectangle, but video
-	[_captureSession startRunning];
+   // start session so that we don't see a black rectangle, but video
+   [_captureSession startRunning];
 	
-	[self _setupCamSwitchButton];
-	[self _setupTorchToggleButton];
+   [self _setupCamSwitchButton];
+   [self _setupTorchToggleButton];
 	
 	_visibleCodes = [NSMutableSet new];
 	_visibleCodeShapes = [NSMutableDictionary new];
