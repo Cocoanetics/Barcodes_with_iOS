@@ -30,7 +30,7 @@
 	dispatch_queue_t _metaDataQueue;
 	
 	NSMutableSet *_visibleCodes;
-	NSMutableDictionary *_visibleCodeShapes;
+	NSMutableDictionary *_visibleShapes;
 }
 
 - (void)dealloc
@@ -460,7 +460,7 @@
    [self _setupTorchToggleButton];
 	
 	_visibleCodes = [NSMutableSet new];
-	_visibleCodeShapes = [NSMutableDictionary new];
+	_visibleShapes = [NSMutableDictionary new];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -556,7 +556,7 @@
                                     _videoPreview.previewLayer, object);
 			
 			// get previous shape for this code
-			CAShapeLayer *shapeLayer = _visibleCodeShapes[numberedCode];
+			CAShapeLayer *shapeLayer = _visibleShapes[numberedCode];
 			
 			// if none found then this is a new shape
 			if (!shapeLayer)
@@ -574,7 +574,7 @@
 				[_videoPreview.layer addSublayer:shapeLayer];
 				
 				// add it to shape dictionary
-				_visibleCodeShapes[numberedCode] = shapeLayer;
+				_visibleShapes[numberedCode] = shapeLayer;
 			}
 			
 			// configure shape, relative to video preview
@@ -584,6 +584,11 @@
 			// need to release the path now
 			CGPathRelease(path);
 		}
+      else if ([object isKindOfClass:
+           [AVMetadataFaceObject class]])
+		{
+         NSLog(@"Face detection marking not implemented");
+      }
 	}
 	
 	// check which codes which we saw in previous cycle are no longer present
@@ -593,10 +598,10 @@
 		{
 			NSLog(@"code disappeared: %@", oneCode);
 			
-			CAShapeLayer *shape = _visibleCodeShapes[oneCode];
+			CAShapeLayer *shape = _visibleShapes[oneCode];
 			
 			[shape removeFromSuperlayer];
-			[_visibleCodeShapes removeObjectForKey:oneCode];
+			[_visibleShapes removeObjectForKey:oneCode];
 		}
 	}
 	
