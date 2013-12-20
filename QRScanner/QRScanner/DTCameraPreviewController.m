@@ -254,29 +254,45 @@
    }
 }
 
-// applies settings to the currently active camera
+// Applies settings to the currently active camera
 - (void)_configureCurrentCamera
 {
-   // if cam supports AV lock then we want to be able to get out of this
-   if ([_camera isFocusModeSupported:AVCaptureFocusModeLocked])
+   NSError *error;
+   if ([_camera lockForConfiguration:&error])
    {
-      if ([_camera lockForConfiguration:nil])
-      {
-         _camera.subjectAreaChangeMonitoringEnabled = YES;
-         
-         if ([_camera isSmoothAutoFocusSupported])
-         {
-            _camera.smoothAutoFocusEnabled = YES;
-         }
-         
-         // get more pixels to image outputs
-         _camera.videoZoomFactor =
-         MIN(_camera.activeFormat.videoZoomFactorUpscaleThreshold,
-             1.25);
-         
-         [_camera unlockForConfiguration];
-      }
+      NSLog(@"Unable to lock current camera for config: %@",
+            [error localizedDescription]);
+      return;
    }
+   
+   // Get notified if subject area changes, for disabling focus lock
+   _camera.subjectAreaChangeMonitoringEnabled = YES;
+   
+   // Prevent focus bobbing
+   if ([_camera isSmoothAutoFocusSupported])
+   {
+      _camera.smoothAutoFocusEnabled = YES;
+   }
+   
+   // Optimal for scanning close-by barcodes
+   if ([_camera isAutoFocusRangeRestrictionSupported])
+   {
+      _camera.autoFocusRangeRestriction =
+      AVCaptureAutoFocusRangeRestrictionNear;
+   }
+   
+   // Get more pixels to image outputs
+   _camera.videoZoomFactor =
+   MIN(_camera.activeFormat.videoZoomFactorUpscaleThreshold,
+       1.25);
+   
+   // Activate low light boost if necessary
+   if ([_camera isLowLightBoostSupported])
+   {
+      _camera.automaticallyEnablesLowLightBoostWhenAvailable = YES;
+   }
+   
+   [_camera unlockForConfiguration];
 }
 
 // checks if there is an alternative camera to the current one

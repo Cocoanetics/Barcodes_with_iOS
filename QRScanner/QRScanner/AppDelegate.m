@@ -9,24 +9,24 @@
 #import "AppDelegate.h"
 #import "DTCameraPreviewController.h"
 
-// private interface taggs with promise to implement protocol
+// Private interface tagged with promise to implement protocol
 @interface AppDelegate () <DTCameraPreviewControllerDelegate>
 @end
 
 @implementation AppDelegate
 {
-   // detector for URLs in strings
+   // Detector for URLs in strings
    NSDataDetector *_urlDetector;
 }
 
 - (BOOL)application:(UIApplication *)application
              didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-	// preview VC is root VC of window
+	// Scanner view controller is root VC of window
 	DTCameraPreviewController *previewController =
             (DTCameraPreviewController *)self.window.rootViewController;
 	
-	// set delegate to self
+	// Set delegate to self
 	previewController.delegate = self;
 
    // configure URL detector
@@ -56,17 +56,16 @@
                [match.URL absoluteString]);
 			[[UIApplication sharedApplication] openURL:match.URL];
 			
-			// prevent additional URLs from opening
+			// Prevent additional URLs from opening
 			break;
 		}
 		else
 		{
-			// some URL schemes cannot be opened
+			// Some URL schemes cannot be opened
 			NSLog(@"Device cannot open URL '%@'",
                [match.URL absoluteString]);
 		}
 	}
 }
-
 
 @end
