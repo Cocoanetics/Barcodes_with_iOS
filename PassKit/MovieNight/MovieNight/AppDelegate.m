@@ -7,40 +7,80 @@
 //
 
 #import "AppDelegate.h"
+#import "DTCameraPreviewController.h"
+#import <CommonCrypto/CommonCrypto.h>
+
+// Private interface tagged with promise to implement protocol
+@interface AppDelegate () <DTCameraPreviewControllerDelegate>
+@end
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+	// Scanner view controller is root VC of window
+	DTCameraPreviewController *previewController =
+	(DTCameraPreviewController *)self.window.rootViewController;
+	
+	// Set delegate to self
+	previewController.delegate = self;
+	
     // Override point for customization after application launch.
     return YES;
 }
 							
-- (void)applicationWillResignActive:(UIApplication *)application
+#pragma mark - DTCameraPreviewControllerDelegate
+
+- (NSString *)_MD5ForString:(NSString *)string
 {
-   // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-   // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+	NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
+	uint8_t digest[CC_MD5_DIGEST_LENGTH];
+	
+	CC_MD5(data.bytes, (CC_LONG)data.length, digest);
+	
+	NSMutableString *output = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
+	
+	for (int i = 0; i < CC_MD5_DIGEST_LENGTH; i++)
+	{
+		[output appendFormat:@"%02x", digest[i]];
+	}
+	
+	return output;
 }
 
-- (void)applicationDidEnterBackground:(UIApplication *)application
+- (void)previewController:(DTCameraPreviewController *)previewController
+              didScanCode:(NSString *)code
+                   ofType:(NSString *)type
 {
-   // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
-   // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-}
-
-- (void)applicationWillEnterForeground:(UIApplication *)application
-{
-   // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-}
-
-- (void)applicationDidBecomeActive:(UIApplication *)application
-{
-   // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-}
-
-- (void)applicationWillTerminate:(UIApplication *)application
-{
-   // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+	// check for ticket
+	if (![code hasPrefix:@"TICKET:"])
+	{
+		return;
+	}
+	
+	// split off signature
+	NSArray *components = [code componentsSeparatedByString:@"|"];
+	
+	// ignore ticket without signature
+	if (![components count] == 2)
+	{
+		NSLog(@"Ticket without Signature ignored");
+		return;
+	}
+	
+	NSString *salt = @"EXTRA SECRET SAUCE";
+	NSString *saltedDetails = [components[0] stringByAppendingString:salt];
+	NSString *signature = components[1];
+	
+	NSString *verify = [self _MD5ForString:saltedDetails];
+	
+	if (![signature isEqualToString:verify])
+	{
+		NSLog(@"Ticket has invalid signature");
+		return;
+	}
+	
+	NSLog(@"Bingo!");
 }
 
 @end
