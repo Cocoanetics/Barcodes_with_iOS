@@ -15,6 +15,9 @@
 @end
 
 @implementation AppDelegate
+{
+	UIAlertView *alert;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -28,6 +31,34 @@
     // Override point for customization after application launch.
     return YES;
 }
+
+- (void)_reportValidTicketDate:(NSDate *)date seat:(NSString *)seat
+{
+	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+	[formatter setDateStyle:NSDateFormatterShortStyle];
+	[formatter setTimeStyle:NSDateFormatterShortStyle];
+	
+	NSString *msgDate = [formatter stringFromDate:date];
+	NSString *msg = [NSString stringWithFormat:@"Seat %@\n%@", seat, msgDate];
+	
+	alert = [[UIAlertView alloc] initWithTitle:@"Ticket Ok"
+																	message:msg
+																  delegate:self
+													  cancelButtonTitle:@"Ok"
+													  otherButtonTitles:nil];
+	[alert show];
+}
+
+- (void)_reportInvalidTicket:(NSString *)msg
+{
+	alert = [[UIAlertView alloc] initWithTitle:@"Invalid Ticket"
+																	message:msg
+																  delegate:self
+													  cancelButtonTitle:@"Ok"
+													  otherButtonTitles:nil];
+	[alert show];
+}
+
 							
 #pragma mark - DTCameraPreviewControllerDelegate
 
@@ -52,6 +83,12 @@
               didScanCode:(NSString *)code
                    ofType:(NSString *)type
 {
+	// don't handle if alert showing
+	if ([alert isVisible])
+	{
+		return;
+	}
+	
 	// check for ticket
 	if (![code hasPrefix:@"TICKET:"])
 	{
@@ -62,25 +99,57 @@
 	NSArray *components = [code componentsSeparatedByString:@"|"];
 	
 	// ignore ticket without signature
-	if (![components count] == 2)
+	if ([components count] != 2)
 	{
 		NSLog(@"Ticket without Signature ignored");
 		return;
 	}
 	
+	// server-less verification
 	NSString *salt = @"EXTRA SECRET SAUCE";
-	NSString *saltedDetails = [components[0] stringByAppendingString:salt];
+	NSString *details = components[0];
+	NSString *saltedDetails = [details stringByAppendingString:salt];
 	NSString *signature = components[1];
-	
 	NSString *verify = [self _MD5ForString:saltedDetails];
 	
 	if (![signature isEqualToString:verify])
 	{
-		NSLog(@"Ticket has invalid signature");
+		[self _reportInvalidTicket:@"Ticket has invalid signature"];
+
 		return;
 	}
 	
-	NSLog(@"Bingo!");
+	// skip prefix
+	NSString *ticket = [details substringFromIndex:7];
+	NSArray *comps = [ticket componentsSeparatedByString:@","];
+	
+	NSString *dateStr = comps[0];
+	NSString *seat = comps[1];
+	//	NSString *serial = comps[2];
+	
+	NSDateFormatter *parser = [[NSDateFormatter alloc] init];
+	parser.dateFormat = @"yyyy-MM-dd'T'HH:mm:ssZZZZ";
+	NSDate *date = [parser dateFromString:dateStr];
+	
+	// check if event date no futher than 1 hour away
+	NSTimeInterval intervalToNow = [date timeIntervalSinceNow];
+	
+	if (intervalToNow < 3600)
+	{
+		[self _reportInvalidTicket:@"Event on this ticket is more than 60 mins in the past"];
+		
+		return;
+	}
+
+	if (intervalToNow > 3600)
+	{
+		[self _reportInvalidTicket:@"Event on this ticket is more than 60 mins in the future"];
+		
+		return;
+	}
+	
+	// ticket is valid, so let's report that
+	[self _reportValidTicketDate:date seat:seat];
 }
 
 @end
