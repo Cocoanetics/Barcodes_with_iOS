@@ -4,7 +4,7 @@ require 'json'
 require "openssl"
 
 # pass details
-passTypeIdentifier = "pass.com.drobnik.movienight"
+passTypeIdentifier = "pass.com.drobnik.vipmovie"
 teamIdentifier = "Z7L2YCUH45"
 organizationName = "Cocoanetics Cinema"
 logoText = "Cocoanetics"
@@ -27,7 +27,7 @@ barcodeMessage = barcodeMessage + "|#{barcodeMessageSignature}"
 
 # check/load WWDR root certificate
 begin
-  rootCertFile = File.read('WWDR.pem')
+  rootCertFile = File.read('AppleWWDRCA.cer')
   rootCert = OpenSSL::X509::Certificate.new rootCertFile
 rescue => err
   puts "Cannot load root certificate: #{err}"
@@ -36,7 +36,7 @@ end
 
 # check/load signing certificate
 begin
-  certificate = OpenSSL::X509::Certificate.new File.read('passcertificate.pem')
+  certificate = OpenSSL::X509::Certificate.new File.read('passtypecert.pem')
 rescue => err
   puts "Cannot load signing certificate: #{err}"
   exit 1
@@ -44,7 +44,7 @@ end
 
 # check/load private signing key
 begin  
-  privateKeyFile = File.read('passkey.pem')
+  privateKeyFile = File.read('passtypecertkey.pem')
   privateKey = OpenSSL::PKey::RSA.new privateKeyFile, '12345'
 rescue => err
   puts "Cannot load private signing key: #{err}"
@@ -73,7 +73,7 @@ pass["locations"] = [{
 
 # create the barcode
 barcode = { 
-  "format" => "PKBarcodeFormatPDF417",
+  "format" => "PKBarcodeFormatQR",
   "messageEncoding" => "iso-8859-1"
 }
 
