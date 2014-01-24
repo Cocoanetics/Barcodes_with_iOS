@@ -69,7 +69,8 @@
 	
 	CC_MD5(data.bytes, (CC_LONG)data.length, digest);
 	
-	NSMutableString *output = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
+	NSMutableString *output = [NSMutableString stringWithCapacity:
+                              CC_MD5_DIGEST_LENGTH * 2];
 	
 	for (int i = 0; i < CC_MD5_DIGEST_LENGTH; i++)
 	{
@@ -136,14 +137,16 @@
 	
 	if (intervalToNow < 3600)
 	{
-		[self _reportInvalidTicket:@"Event on this ticket is more than 60 mins in the past"];
+		[self _reportInvalidTicket:@"Event on this ticket is more than "
+                                  "60 mins in the past"];
 		
 		return;
 	}
 
 	if (intervalToNow > 3600)
 	{
-		[self _reportInvalidTicket:@"Event on this ticket is more than 60 mins in the future"];
+		[self _reportInvalidTicket:@"Event on this ticket is more than "
+                                  "60 mins in the future"];
 		
 		return;
 	}
