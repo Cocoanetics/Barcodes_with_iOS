@@ -19,7 +19,8 @@
 	UIAlertView *alert;
 }
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+- (BOOL)application:(UIApplication *)application
+             didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 	// Scanner view controller is root VC of window
 	DTCameraPreviewController *previewController =
@@ -28,8 +29,7 @@
 	// Set delegate to self
 	previewController.delegate = self;
 	
-    // Override point for customization after application launch.
-    return YES;
+   return YES;
 }
 
 - (void)_reportValidTicketDate:(NSDate *)date seat:(NSString *)seat
@@ -39,7 +39,8 @@
 	[formatter setTimeStyle:NSDateFormatterShortStyle];
 	
 	NSString *msgDate = [formatter stringFromDate:date];
-	NSString *msg = [NSString stringWithFormat:@"Seat %@\n%@", seat, msgDate];
+	NSString *msg = [NSString stringWithFormat:@"Seat %@\n%@", seat,
+                    msgDate];
 	
 	alert = [[UIAlertView alloc] initWithTitle:@"Ticket Ok"
 																	message:msg
