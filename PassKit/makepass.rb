@@ -19,12 +19,6 @@ passFileName = serialNumber + ".pkpass"
 # date will be represented as string in JSON
 eventDateString = eventDate.utc.strftime("%Y-%m-%dT%H:%M:%SZ")
 
-# assemble a "signed" barcode message 
-barcodeMessage = "TICKET:#{eventDateString},#{seat},#{serialNumber}"
-salt = "EXTRA SECRET SAUCE"
-barcodeMessageSignature = Digest::MD5.hexdigest barcodeMessage + salt
-barcodeMessage = barcodeMessage + "|#{barcodeMessageSignature}"
-
 # check/load WWDR root certificate
 begin
   rootCertFile = File.read('AppleWWDRCA.cer')
@@ -70,6 +64,12 @@ pass["locations"] = [{
   "longitude" => 48.0528,
   "latitude" => 14.5877
 }]
+
+# assemble a "signed" barcode message 
+barcodeMessage = "TICKET:#{eventDateString},#{seat},#{serialNumber}"
+salt = "EXTRA SECRET SAUCE"
+barcodeMessageSignature = Digest::MD5.hexdigest barcodeMessage + salt
+barcodeMessage = barcodeMessage + "|#{barcodeMessageSignature}"
 
 # create the barcode
 barcode = { 
