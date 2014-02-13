@@ -26,4 +26,12 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - Actions
+
+- (IBAction)sliderChanged:(UISlider *)sender {
+}
+
+- (IBAction)textFieldChanged:(UITextField *)sender {
+}
+
 @end
