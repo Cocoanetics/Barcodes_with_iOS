@@ -32,7 +32,7 @@
                                 <rect key="frame" x="20" y="229" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="URL"/>
                                 <connections>
                                     <action selector="textFieldChanged:" destination="vXZ-lx-hvc" eventType="editingChanged" id="3od-uT-ztc"/>
                                     <action selector="textFieldChanged:" destination="vXZ-lx-hvc" eventType="editingDidEnd" id="5Uz-c1-Psb"/>
