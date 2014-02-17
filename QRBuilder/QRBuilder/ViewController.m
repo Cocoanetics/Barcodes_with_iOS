@@ -31,7 +31,7 @@
                                       fromRect:image.extent];
    
    CGSize size = CGSizeMake(image.extent.size.width * scale,
-                            image.extent.size.width * scale);
+                            image.extent.size.height * scale);
    UIGraphicsBeginImageContext(size);
    
    CGContextRef context = UIGraphicsGetCurrentContext();
