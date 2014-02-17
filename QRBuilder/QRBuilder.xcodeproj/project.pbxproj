@@ -16,6 +16,7 @@
 		A7EFF8CE18ACDBEB00060273 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7EFF8CD18ACDBEB00060273 /* ViewController.m */; };
 		A7EFF8D018ACDBEB00060273 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7EFF8CF18ACDBEB00060273 /* Images.xcassets */; };
 		A7EFF8ED18ACDC5500060273 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7EFF8EC18ACDC5500060273 /* CoreImage.framework */; };
+		A7FCC03A18B25C7100848F00 /* DTBarcodeImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FCC03918B25C7100848F00 /* DTBarcodeImageView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,8 @@
 		A7EFF8CF18ACDBEB00060273 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A7EFF8D618ACDBEB00060273 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		A7EFF8EC18ACDC5500060273 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		A7FCC03818B25C7100848F00 /* DTBarcodeImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTBarcodeImageView.h; sourceTree = "<group>"; };
+		A7FCC03918B25C7100848F00 /* DTBarcodeImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTBarcodeImageView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +93,8 @@
 				A7EFF8CD18ACDBEB00060273 /* ViewController.m */,
 				A7EFF8CF18ACDBEB00060273 /* Images.xcassets */,
 				A7EFF8BE18ACDBEB00060273 /* Supporting Files */,
+				A7FCC03818B25C7100848F00 /* DTBarcodeImageView.h */,
+				A7FCC03918B25C7100848F00 /* DTBarcodeImageView.m */,
 			);
 			path = QRBuilder;
 			sourceTree = "<group>";
@@ -169,6 +174,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A7EFF8CE18ACDBEB00060273 /* ViewController.m in Sources */,
+				A7FCC03A18B25C7100848F00 /* DTBarcodeImageView.m in Sources */,
 				A7EFF8C818ACDBEB00060273 /* AppDelegate.m in Sources */,
 				A7EFF8C418ACDBEB00060273 /* main.m in Sources */,
 			);
@@ -305,6 +311,7 @@
 				A7EFF8E818ACDBEB00060273 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
