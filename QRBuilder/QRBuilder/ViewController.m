@@ -101,4 +101,29 @@
    [self _updateBarcodePreview];
 }
 
+- (IBAction)print:(UIButton *)sender {
+   UIPrintInfo *printInfo = [UIPrintInfo printInfo];
+   printInfo.outputType = UIPrintInfoOutputGrayscale;
+   printInfo.jobName = @"QR Codes";
+   printInfo.duplex = UIPrintInfoDuplexNone;
+   
+   UIPrintInteractionController *printController =
+   [UIPrintInteractionController sharedPrintController];
+   printController.printInfo = printInfo;
+   printController.showsPageRange = NO;
+   printController.printingItem = self.imageView.image;
+   
+   void (^completionHandler)(UIPrintInteractionController *,
+                             BOOL, NSError *) =
+   ^(UIPrintInteractionController *printController,
+     BOOL completed, NSError *error) {
+      if (!completed && error) {
+         NSLog(@"FAILED! due to error in domain %@ with error code %ld",
+               error.domain, (long)error.code);
+      }
+   };
+   
+   [printController presentAnimated:YES
+                  completionHandler:completionHandler];
+}
 @end
