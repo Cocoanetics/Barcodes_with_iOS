@@ -7,8 +7,9 @@
 //
 
 #import "ViewController.h"
+#import "QRCodeSheetRenderer.h"
 
-@interface ViewController ()
+@interface ViewController () <UIPrintInteractionControllerDelegate>
 
 @end
 
@@ -91,6 +92,17 @@
    self.imageView.image = scaledImage;
 }
 
+
+#pragma mark - UIPrintInteractionControllerDelegate
+
+- (UIPrintPaper *)printInteractionController:
+              (UIPrintInteractionController *)printInteractionController
+                                 choosePaper:(NSArray *)papers {
+   CGSize requiredSize = CGSizeMake(8.5 * 72, 11 * 72);
+   return [UIPrintPaper bestPaperForPageSize:requiredSize
+                         withPapersFromArray:papers];
+}
+
 #pragma mark - Actions
 
 - (IBAction)sliderChanged:(UISlider *)sender {
@@ -103,15 +115,19 @@
 
 - (IBAction)print:(UIButton *)sender {
    UIPrintInfo *printInfo = [UIPrintInfo printInfo];
-   printInfo.outputType = UIPrintInfoOutputGrayscale;
+   printInfo.outputType = UIPrintInfoOutputGeneral;
    printInfo.jobName = @"QR Codes";
    printInfo.duplex = UIPrintInfoDuplexNone;
+   
+   QRCodeSheetRenderer *renderer = [[QRCodeSheetRenderer alloc] init];
+   renderer.image = self.imageView.image;
    
    UIPrintInteractionController *printController =
    [UIPrintInteractionController sharedPrintController];
    printController.printInfo = printInfo;
    printController.showsPageRange = NO;
-   printController.printingItem = self.imageView.image;
+   printController.printPageRenderer = renderer;
+   printController.delegate = self;
    
    void (^completionHandler)(UIPrintInteractionController *,
                              BOOL, NSError *) =

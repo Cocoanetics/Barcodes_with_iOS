@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A782058B18B4BDCD00F95F48 /* QRCodeSheetRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = A782058A18B4BDCD00F95F48 /* QRCodeSheetRenderer.m */; };
 		A7EFF8B818ACDBEB00060273 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7EFF8B718ACDBEB00060273 /* Foundation.framework */; };
 		A7EFF8BA18ACDBEB00060273 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7EFF8B918ACDBEB00060273 /* CoreGraphics.framework */; };
 		A7EFF8BC18ACDBEB00060273 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7EFF8BB18ACDBEB00060273 /* UIKit.framework */; };
@@ -20,6 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A782058918B4BDCD00F95F48 /* QRCodeSheetRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRCodeSheetRenderer.h; sourceTree = "<group>"; };
+		A782058A18B4BDCD00F95F48 /* QRCodeSheetRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRCodeSheetRenderer.m; sourceTree = "<group>"; };
 		A7EFF8B418ACDBEB00060273 /* QRBuilder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QRBuilder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7EFF8B718ACDBEB00060273 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A7EFF8B918ACDBEB00060273 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -95,6 +98,8 @@
 				A7EFF8BE18ACDBEB00060273 /* Supporting Files */,
 				A7FCC03818B25C7100848F00 /* DTBarcodeImageView.h */,
 				A7FCC03918B25C7100848F00 /* DTBarcodeImageView.m */,
+				A782058918B4BDCD00F95F48 /* QRCodeSheetRenderer.h */,
+				A782058A18B4BDCD00F95F48 /* QRCodeSheetRenderer.m */,
 			);
 			path = QRBuilder;
 			sourceTree = "<group>";
@@ -175,6 +180,7 @@
 			files = (
 				A7EFF8CE18ACDBEB00060273 /* ViewController.m in Sources */,
 				A7FCC03A18B25C7100848F00 /* DTBarcodeImageView.m in Sources */,
+				A782058B18B4BDCD00F95F48 /* QRCodeSheetRenderer.m in Sources */,
 				A7EFF8C818ACDBEB00060273 /* AppDelegate.m in Sources */,
 				A7EFF8C418ACDBEB00060273 /* main.m in Sources */,
 			);
