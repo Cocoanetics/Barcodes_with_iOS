@@ -504,7 +504,7 @@
 				INFOPLIST_FILE = "SerialSticker/SerialSticker-Info.plist";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "../../BarCodeKit/**";
+				USER_HEADER_SEARCH_PATHS = "../BarCodeKit/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -519,7 +519,7 @@
 				INFOPLIST_FILE = "SerialSticker/SerialSticker-Info.plist";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "../../BarCodeKit/**";
+				USER_HEADER_SEARCH_PATHS = "../BarCodeKit/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
