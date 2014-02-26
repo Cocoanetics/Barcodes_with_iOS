@@ -1,0 +1,3 @@
+[submodule "BarCodeKit"]
+	path = BarCodeKit
+	url = git@git.cocoanetics.com:parts/barcodekit.git
