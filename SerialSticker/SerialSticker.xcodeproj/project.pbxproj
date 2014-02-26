@@ -20,6 +20,7 @@
 		A7F763F818BE1E2F0098623A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7F763DA18BE1E2F0098623A /* UIKit.framework */; };
 		A7F7640018BE1E2F0098623A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A7F763FE18BE1E2F0098623A /* InfoPlist.strings */; };
 		A7F7640218BE1E2F0098623A /* SerialStickerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F7640118BE1E2F0098623A /* SerialStickerTests.m */; };
+		A7F7642518BE24DC0098623A /* libBarCodeKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7F7641C18BE20F10098623A /* libBarCodeKit.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,6 +109,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7F7642518BE24DC0098623A /* libBarCodeKit.a in Frameworks */,
 				A7F763D918BE1E2F0098623A /* CoreGraphics.framework in Frameworks */,
 				A7F763DB18BE1E2F0098623A /* UIKit.framework in Frameworks */,
 				A7F763D718BE1E2F0098623A /* Foundation.framework in Frameworks */,
@@ -500,7 +502,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SerialSticker/SerialSticker-Prefix.pch";
 				INFOPLIST_FILE = "SerialSticker/SerialSticker-Info.plist";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "../../BarCodeKit/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -513,7 +517,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SerialSticker/SerialSticker-Prefix.pch";
 				INFOPLIST_FILE = "SerialSticker/SerialSticker-Info.plist";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "../../BarCodeKit/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
