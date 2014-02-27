@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A7EB0BEF18BF4F9500F59B54 /* BarCodeStickerRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = A7EB0BEE18BF4F9500F59B54 /* BarCodeStickerRenderer.m */; };
 		A7F763D718BE1E2F0098623A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7F763D618BE1E2F0098623A /* Foundation.framework */; };
 		A7F763D918BE1E2F0098623A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7F763D818BE1E2F0098623A /* CoreGraphics.framework */; };
 		A7F763DB18BE1E2F0098623A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7F763DA18BE1E2F0098623A /* UIKit.framework */; };
@@ -15,22 +16,10 @@
 		A7F763EA18BE1E2F0098623A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7F763E818BE1E2F0098623A /* Main.storyboard */; };
 		A7F763ED18BE1E2F0098623A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F763EC18BE1E2F0098623A /* ViewController.m */; };
 		A7F763EF18BE1E2F0098623A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7F763EE18BE1E2F0098623A /* Images.xcassets */; };
-		A7F763F618BE1E2F0098623A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7F763F518BE1E2F0098623A /* XCTest.framework */; };
-		A7F763F718BE1E2F0098623A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7F763D618BE1E2F0098623A /* Foundation.framework */; };
-		A7F763F818BE1E2F0098623A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7F763DA18BE1E2F0098623A /* UIKit.framework */; };
-		A7F7640018BE1E2F0098623A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A7F763FE18BE1E2F0098623A /* InfoPlist.strings */; };
-		A7F7640218BE1E2F0098623A /* SerialStickerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F7640118BE1E2F0098623A /* SerialStickerTests.m */; };
 		A7F7642518BE24DC0098623A /* libBarCodeKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7F7641C18BE20F10098623A /* libBarCodeKit.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		A7F763F918BE1E2F0098623A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A7F763CB18BE1E2F0098623A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = A7F763D218BE1E2F0098623A;
-			remoteInfo = SerialSticker;
-		};
 		A7F7641718BE20F10098623A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A7F7640C18BE20F10098623A /* BarCodeKit.xcodeproj */;
@@ -83,6 +72,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A7EB0BED18BF4F9500F59B54 /* BarCodeStickerRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BarCodeStickerRenderer.h; sourceTree = "<group>"; };
+		A7EB0BEE18BF4F9500F59B54 /* BarCodeStickerRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BarCodeStickerRenderer.m; sourceTree = "<group>"; };
 		A7F763D318BE1E2F0098623A /* SerialSticker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SerialSticker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7F763D618BE1E2F0098623A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A7F763D818BE1E2F0098623A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -96,11 +87,7 @@
 		A7F763EB18BE1E2F0098623A /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		A7F763EC18BE1E2F0098623A /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		A7F763EE18BE1E2F0098623A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		A7F763F418BE1E2F0098623A /* SerialStickerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SerialStickerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7F763F518BE1E2F0098623A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		A7F763FD18BE1E2F0098623A /* SerialStickerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SerialStickerTests-Info.plist"; sourceTree = "<group>"; };
-		A7F763FF18BE1E2F0098623A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		A7F7640118BE1E2F0098623A /* SerialStickerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SerialStickerTests.m; sourceTree = "<group>"; };
 		A7F7640C18BE20F10098623A /* BarCodeKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BarCodeKit.xcodeproj; path = ../BarCodeKit/BarCodeKit.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -116,16 +103,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A7F763F118BE1E2F0098623A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A7F763F618BE1E2F0098623A /* XCTest.framework in Frameworks */,
-				A7F763F818BE1E2F0098623A /* UIKit.framework in Frameworks */,
-				A7F763F718BE1E2F0098623A /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -134,7 +111,6 @@
 			children = (
 				A7F7640B18BE204A0098623A /* Externals */,
 				A7F763DC18BE1E2F0098623A /* SerialSticker */,
-				A7F763FB18BE1E2F0098623A /* SerialStickerTests */,
 				A7F763D518BE1E2F0098623A /* Frameworks */,
 				A7F763D418BE1E2F0098623A /* Products */,
 			);
@@ -144,7 +120,6 @@
 			isa = PBXGroup;
 			children = (
 				A7F763D318BE1E2F0098623A /* SerialSticker.app */,
-				A7F763F418BE1E2F0098623A /* SerialStickerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -168,6 +143,8 @@
 				A7F763E818BE1E2F0098623A /* Main.storyboard */,
 				A7F763EB18BE1E2F0098623A /* ViewController.h */,
 				A7F763EC18BE1E2F0098623A /* ViewController.m */,
+				A7EB0BED18BF4F9500F59B54 /* BarCodeStickerRenderer.h */,
+				A7EB0BEE18BF4F9500F59B54 /* BarCodeStickerRenderer.m */,
 				A7F763EE18BE1E2F0098623A /* Images.xcassets */,
 				A7F763DD18BE1E2F0098623A /* Supporting Files */,
 			);
@@ -180,24 +157,6 @@
 				A7F763DE18BE1E2F0098623A /* SerialSticker-Info.plist */,
 				A7F763E218BE1E2F0098623A /* main.m */,
 				A7F763E418BE1E2F0098623A /* SerialSticker-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		A7F763FB18BE1E2F0098623A /* SerialStickerTests */ = {
-			isa = PBXGroup;
-			children = (
-				A7F7640118BE1E2F0098623A /* SerialStickerTests.m */,
-				A7F763FC18BE1E2F0098623A /* Supporting Files */,
-			);
-			path = SerialStickerTests;
-			sourceTree = "<group>";
-		};
-		A7F763FC18BE1E2F0098623A /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				A7F763FD18BE1E2F0098623A /* SerialStickerTests-Info.plist */,
-				A7F763FE18BE1E2F0098623A /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -244,24 +203,6 @@
 			productReference = A7F763D318BE1E2F0098623A /* SerialSticker.app */;
 			productType = "com.apple.product-type.application";
 		};
-		A7F763F318BE1E2F0098623A /* SerialStickerTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = A7F7640818BE1E2F0098623A /* Build configuration list for PBXNativeTarget "SerialStickerTests" */;
-			buildPhases = (
-				A7F763F018BE1E2F0098623A /* Sources */,
-				A7F763F118BE1E2F0098623A /* Frameworks */,
-				A7F763F218BE1E2F0098623A /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				A7F763FA18BE1E2F0098623A /* PBXTargetDependency */,
-			);
-			name = SerialStickerTests;
-			productName = SerialStickerTests;
-			productReference = A7F763F418BE1E2F0098623A /* SerialStickerTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -270,11 +211,6 @@
 			attributes = {
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = Cocoanetics;
-				TargetAttributes = {
-					A7F763F318BE1E2F0098623A = {
-						TestTargetID = A7F763D218BE1E2F0098623A;
-					};
-				};
 			};
 			buildConfigurationList = A7F763CE18BE1E2F0098623A /* Build configuration list for PBXProject "SerialSticker" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -296,7 +232,6 @@
 			projectRoot = "";
 			targets = (
 				A7F763D218BE1E2F0098623A /* SerialSticker */,
-				A7F763F318BE1E2F0098623A /* SerialStickerTests */,
 			);
 		};
 /* End PBXProject section */
@@ -363,14 +298,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A7F763F218BE1E2F0098623A /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A7F7640018BE1E2F0098623A /* InfoPlist.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -380,27 +307,12 @@
 			files = (
 				A7F763ED18BE1E2F0098623A /* ViewController.m in Sources */,
 				A7F763E718BE1E2F0098623A /* AppDelegate.m in Sources */,
+				A7EB0BEF18BF4F9500F59B54 /* BarCodeStickerRenderer.m in Sources */,
 				A7F763E318BE1E2F0098623A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A7F763F018BE1E2F0098623A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A7F7640218BE1E2F0098623A /* SerialStickerTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		A7F763FA18BE1E2F0098623A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = A7F763D218BE1E2F0098623A /* SerialSticker */;
-			targetProxy = A7F763F918BE1E2F0098623A /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		A7F763E818BE1E2F0098623A /* Main.storyboard */ = {
@@ -409,14 +321,6 @@
 				A7F763E918BE1E2F0098623A /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		A7F763FE18BE1E2F0098623A /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A7F763FF18BE1E2F0098623A /* en */,
-			);
-			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -524,48 +428,6 @@
 			};
 			name = Release;
 		};
-		A7F7640918BE1E2F0098623A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SerialSticker.app/SerialSticker";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "SerialSticker/SerialSticker-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "SerialStickerTests/SerialStickerTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		A7F7640A18BE1E2F0098623A /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SerialSticker.app/SerialSticker";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "SerialSticker/SerialSticker-Prefix.pch";
-				INFOPLIST_FILE = "SerialStickerTests/SerialStickerTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -583,15 +445,6 @@
 			buildConfigurations = (
 				A7F7640618BE1E2F0098623A /* Debug */,
 				A7F7640718BE1E2F0098623A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		A7F7640818BE1E2F0098623A /* Build configuration list for PBXNativeTarget "SerialStickerTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				A7F7640918BE1E2F0098623A /* Debug */,
-				A7F7640A18BE1E2F0098623A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

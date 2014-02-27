@@ -7,8 +7,9 @@
 //
 
 #import "ViewController.h"
+#import "BarCodeStickerRenderer.h"
 
-@interface ViewController ()
+@interface ViewController () <UIPrintInteractionControllerDelegate>
 
 @end
 
@@ -24,17 +25,17 @@
 
 
 - (NSUInteger)_maxBarScaleThatFitsCode:(BCKCode *)code
+                                inSize:(CGSize)size
 {
-   CGSize maxSize = self.imageView.frame.size;
    NSInteger retScale = 1;
 
    for (NSUInteger scale=1;;scale++)
    {
       NSDictionary *options = @{BCKCodeDrawingBarScaleOption: @(scale)};
-      CGSize size = [code sizeWithRenderOptions:options];
+      CGSize neededSize = [code sizeWithRenderOptions:options];
       
-      if (size.width > maxSize.width
-          || size.height > maxSize.height) {
+      if (neededSize.width > size.width
+          || neededSize.height > size.height) {
          return retScale;
       }
       
@@ -49,13 +50,14 @@
       return;
    }
    
-   NSInteger barScale = [self _maxBarScaleThatFitsCode:code];
+   NSInteger barScale = [self _maxBarScaleThatFitsCode:code
+                                      inSize:self.imageView.frame.size];
    NSDictionary *options = @{BCKCodeDrawingBarScaleOption: @(barScale)};
    UIImage *image = [UIImage imageWithBarCode:code options:options];
    self.imageView.image = image;
 }
 
-- (void)_updateCodeFromTextField
+- (BCKCode *)_currentBarcodeFromTextField
 {
    NSError *error;
    BCKCode93Code *code = [[BCKCode93Code alloc] initWithContent:
@@ -65,16 +67,71 @@
       NSLog(@"%@", [error localizedDescription]);
    }
    
-   [self _updatePreviewFromCode:code];
+   return code;
 }
 
-
-- (IBAction)print:(UIButton *)sender {
-   NSLog(@"Print pushed");
+- (void)_updateCodeFromTextField
+{
+   BCKCode *barcode = [self _currentBarcodeFromTextField];
+   [self _updatePreviewFromCode:barcode];
 }
+
+#pragma mark - UIPrintInteractionControllerDelegate
+
+- (UIPrintPaper *)printInteractionController:
+(UIPrintInteractionController *)printInteractionController
+                                 choosePaper:(NSArray *)papers {
+   CGSize requiredSize = CGSizeMake(2 * 72, 2 * 72);
+   return [UIPrintPaper bestPaperForPageSize:requiredSize
+                         withPapersFromArray:papers];
+}
+
+- (CGFloat)printInteractionController:(UIPrintInteractionController *)printInteractionController cutLengthForPaper:(UIPrintPaper *)paper
+{
+   BarCodeStickerRenderer *renderer = (BarCodeStickerRenderer *)
+                           printInteractionController.printPageRenderer;
+   
+   
+   return [renderer cutLengthForRollWidth:paper.paperSize.width];
+}
+
+#pragma mark - Actions
 
 - (IBAction)textFieldChanged:(UITextField *)sender {
    [self _updateCodeFromTextField];
+}
+
+- (IBAction)print:(UIButton *)sender {
+   UIPrintInfo *printInfo = [UIPrintInfo printInfo];
+   printInfo.outputType = UIPrintInfoOutputGeneral;
+   printInfo.jobName = @"QR Codes";
+   printInfo.duplex = UIPrintInfoDuplexNone;
+   
+   printInfo.orientation = UIPrintInfoOrientationLandscape;
+   
+   BarCodeStickerRenderer *renderer = [[BarCodeStickerRenderer alloc]
+                                       init];
+   renderer.barcode = [self _currentBarcodeFromTextField];
+   
+   UIPrintInteractionController *printController =
+   [UIPrintInteractionController sharedPrintController];
+   printController.printInfo = printInfo;
+   printController.showsPageRange = NO;
+   printController.printPageRenderer = renderer;
+   printController.delegate = self;
+   
+   void (^completionHandler)(UIPrintInteractionController *,
+                             BOOL, NSError *) =
+   ^(UIPrintInteractionController *printController,
+     BOOL completed, NSError *error) {
+      if (!completed && error) {
+         NSLog(@"FAILED! due to error in domain %@ with error code %ld",
+               error.domain, (long)error.code);
+      }
+   };
+   
+   [printController presentAnimated:YES
+                  completionHandler:completionHandler];
 }
 
 @end
