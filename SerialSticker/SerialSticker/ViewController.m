@@ -46,20 +46,12 @@
    NSInteger barScale = BCKCodeMaxBarScaleThatFitsCodeInSize(barcode,
                                              self.imageView.frame.size,
                                                              nil);
-   NSDictionary *options = @{BCKCodeDrawingBarScaleOption: @(barScale), BCKCodeDrawingDebugOption: @(YES)};
+   NSDictionary *options = @{BCKCodeDrawingBarScaleOption: @(barScale)};
    UIImage *image = [UIImage imageWithBarCode:barcode options:options];
    self.imageView.image = image;
 }
 
 #pragma mark - UIPrintInteractionControllerDelegate
-
-- (UIPrintPaper *)printInteractionController:
-(UIPrintInteractionController *)printInteractionController
-                                 choosePaper:(NSArray *)papers {
-   CGSize requiredSize = CGSizeMake(2 * 72, 2 * 72);
-   return [UIPrintPaper bestPaperForPageSize:requiredSize
-                         withPapersFromArray:papers];
-}
 
 - (CGFloat)printInteractionController:
            (UIPrintInteractionController *)printInteractionController

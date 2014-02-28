@@ -21,7 +21,6 @@
       BCKCodeMaxBarScaleThatFitsCodeInSize(self.barcode,
                                            fitSize,
                                            nil);
-   
    NSDictionary *options = @{BCKCodeDrawingBarScaleOption: @(barScale)};
    CGSize neededSize = [self.barcode sizeWithRenderOptions:options];
    
@@ -30,9 +29,15 @@
 
 - (void)drawContentForPageAtIndex:(NSInteger)pageIndex
                            inRect:(CGRect)contentRect {
+   
+   // pageRect might come in less than cut length, so we round up
+   CGSize fitSize = self.paperRect.size;
+   fitSize.width = ceilf(fitSize.width);
+   fitSize.height = ceilf(fitSize.height);
+   
    NSUInteger barScale =
       BCKCodeMaxBarScaleThatFitsCodeInSize(self.barcode,
-                                           self.paperRect.size,
+                                           fitSize,
                                            nil);
 
    NSDictionary *options = @{BCKCodeDrawingBarScaleOption: @(barScale)};
