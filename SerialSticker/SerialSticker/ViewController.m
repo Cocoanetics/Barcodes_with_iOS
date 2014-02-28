@@ -47,7 +47,8 @@
    }
    
    NSInteger barScale = BCKCodeMaxBarScaleThatFitsCodeInSize(barcode,
-                                             self.imageView.frame.size);
+                                             self.imageView.frame.size,
+                                                             nil);
    NSDictionary *options = @{BCKCodeDrawingBarScaleOption: @(barScale)};
    UIImage *image = [UIImage imageWithBarCode:barcode options:options];
    self.imageView.image = image;

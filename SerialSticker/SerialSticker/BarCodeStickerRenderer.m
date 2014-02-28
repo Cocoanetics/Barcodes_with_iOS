@@ -19,7 +19,8 @@
    CGSize fitSize = CGSizeMake(CGFLOAT_MAX, width);
    NSUInteger barScale =
       BCKCodeMaxBarScaleThatFitsCodeInSize(self.barcode,
-                                           fitSize);
+                                           fitSize,
+                                           nil);
    
    NSDictionary *options = @{BCKCodeDrawingBarScaleOption: @(barScale)};
    CGSize neededSize = [self.barcode sizeWithRenderOptions:options];
@@ -31,7 +32,8 @@
                            inRect:(CGRect)contentRect {
    NSUInteger barScale =
       BCKCodeMaxBarScaleThatFitsCodeInSize(self.barcode,
-                                           self.paperRect.size);
+                                           self.paperRect.size,
+                                           nil);
 
    NSDictionary *options = @{BCKCodeDrawingBarScaleOption: @(barScale)};
    UIImage *image = [UIImage imageWithBarCode:self.barcode
