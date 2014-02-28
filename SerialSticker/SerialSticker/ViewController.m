@@ -20,42 +20,9 @@
     [super viewDidLoad];
    
    self.textField.text = @"1234567890";
-   [self _updateCodeFromTextField];
+   [self _updatePreviewImage];
 }
 
-
-- (NSUInteger)_maxBarScaleThatFitsCode:(BCKCode *)code
-                                inSize:(CGSize)size
-{
-   NSInteger retScale = 1;
-
-   for (NSUInteger scale=1;;scale++)
-   {
-      NSDictionary *options = @{BCKCodeDrawingBarScaleOption: @(scale)};
-      CGSize neededSize = [code sizeWithRenderOptions:options];
-      
-      if (neededSize.width > size.width
-          || neededSize.height > size.height) {
-         return retScale;
-      }
-      
-      retScale = scale;
-   }
-}
-
-- (void)_updatePreviewFromCode:(BCKCode *)code
-{
-   if (!code) {
-      self.imageView.image = nil;
-      return;
-   }
-   
-   NSInteger barScale = [self _maxBarScaleThatFitsCode:code
-                                      inSize:self.imageView.frame.size];
-   NSDictionary *options = @{BCKCodeDrawingBarScaleOption: @(barScale)};
-   UIImage *image = [UIImage imageWithBarCode:code options:options];
-   self.imageView.image = image;
-}
 
 - (BCKCode *)_currentBarcodeFromTextField
 {
@@ -70,10 +37,20 @@
    return code;
 }
 
-- (void)_updateCodeFromTextField
+- (void)_updatePreviewImage
 {
    BCKCode *barcode = [self _currentBarcodeFromTextField];
-   [self _updatePreviewFromCode:barcode];
+   
+   if (!barcode) {
+      self.imageView.image = nil;
+      return;
+   }
+   
+   NSInteger barScale = BCKCodeMaxBarScaleThatFitsCodeInSize(barcode,
+                                             self.imageView.frame.size);
+   NSDictionary *options = @{BCKCodeDrawingBarScaleOption: @(barScale)};
+   UIImage *image = [UIImage imageWithBarCode:barcode options:options];
+   self.imageView.image = image;
 }
 
 #pragma mark - UIPrintInteractionControllerDelegate
@@ -86,11 +63,12 @@
                          withPapersFromArray:papers];
 }
 
-- (CGFloat)printInteractionController:(UIPrintInteractionController *)printInteractionController cutLengthForPaper:(UIPrintPaper *)paper
+- (CGFloat)printInteractionController:
+           (UIPrintInteractionController *)printInteractionController
+                    cutLengthForPaper:(UIPrintPaper *)paper
 {
    BarCodeStickerRenderer *renderer = (BarCodeStickerRenderer *)
                            printInteractionController.printPageRenderer;
-   
    
    return [renderer cutLengthForRollWidth:paper.paperSize.width];
 }
@@ -98,13 +76,13 @@
 #pragma mark - Actions
 
 - (IBAction)textFieldChanged:(UITextField *)sender {
-   [self _updateCodeFromTextField];
+   [self _updatePreviewImage];
 }
 
 - (IBAction)print:(UIButton *)sender {
    UIPrintInfo *printInfo = [UIPrintInfo printInfo];
    printInfo.outputType = UIPrintInfoOutputGeneral;
-   printInfo.jobName = @"QR Codes";
+   printInfo.jobName = @"Code93 Sticker";
    printInfo.duplex = UIPrintInfoDuplexNone;
    
    printInfo.orientation = UIPrintInfoOrientationLandscape;

@@ -14,34 +14,12 @@
    return 1;
 }
 
-- (NSUInteger)_maxBarScaleThatFitsCode:(BCKCode *)code
-                                inSize:(CGSize)size
-{
-   NSInteger retScale = 1;
-   
-   // round up the size, there is a rounding problem with cut length
-   size.width = ceilf(size.width);
-   size.height = ceilf(size.height);
-   
-   for (NSUInteger scale=1;;scale++)
-   {
-      NSDictionary *options = @{BCKCodeDrawingBarScaleOption: @(scale)};
-      CGSize neededSize = [code sizeWithRenderOptions:options];
-      
-      if (neededSize.width > size.width
-          || neededSize.height > size.height) {
-         return retScale;
-      }
-      
-      retScale = scale;
-   }
-}
-
 - (CGFloat)cutLengthForRollWidth:(CGFloat)width
 {
    CGSize fitSize = CGSizeMake(CGFLOAT_MAX, width);
-   NSUInteger barScale = [self _maxBarScaleThatFitsCode:self.barcode
-                                                 inSize:fitSize];
+   NSUInteger barScale =
+      BCKCodeMaxBarScaleThatFitsCodeInSize(self.barcode,
+                                           fitSize);
    
    NSDictionary *options = @{BCKCodeDrawingBarScaleOption: @(barScale)};
    CGSize neededSize = [self.barcode sizeWithRenderOptions:options];
@@ -51,9 +29,10 @@
 
 - (void)drawContentForPageAtIndex:(NSInteger)pageIndex
                            inRect:(CGRect)contentRect {
-   NSUInteger barScale = [self _maxBarScaleThatFitsCode:self.barcode
-                                      inSize:self.paperRect.size];
-   
+   NSUInteger barScale =
+      BCKCodeMaxBarScaleThatFitsCodeInSize(self.barcode,
+                                           self.paperRect.size);
+
    NSDictionary *options = @{BCKCodeDrawingBarScaleOption: @(barScale)};
    UIImage *image = [UIImage imageWithBarCode:self.barcode
                                       options:options];
