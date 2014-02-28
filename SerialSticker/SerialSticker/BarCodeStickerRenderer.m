@@ -36,14 +36,19 @@
                                            nil);
 
    NSDictionary *options = @{BCKCodeDrawingBarScaleOption: @(barScale)};
-   UIImage *image = [UIImage imageWithBarCode:self.barcode
-                                      options:options];
    
+   CGSize barcodeSize = [self.barcode sizeWithRenderOptions:options];
    CGPoint origin = CGPointMake((self.paperRect.size.width -
-                                        image.size.width)/2.0,
+                                 barcodeSize.width)/2.0,
                                 (self.paperRect.size.height -
-                                        image.size.height)/2.0);
-   [image drawAtPoint:origin];
+                                 barcodeSize.height)/2.0);
+   
+   CGContextRef ctx = UIGraphicsGetCurrentContext();
+   
+   // position context translation matrix to center barcode
+   CGContextTranslateCTM(ctx, origin.x, origin.y);
+   
+   [self.barcode renderInContext:ctx options:options];
 }
 
 @end

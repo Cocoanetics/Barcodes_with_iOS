@@ -15,20 +15,18 @@
 
 @implementation ViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
    
    self.textField.text = @"1234567890";
    [self _updatePreviewImage];
 }
 
-
-- (BCKCode *)_currentBarcodeFromTextField
-{
+- (BCKCode *)_currentBarcodeFromTextField {
    NSError *error;
-   BCKCode93Code *code = [[BCKCode93Code alloc] initWithContent:
-                          self.textField.text error:&error];
+   BCKCode93Code *code = [[BCKCode93Code alloc]
+                          initWithContent:self.textField.text
+                                    error:&error];
    
    if (!code) {
       NSLog(@"%@", [error localizedDescription]);
@@ -37,8 +35,7 @@
    return code;
 }
 
-- (void)_updatePreviewImage
-{
+- (void)_updatePreviewImage {
    BCKCode *barcode = [self _currentBarcodeFromTextField];
    
    if (!barcode) {
@@ -49,7 +46,7 @@
    NSInteger barScale = BCKCodeMaxBarScaleThatFitsCodeInSize(barcode,
                                              self.imageView.frame.size,
                                                              nil);
-   NSDictionary *options = @{BCKCodeDrawingBarScaleOption: @(barScale)};
+   NSDictionary *options = @{BCKCodeDrawingBarScaleOption: @(barScale), BCKCodeDrawingDebugOption: @(YES)};
    UIImage *image = [UIImage imageWithBarCode:barcode options:options];
    self.imageView.image = image;
 }
