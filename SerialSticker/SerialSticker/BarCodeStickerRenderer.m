@@ -40,7 +40,9 @@
                                            fitSize,
                                            nil);
 
-   NSDictionary *options = @{BCKCodeDrawingBarScaleOption: @(barScale)};
+   // reduce bleed option to improve fidelity on thermo printer
+   NSDictionary *options = @{BCKCodeDrawingBarScaleOption: @(barScale),
+                             BCKCodeDrawingReduceBleedOption: @(YES)};
    
    CGSize barcodeSize = [self.barcode sizeWithRenderOptions:options];
    CGPoint origin = CGPointMake((self.paperRect.size.width -

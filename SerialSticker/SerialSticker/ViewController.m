@@ -47,6 +47,8 @@
                                              self.imageView.frame.size,
                                                              nil);
    NSDictionary *options = @{BCKCodeDrawingBarScaleOption: @(barScale)};
+   
+   barScale = 1;
    UIImage *image = [UIImage imageWithBarCode:barcode options:options];
    self.imageView.image = image;
 }
@@ -71,7 +73,9 @@
 
 - (IBAction)print:(UIButton *)sender {
    UIPrintInfo *printInfo = [UIPrintInfo printInfo];
-   printInfo.outputType = UIPrintInfoOutputGeneral;
+   
+   // photo grayscale improves resolution on printing
+   printInfo.outputType = UIPrintInfoOutputPhotoGrayscale;
    printInfo.jobName = @"Code93 Sticker";
    printInfo.duplex = UIPrintInfoDuplexNone;
    
