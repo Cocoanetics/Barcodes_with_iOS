@@ -33,12 +33,17 @@
    
    CGSize size = CGSizeMake(image.extent.size.width * scale,
                             image.extent.size.height * scale);
-   UIGraphicsBeginImageContext(size);
+   UIGraphicsBeginImageContextWithOptions(size, YES, 0);
    
    CGContextRef context = UIGraphicsGetCurrentContext();
    
    // We don't want to interpolate
    CGContextSetInterpolationQuality(context, kCGInterpolationNone);
+   
+   // flip coordinates so that upper side of QR codes has two boxes
+   CGAffineTransform flip = CGAffineTransformMake(1, 0, 0, -1, 0,
+                                                  size.height);
+   CGContextConcatCTM(context, flip);
    
    CGRect bounds = CGContextGetClipBoundingBox(context);
    CGContextDrawImage(context, bounds, cgImage);
@@ -63,18 +68,22 @@
    
    switch (errorCorrLevel) {
       case 0:
+         NSLog(@"L");
          [code setValue:@"L"
                  forKey:@"inputCorrectionLevel"];
          break;
       default:
+         NSLog(@"M");
          [code setValue:@"M"
                  forKey:@"inputCorrectionLevel"];
          break;
       case 2:
+         NSLog(@"Q");
          [code setValue:@"Q"
                  forKey:@"inputCorrectionLevel"];
          break;
       case 3:
+         NSLog(@"H");
          [code setValue:@"H"
                  forKey:@"inputCorrectionLevel"];
          break;
