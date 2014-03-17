@@ -68,22 +68,18 @@
    
    switch (errorCorrLevel) {
       case 0:
-         NSLog(@"L");
          [code setValue:@"L"
                  forKey:@"inputCorrectionLevel"];
          break;
       default:
-         NSLog(@"M");
          [code setValue:@"M"
                  forKey:@"inputCorrectionLevel"];
          break;
       case 2:
-         NSLog(@"Q");
          [code setValue:@"Q"
                  forKey:@"inputCorrectionLevel"];
          break;
       case 3:
-         NSLog(@"H");
          [code setValue:@"H"
                  forKey:@"inputCorrectionLevel"];
          break;
