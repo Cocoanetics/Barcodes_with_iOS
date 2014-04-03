@@ -7,6 +7,7 @@
 //
 
 #import "DTDiscogs.h"
+#import "MockedURLProtocol.h"
 
 #define API_ENDPOINT @"http://api.discogs.com"
 
@@ -19,8 +20,29 @@
 @implementation DTDiscogs
 {
    NSURLSession *_session;
+   NSURLSessionConfiguration *_configuration;
 }
 
+- (instancetype)initWithSessionConfiguration:
+                              (NSURLSessionConfiguration *)configuration
+{
+   self = [super init];
+   
+   if (self)
+   {
+      _configuration = configuration;
+   }
+   
+   return self;
+}
+
+- (instancetype)init
+{
+   // use ephemeral config, we need no caching
+   NSURLSessionConfiguration *config =
+              [NSURLSessionConfiguration ephemeralSessionConfiguration];
+   return [self initWithSessionConfiguration:config];
+}
 
 // turns the API_ENDPOINT into NSURL
 - (NSURL *)_endpointURL
@@ -35,6 +57,22 @@
                  relativeToURL:[self _endpointURL]];
 }
 
+// construct a suitable error
+- (NSError *)_errorWithCode:(NSUInteger)code
+                          message:(NSString *)message
+{
+   NSDictionary *userInfo;
+   
+   if (message)
+   {
+      userInfo = @{NSLocalizedDescriptionKey : message};
+   }
+   
+   return [NSError errorWithDomain:@"DTDiscogs"
+                                  code:code
+                              userInfo:userInfo];
+}
+
 // internal method that executes actual API calls
 - (void)_performMethodCallWithPath:(NSString *)path
                         completion:(DTDiscogsCompletion)completion
@@ -46,8 +84,8 @@
                                  dataTaskWithRequest:request
                                  completionHandler:^(NSData *data,
                                                 NSURLResponse *response,
-                                                     NSError *error) {
-      
+                                                     NSError *error)
+   {
       NSError *retError = error;
       id result = nil;
       
@@ -60,13 +98,14 @@
       }
       
       // check if we stayed on API endpoint (invalid host might be redirected via OpenDNS)
-      NSString *host = [request.URL host];
+      NSString *calledHost = [methodURL host];
+      NSString *responseHost = [response.URL host];
       
-      if (![[methodURL host] isEqualToString:host])
+      if (![responseHost isEqualToString:calledHost])
       {
          NSString *msg = [NSString stringWithFormat:
-                          @"Invalid API Endpoint '%@'",
-                          API_ENDPOINT];
+                          @"Expected result host to be '%@' but was '%@'",
+                          calledHost, responseHost];
          NSDictionary *userInfo = @{NSLocalizedDescriptionKey: msg};
          retError = [NSError errorWithDomain:@"DTDiscogs" code:999
                                     userInfo:userInfo];
@@ -74,30 +113,52 @@
          
          return;
       }
+                                    
+//      NSArray *writablePaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//      NSString *documentsPath = [writablePaths lastObject];
+//      NSString *fileInDocuments = [documentsPath stringByAppendingPathComponent:@"data.txt"];
+//      
+//      [data writeToFile:fileInDocuments atomically:NO];
       
-      // parse either way, also API errors return a JSON response
-      result = [NSJSONSerialization JSONObjectWithData:data
-                                               options:0
-                                                 error:&retError];
-      // check for protocol error
-      NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-      
-      if (httpResponse.statusCode >= 400)
+      // needs to be a HTTP response to get the content type and status
+      if ([response isKindOfClass:[NSHTTPURLResponse class]])
       {
-         NSDictionary *userInfo;
-         NSString *message = result[@"message"];
+         // check for protocol error
+         NSHTTPURLResponse *httpResp = (NSHTTPURLResponse *)response;
+         NSDictionary *headers = [httpResp allHeaderFields];
+         NSString *contentType = headers[@"Content-Type"];
          
-         if (message)
+         if ([contentType isEqualToString:@"application/json"])
          {
-            userInfo = @{NSLocalizedDescriptionKey : message};
+            // parse either way, also API errors return a JSON response
+            result = [NSJSONSerialization JSONObjectWithData:data
+                                                     options:0
+                                                       error:&retError];
+         }
+         else
+         {
+            NSString *msg = [NSString stringWithFormat:
+                             @"Incorrect response with type '%@'",
+                             contentType];
+            retError = [self _errorWithCode:999 message:msg];
          }
          
-         retError = [NSError errorWithDomain:@"DTDiscogs"
-                                        code:httpResponse.statusCode
-                                    userInfo:userInfo];
+         if (httpResp.statusCode >= 400)
+         {
+            NSString *message = result[@"message"];
+            
+            retError = [self _errorWithCode:httpResp.statusCode
+                                    message:message];
+            
+            // wipe result, we have the message already in NSError
+            result = nil;
+         }
          
-         // wipe result, we have the message already in NSError
-         result = nil;
+      }
+      else
+      {
+         NSString *msg = @"Response is not an NSHTTPURLResponse";
+         retError = [self _errorWithCode:999 message:msg];
       }
       
       completion(result, retError);
@@ -125,10 +186,7 @@
 {
    if (!_session)
    {
-      // make it ephemeral, we need no caching
-      NSURLSessionConfiguration *conf = [NSURLSessionConfiguration
-                                         ephemeralSessionConfiguration];
-      _session = [NSURLSession sessionWithConfiguration:conf];
+      _session = [NSURLSession sessionWithConfiguration:_configuration];
    }
    
    return _session;

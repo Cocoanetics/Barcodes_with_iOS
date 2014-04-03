@@ -15,9 +15,17 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
    DTDiscogs *discogs = [[DTDiscogs alloc] init];
-   
-   [discogs searchForGTIN:@"077774620420" completion:^(id result, NSError *error) {
-      NSLog(@"%@, %@", result, error);
+   [discogs searchForGTIN:@"077774620420"
+               completion:^(id result, NSError *error) {
+      
+      if (error)
+      {
+         NSLog(@"%@", [error localizedDescription]);
+      }
+      else
+      {
+         NSLog(@"%@", result);
+      }
    }];
    
    

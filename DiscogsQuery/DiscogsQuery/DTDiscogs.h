@@ -16,9 +16,14 @@ typedef void (^DTDiscogsCompletion)(id result, NSError *error);
  */
 @interface DTDiscogs : NSObject
 
+// designated initializer
+- (instancetype)initWithSessionConfiguration:(NSURLSessionConfiguration *)configuration;
+
 /**
  Search for releases on the Discogs database for a GTIN
  */
 - (void)searchForGTIN:(NSString *)gtin completion:(DTDiscogsCompletion)completion;
+
+- (NSURLSession *)session;
 
 @end

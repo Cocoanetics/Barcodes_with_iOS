@@ -22,6 +22,8 @@
 		A7DCED6518ED68F700A41FA9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A7DCED6318ED68F700A41FA9 /* InfoPlist.strings */; };
 		A7DCED6718ED68F700A41FA9 /* DiscogsQueryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A7DCED6618ED68F700A41FA9 /* DiscogsQueryTests.m */; };
 		A7DCED7218ED692F00A41FA9 /* DTDiscogs.m in Sources */ = {isa = PBXBuildFile; fileRef = A7DCED7118ED692F00A41FA9 /* DTDiscogs.m */; };
+		A7DCED7818EDB47600A41FA9 /* query1_response.json in Resources */ = {isa = PBXBuildFile; fileRef = A7DCED7718EDB47600A41FA9 /* query1_response.json */; };
+		A7DCED7918EDB9EF00A41FA9 /* MockedURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = A7DCED7418EDAD8500A41FA9 /* MockedURLProtocol.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +58,9 @@
 		A7DCED6618ED68F700A41FA9 /* DiscogsQueryTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DiscogsQueryTests.m; sourceTree = "<group>"; };
 		A7DCED7018ED692F00A41FA9 /* DTDiscogs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTDiscogs.h; sourceTree = "<group>"; };
 		A7DCED7118ED692F00A41FA9 /* DTDiscogs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTDiscogs.m; sourceTree = "<group>"; };
+		A7DCED7318EDAD8500A41FA9 /* MockedURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MockedURLProtocol.h; sourceTree = "<group>"; };
+		A7DCED7418EDAD8500A41FA9 /* MockedURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MockedURLProtocol.m; sourceTree = "<group>"; };
+		A7DCED7718EDB47600A41FA9 /* query1_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = query1_response.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,8 +147,11 @@
 		A7DCED6018ED68F700A41FA9 /* DiscogsQueryTests */ = {
 			isa = PBXGroup;
 			children = (
+				A7DCED7718EDB47600A41FA9 /* query1_response.json */,
 				A7DCED6618ED68F700A41FA9 /* DiscogsQueryTests.m */,
 				A7DCED6118ED68F700A41FA9 /* Supporting Files */,
+				A7DCED7318EDAD8500A41FA9 /* MockedURLProtocol.h */,
+				A7DCED7418EDAD8500A41FA9 /* MockedURLProtocol.m */,
 			);
 			path = DiscogsQueryTests;
 			sourceTree = "<group>";
@@ -244,6 +252,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A7DCED6518ED68F700A41FA9 /* InfoPlist.strings in Resources */,
+				A7DCED7818EDB47600A41FA9 /* query1_response.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,6 +266,7 @@
 				A7DCED5218ED68F700A41FA9 /* ViewController.m in Sources */,
 				A7DCED4C18ED68F700A41FA9 /* AppDelegate.m in Sources */,
 				A7DCED7218ED692F00A41FA9 /* DTDiscogs.m in Sources */,
+				A7DCED7918EDB9EF00A41FA9 /* MockedURLProtocol.m in Sources */,
 				A7DCED4818ED68F700A41FA9 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
