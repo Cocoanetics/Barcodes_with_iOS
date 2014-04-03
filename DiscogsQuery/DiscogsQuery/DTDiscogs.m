@@ -95,6 +95,8 @@
          retError = [NSError errorWithDomain:@"DTDiscogs"
                                         code:httpResponse.statusCode
                                     userInfo:userInfo];
+         
+         // wipe result, we have the message already in NSError
          result = nil;
       }
       
