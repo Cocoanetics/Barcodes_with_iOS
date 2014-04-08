@@ -52,7 +52,30 @@
 
 // constructs the path for a method call
 - (NSURL *)_methodURLForPath:(NSString *)path
+						parameters:(NSDictionary *)parameters
 {
+	if ([parameters count])
+	{
+		// sort keys to get same order every time
+		NSArray *sortedKeys = [[parameters allKeys] sortedArrayUsingSelector:@selector(compare:)];
+		
+		// construct query string
+		NSMutableArray *tmpArray = [NSMutableArray array];
+	
+		for (NSString *key in sortedKeys)
+		{
+			NSString *value = parameters[key];
+			
+			// TODO: URL-encode
+			NSString *tmpStr = [NSString stringWithFormat:@"%@=%@", key, value];
+			[tmpArray addObject:tmpStr];
+			
+		}
+		
+		// append query to path
+		path = [path stringByAppendingFormat:@"?%@", [tmpArray componentsJoinedByString:@"&"]];
+	}
+	
    return [NSURL URLWithString:path
                  relativeToURL:[self _endpointURL]];
 }
@@ -75,9 +98,10 @@
 
 // internal method that executes actual API calls
 - (void)_performMethodCallWithPath:(NSString *)path
+								parameters:(NSDictionary *)parameters
                         completion:(DTDiscogsCompletion)completion
 {
-   NSURL *methodURL = [self _methodURLForPath:path];
+   NSURL *methodURL = [self _methodURLForPath:path parameters:parameters];
    NSURLRequest *request = [NSURLRequest requestWithURL:methodURL];
    
    NSURLSessionDataTask *task = [self.session
@@ -110,7 +134,6 @@
          retError = [NSError errorWithDomain:@"DTDiscogs" code:999
                                     userInfo:userInfo];
          completion(nil, retError);
-         
          return;
       }
                                     
@@ -171,13 +194,17 @@
 - (void)searchForGTIN:(NSString *)gtin
            completion:(DTDiscogsCompletion)completion
 {
+	// assert that all parameters are not nil
    NSParameterAssert(gtin);
    NSParameterAssert(completion);
    
-   NSString *path = [NSString stringWithFormat:
-                     @"/database/search?type=release&barcode=%@", gtin];
+   NSString *functionPath = @"/database/search";
+	NSDictionary *params = @{@"type": @"release",
+									 @"barcode": gtin};
    
-   [self _performMethodCallWithPath:path completion:completion];
+   [self _performMethodCallWithPath:functionPath
+								 parameters:params
+								 completion:completion];
 }
 
 
