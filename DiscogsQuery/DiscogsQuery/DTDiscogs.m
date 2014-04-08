@@ -10,6 +10,10 @@
 #import "MockedURLProtocol.h"
 
 #define API_ENDPOINT @"http://api.discogs.com"
+#define URLENC(string) [string \
+   stringByAddingPercentEncodingWithAllowedCharacters:\
+	NSCharacterSet.URLQueryAllowedCharacterSet];
+
 
 NSString * const DTDiscogsErrorDomain = @"DTDiscogs";
 
@@ -68,8 +72,12 @@ NSString * const DTDiscogsErrorDomain = @"DTDiscogs";
 		{
 			NSString *value = parameters[key];
 			
-			// TODO: URL-encode
-			NSString *tmpStr = [NSString stringWithFormat:@"%@=%@", key, value];
+			// URL-encode
+			NSString *encKey = URLENC(key);
+			NSString *encValue = URLENC(value);
+			
+			// combine into pairs
+			NSString *tmpStr = [NSString stringWithFormat:@"%@=%@", encKey, encValue];
 			[tmpArray addObject:tmpStr];
 			
 		}
