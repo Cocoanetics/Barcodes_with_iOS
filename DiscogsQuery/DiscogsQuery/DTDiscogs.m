@@ -11,6 +11,8 @@
 
 #define API_ENDPOINT @"http://api.discogs.com"
 
+NSString * const DTDiscogsErrorDomain = @"DTDiscogs";
+
 @interface DTDiscogs () // private
 
 @property (nonatomic, strong) NSURLSession *session;
@@ -91,7 +93,7 @@
       userInfo = @{NSLocalizedDescriptionKey : message};
    }
    
-   return [NSError errorWithDomain:@"DTDiscogs"
+   return [NSError errorWithDomain:DTDiscogsErrorDomain
                                   code:code
                               userInfo:userInfo];
 }
@@ -130,9 +132,7 @@
          NSString *msg = [NSString stringWithFormat:
                           @"Expected result host to be '%@' but was '%@'",
                           calledHost, responseHost];
-         NSDictionary *userInfo = @{NSLocalizedDescriptionKey: msg};
-         retError = [NSError errorWithDomain:@"DTDiscogs" code:999
-                                    userInfo:userInfo];
+			retError = [self _errorWithCode:999 message:msg];
          completion(nil, retError);
          return;
       }
