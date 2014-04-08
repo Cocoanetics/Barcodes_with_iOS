@@ -6,6 +6,9 @@
 //  Copyright (c) 2014 Cocoanetics. All rights reserved.
 //
 
+extern NSString * const DTDiscogsErrorDomain;
+
+
 /*
  Completion handler for Discogs API calls
  */

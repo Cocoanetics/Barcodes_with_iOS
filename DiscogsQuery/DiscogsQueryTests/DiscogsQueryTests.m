@@ -9,12 +9,15 @@
 #import <XCTest/XCTest.h>
 
 #import "DTDiscogs.h"
-#import "MockedURLProtocol.h"
+//#import "MockedURLProtocol.h"
+
+#import "DTURLProtocolStub.h"
 
 
 @interface DTDiscogs (test)
 
 - (void)_performMethodCallWithPath:(NSString *)path
+								parameters:(NSDictionary *)parameters
                         completion:(DTDiscogsCompletion)completion;
 
 @end
@@ -35,14 +38,48 @@
    return [NSData dataWithContentsOfFile:path];
 }
 
+- (NSString *)pathForResource:(NSString *)resource ofType:(NSString *)type
+{
+   return [[NSBundle bundleForClass:[self class]] pathForResource:resource ofType:type];
+}
+
 - (NSURLSessionConfiguration *)_mockedSessionConfiguration
 {
    NSURLSessionConfiguration *config = [NSURLSessionConfiguration ephemeralSessionConfiguration];
-   config.protocolClasses = @[[MockedURLProtocol class]];
+   config.protocolClasses = @[[DTURLProtocolStub class]];
 
-   NSData *data = [self _dataForBundleFile:@"query1_response.json"];
-   NSURL *URL = [NSURL URLWithString:@"http://api.discogs.com/database/search?type=release&barcode=077774620420"];
-   [MockedURLProtocol registerResponseData:data forURL:URL];
+   // configure stubbed responses
+   NSString *path = [self pathForResource:@"query1_response" ofType:@"json"];
+
+   [DTURLProtocolStub addResponse:[DTURLProtocolResponse responseWithFile:path statusCode:200 headers:nil]
+               forRequestPassingTest:^BOOL(NSURLRequest *request) {
+                  
+                  if (![request.URL.host isEqualToString:@"api.discogs.com"])
+                  {
+                     return NO;
+                  }
+                  
+                  if (![request.URL.path isEqualToString:@"/database/search"])
+                  {
+                     return NO;
+                  }
+                  
+                  NSArray *queryParams = [request.URL.query componentsSeparatedByString:@"&"];
+                  
+                  if (![queryParams containsObject:@"barcode=077774620420"])
+                  {
+                     return NO;
+                  }
+                  
+                  return YES;
+               }];
+   
+   // after all other evaluators we return 404
+   [DTURLProtocolStub addResponse:[DTURLProtocolResponse responseWithData:nil statusCode:404 headers:nil]
+               forRequestPassingTest:^BOOL(NSURLRequest *request) {
+                  
+                  return YES;
+               }];
   
    return config;
 }
@@ -54,11 +91,12 @@
    self.discogs = [[DTDiscogs alloc] initWithSessionConfiguration:[self _mockedSessionConfiguration]];
 }
 
+
 - (void)testInvalidMethod
 {
    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
    
-   [self.discogs _performMethodCallWithPath:@"bla" completion:^(id result, NSError *error) {
+   [self.discogs _performMethodCallWithPath:@"bla" parameters:nil completion:^(id result, NSError *error) {
       
       XCTAssertNil(result, @"There should be no result");
       XCTAssertNotNil(error, @"There should an error");
@@ -90,6 +128,23 @@
       dispatch_semaphore_signal(sema);
    }];
  
+   dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+}
+
+- (void)testSearchNotFound
+{
+   dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+   
+   [self.discogs searchForGTIN:@"077774620421" completion:^(id result, NSError *error) {
+      
+      XCTAssertNotNil(error, @"There should be an error");
+      XCTAssertEqualObjects(error.domain, DTDiscogsErrorDomain, @"Error domain should be DTDiscogsErrorDomain");
+      
+      XCTAssertEqual(error.code, 404, @"Should be a 404");
+      
+      dispatch_semaphore_signal(sema);
+   }];
+   
    dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
 }
 

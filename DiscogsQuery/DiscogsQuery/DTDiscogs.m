@@ -7,7 +7,6 @@
 //
 
 #import "DTDiscogs.h"
-#import "MockedURLProtocol.h"
 
 #define API_ENDPOINT @"http://api.discogs.com"
 #define URLENC(string) [string \

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A74E497218F4257000957DDA /* DTURLProtocolResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = A74E497118F4257000957DDA /* DTURLProtocolResponse.m */; };
+		A74E497518F4276000957DDA /* DTURLProtocolStub.m in Sources */ = {isa = PBXBuildFile; fileRef = A74E497418F4276000957DDA /* DTURLProtocolStub.m */; };
 		A7DCED3C18ED68F700A41FA9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7DCED3B18ED68F700A41FA9 /* Foundation.framework */; };
 		A7DCED3E18ED68F700A41FA9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7DCED3D18ED68F700A41FA9 /* CoreGraphics.framework */; };
 		A7DCED4018ED68F700A41FA9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7DCED3F18ED68F700A41FA9 /* UIKit.framework */; };
@@ -19,11 +21,9 @@
 		A7DCED5B18ED68F700A41FA9 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7DCED5A18ED68F700A41FA9 /* XCTest.framework */; };
 		A7DCED5C18ED68F700A41FA9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7DCED3B18ED68F700A41FA9 /* Foundation.framework */; };
 		A7DCED5D18ED68F700A41FA9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7DCED3F18ED68F700A41FA9 /* UIKit.framework */; };
-		A7DCED6518ED68F700A41FA9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A7DCED6318ED68F700A41FA9 /* InfoPlist.strings */; };
 		A7DCED6718ED68F700A41FA9 /* DiscogsQueryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A7DCED6618ED68F700A41FA9 /* DiscogsQueryTests.m */; };
 		A7DCED7218ED692F00A41FA9 /* DTDiscogs.m in Sources */ = {isa = PBXBuildFile; fileRef = A7DCED7118ED692F00A41FA9 /* DTDiscogs.m */; };
 		A7DCED7818EDB47600A41FA9 /* query1_response.json in Resources */ = {isa = PBXBuildFile; fileRef = A7DCED7718EDB47600A41FA9 /* query1_response.json */; };
-		A7DCED7918EDB9EF00A41FA9 /* MockedURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = A7DCED7418EDAD8500A41FA9 /* MockedURLProtocol.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +37,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A74E497018F4257000957DDA /* DTURLProtocolResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTURLProtocolResponse.h; sourceTree = "<group>"; };
+		A74E497118F4257000957DDA /* DTURLProtocolResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTURLProtocolResponse.m; sourceTree = "<group>"; };
+		A74E497318F4276000957DDA /* DTURLProtocolStub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTURLProtocolStub.h; sourceTree = "<group>"; };
+		A74E497418F4276000957DDA /* DTURLProtocolStub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTURLProtocolStub.m; sourceTree = "<group>"; };
 		A7DCED3818ED68F700A41FA9 /* DiscogsQuery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DiscogsQuery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7DCED3B18ED68F700A41FA9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A7DCED3D18ED68F700A41FA9 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -54,12 +58,9 @@
 		A7DCED5918ED68F700A41FA9 /* DiscogsQueryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DiscogsQueryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7DCED5A18ED68F700A41FA9 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		A7DCED6218ED68F700A41FA9 /* DiscogsQueryTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DiscogsQueryTests-Info.plist"; sourceTree = "<group>"; };
-		A7DCED6418ED68F700A41FA9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A7DCED6618ED68F700A41FA9 /* DiscogsQueryTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DiscogsQueryTests.m; sourceTree = "<group>"; };
 		A7DCED7018ED692F00A41FA9 /* DTDiscogs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTDiscogs.h; sourceTree = "<group>"; };
 		A7DCED7118ED692F00A41FA9 /* DTDiscogs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTDiscogs.m; sourceTree = "<group>"; };
-		A7DCED7318EDAD8500A41FA9 /* MockedURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MockedURLProtocol.h; sourceTree = "<group>"; };
-		A7DCED7418EDAD8500A41FA9 /* MockedURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MockedURLProtocol.m; sourceTree = "<group>"; };
 		A7DCED7718EDB47600A41FA9 /* query1_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = query1_response.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -87,6 +88,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A74E497618F4599300957DDA /* DTURLProtocolStub */ = {
+			isa = PBXGroup;
+			children = (
+				A74E497318F4276000957DDA /* DTURLProtocolStub.h */,
+				A74E497418F4276000957DDA /* DTURLProtocolStub.m */,
+				A74E497018F4257000957DDA /* DTURLProtocolResponse.h */,
+				A74E497118F4257000957DDA /* DTURLProtocolResponse.m */,
+			);
+			name = DTURLProtocolStub;
+			sourceTree = "<group>";
+		};
 		A7DCED2F18ED68F700A41FA9 = {
 			isa = PBXGroup;
 			children = (
@@ -147,11 +159,9 @@
 		A7DCED6018ED68F700A41FA9 /* DiscogsQueryTests */ = {
 			isa = PBXGroup;
 			children = (
-				A7DCED7718EDB47600A41FA9 /* query1_response.json */,
+				A74E497618F4599300957DDA /* DTURLProtocolStub */,
 				A7DCED6618ED68F700A41FA9 /* DiscogsQueryTests.m */,
 				A7DCED6118ED68F700A41FA9 /* Supporting Files */,
-				A7DCED7318EDAD8500A41FA9 /* MockedURLProtocol.h */,
-				A7DCED7418EDAD8500A41FA9 /* MockedURLProtocol.m */,
 			);
 			path = DiscogsQueryTests;
 			sourceTree = "<group>";
@@ -159,8 +169,8 @@
 		A7DCED6118ED68F700A41FA9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A7DCED7718EDB47600A41FA9 /* query1_response.json */,
 				A7DCED6218ED68F700A41FA9 /* DiscogsQueryTests-Info.plist */,
-				A7DCED6318ED68F700A41FA9 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -251,7 +261,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A7DCED6518ED68F700A41FA9 /* InfoPlist.strings in Resources */,
 				A7DCED7818EDB47600A41FA9 /* query1_response.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -266,7 +275,6 @@
 				A7DCED5218ED68F700A41FA9 /* ViewController.m in Sources */,
 				A7DCED4C18ED68F700A41FA9 /* AppDelegate.m in Sources */,
 				A7DCED7218ED692F00A41FA9 /* DTDiscogs.m in Sources */,
-				A7DCED7918EDB9EF00A41FA9 /* MockedURLProtocol.m in Sources */,
 				A7DCED4818ED68F700A41FA9 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -275,7 +283,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A74E497218F4257000957DDA /* DTURLProtocolResponse.m in Sources */,
 				A7DCED6718ED68F700A41FA9 /* DiscogsQueryTests.m in Sources */,
+				A74E497518F4276000957DDA /* DTURLProtocolStub.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,14 +314,6 @@
 				A7DCED4E18ED68F700A41FA9 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		A7DCED6318ED68F700A41FA9 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A7DCED6418ED68F700A41FA9 /* en */,
-			);
-			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -472,6 +474,7 @@
 				A7DCED6C18ED68F700A41FA9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A7DCED6D18ED68F700A41FA9 /* Build configuration list for PBXNativeTarget "DiscogsQueryTests" */ = {
 			isa = XCConfigurationList;
@@ -480,6 +483,7 @@
 				A7DCED6F18ED68F700A41FA9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
