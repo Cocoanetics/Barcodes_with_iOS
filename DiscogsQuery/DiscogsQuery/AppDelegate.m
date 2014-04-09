@@ -10,10 +10,21 @@
 
 #import "DTDiscogs.h"
 
+
+@interface DTDiscogs (test)
+
+- (void)_performMethodCallWithPath:(NSString *)path
+								parameters:(NSDictionary *)parameters
+                        completion:(DTDiscogsCompletion)completion;
+
+@end
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+/*
+  // try web service wrapper with a search
    DTDiscogs *discogs = [[DTDiscogs alloc] init];
    [discogs searchForGTIN:@"077774620420"
                completion:^(id result, NSError *error) {
@@ -27,7 +38,7 @@
          NSLog(@"%@", result);
       }
    }];
-   
+ */
    
     // Override point for customization after application launch.
     return YES;

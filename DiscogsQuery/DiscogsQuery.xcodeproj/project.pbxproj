@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		A74E497218F4257000957DDA /* DTURLProtocolResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = A74E497118F4257000957DDA /* DTURLProtocolResponse.m */; };
 		A74E497518F4276000957DDA /* DTURLProtocolStub.m in Sources */ = {isa = PBXBuildFile; fileRef = A74E497418F4276000957DDA /* DTURLProtocolStub.m */; };
+		A74EB63018F5481100AF749E /* search_not_found.json in Resources */ = {isa = PBXBuildFile; fileRef = A74EB62F18F5481100AF749E /* search_not_found.json */; };
+		A74EB63218F54B5F00AF749E /* resource_not_found.json in Resources */ = {isa = PBXBuildFile; fileRef = A74EB63118F54B5F00AF749E /* resource_not_found.json */; };
 		A7DCED3C18ED68F700A41FA9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7DCED3B18ED68F700A41FA9 /* Foundation.framework */; };
 		A7DCED3E18ED68F700A41FA9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7DCED3D18ED68F700A41FA9 /* CoreGraphics.framework */; };
 		A7DCED4018ED68F700A41FA9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7DCED3F18ED68F700A41FA9 /* UIKit.framework */; };
@@ -23,7 +25,7 @@
 		A7DCED5D18ED68F700A41FA9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7DCED3F18ED68F700A41FA9 /* UIKit.framework */; };
 		A7DCED6718ED68F700A41FA9 /* DiscogsQueryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A7DCED6618ED68F700A41FA9 /* DiscogsQueryTests.m */; };
 		A7DCED7218ED692F00A41FA9 /* DTDiscogs.m in Sources */ = {isa = PBXBuildFile; fileRef = A7DCED7118ED692F00A41FA9 /* DTDiscogs.m */; };
-		A7DCED7818EDB47600A41FA9 /* query1_response.json in Resources */ = {isa = PBXBuildFile; fileRef = A7DCED7718EDB47600A41FA9 /* query1_response.json */; };
+		A7DCED7818EDB47600A41FA9 /* search_success.json in Resources */ = {isa = PBXBuildFile; fileRef = A7DCED7718EDB47600A41FA9 /* search_success.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +43,8 @@
 		A74E497118F4257000957DDA /* DTURLProtocolResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTURLProtocolResponse.m; sourceTree = "<group>"; };
 		A74E497318F4276000957DDA /* DTURLProtocolStub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTURLProtocolStub.h; sourceTree = "<group>"; };
 		A74E497418F4276000957DDA /* DTURLProtocolStub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTURLProtocolStub.m; sourceTree = "<group>"; };
+		A74EB62F18F5481100AF749E /* search_not_found.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = search_not_found.json; sourceTree = "<group>"; };
+		A74EB63118F54B5F00AF749E /* resource_not_found.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = resource_not_found.json; sourceTree = "<group>"; };
 		A7DCED3818ED68F700A41FA9 /* DiscogsQuery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DiscogsQuery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7DCED3B18ED68F700A41FA9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A7DCED3D18ED68F700A41FA9 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -61,7 +65,7 @@
 		A7DCED6618ED68F700A41FA9 /* DiscogsQueryTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DiscogsQueryTests.m; sourceTree = "<group>"; };
 		A7DCED7018ED692F00A41FA9 /* DTDiscogs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTDiscogs.h; sourceTree = "<group>"; };
 		A7DCED7118ED692F00A41FA9 /* DTDiscogs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTDiscogs.m; sourceTree = "<group>"; };
-		A7DCED7718EDB47600A41FA9 /* query1_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = query1_response.json; sourceTree = "<group>"; };
+		A7DCED7718EDB47600A41FA9 /* search_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = search_success.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,7 +173,9 @@
 		A7DCED6118ED68F700A41FA9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				A7DCED7718EDB47600A41FA9 /* query1_response.json */,
+				A74EB63118F54B5F00AF749E /* resource_not_found.json */,
+				A74EB62F18F5481100AF749E /* search_not_found.json */,
+				A7DCED7718EDB47600A41FA9 /* search_success.json */,
 				A7DCED6218ED68F700A41FA9 /* DiscogsQueryTests-Info.plist */,
 			);
 			name = "Supporting Files";
@@ -261,7 +267,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A7DCED7818EDB47600A41FA9 /* query1_response.json in Resources */,
+				A74EB63218F54B5F00AF749E /* resource_not_found.json in Resources */,
+				A74EB63018F5481100AF749E /* search_not_found.json in Resources */,
+				A7DCED7818EDB47600A41FA9 /* search_success.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,5 +1,5 @@
 //
-//  DTMockedServerResponse.m
+//  DTURLProtocolResponse.m
 //  DiscogsQuery
 //
 //  Created by Oliver Drobnik on 08.04.14.
@@ -17,6 +17,7 @@
 @property (nonatomic, copy) NSData *data;
 @property (nonatomic, assign) NSUInteger statusCode;
 @property (nonatomic, copy) NSDictionary *headers;
+@property (nonatomic, copy) NSError *error;
 
 @end
 
@@ -26,6 +27,7 @@
    NSData *_data;
    NSUInteger _statusCode;
    NSDictionary *_headers;
+   NSError *_error;
 }
 
 + (instancetype)responseWithData:(NSData *)data statusCode:(NSUInteger)statusCode headers:(NSDictionary *)headers
@@ -51,25 +53,38 @@
 + (instancetype)responseWithFile:(NSString *)path statusCode:(NSUInteger)statusCode headers:(NSDictionary *)headers
 {
    NSData *data = [NSData dataWithContentsOfFile:path];
-   
+
    NSMutableDictionary *tmpDict = [NSMutableDictionary dictionaryWithDictionary:headers];
-   
-   NSString *extension = [path pathExtension];
-   NSString *contentType;
-   
-   // ask for MIME type for the extension
-   CFStringRef typeForExt = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension,(__bridge CFStringRef)extension , NULL);
-	contentType = (__bridge_transfer NSString *)UTTypeCopyPreferredTagWithClass(typeForExt, kUTTagClassMIMEType);
-	CFRelease(typeForExt);
-   
-	if (!contentType)
-	{
-		contentType = @"application/octet-stream";
-	}
-   
-   tmpDict[@"Content-Type"] = contentType;
+
+   if ([data length])
+   {
+      NSString *extension = [path pathExtension];
+      NSString *contentType;
+      
+      if (extension)
+      {
+         // ask for MIME type for the extension
+         CFStringRef typeForExt = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension,(__bridge CFStringRef)extension , NULL);
+         contentType = (__bridge_transfer NSString *)UTTypeCopyPreferredTagWithClass(typeForExt, kUTTagClassMIMEType);
+         CFRelease(typeForExt);
+      }
+      
+      if ([data length] && !contentType)
+      {
+         contentType = @"application/octet-stream";
+      }
+      
+      tmpDict[@"Content-Type"] = contentType;
+   }
    
    return [self responseWithData:data statusCode:statusCode headers:tmpDict];
+}
+
++ (instancetype)responseWithError:(NSError *)error
+{
+   DTURLProtocolResponse *response = [[DTURLProtocolResponse alloc] init];
+   response.error = error;
+   return response;
 }
 
 @end

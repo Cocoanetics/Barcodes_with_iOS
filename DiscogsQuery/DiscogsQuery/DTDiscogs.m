@@ -144,11 +144,12 @@ NSString * const DTDiscogsErrorDomain = @"DTDiscogs";
          return;
       }
                                     
-//      NSArray *writablePaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//      NSString *documentsPath = [writablePaths lastObject];
-//      NSString *fileInDocuments = [documentsPath stringByAppendingPathComponent:@"data.txt"];
-//      
-//      [data writeToFile:fileInDocuments atomically:NO];
+      NSArray *writablePaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+      NSString *documentsPath = [writablePaths lastObject];
+      NSString *fileInDocuments = [documentsPath stringByAppendingPathComponent:@"data.txt"];
+      
+      [data writeToFile:fileInDocuments atomically:NO];
+      NSLog(@"output at %@", fileInDocuments);
       
       // needs to be a HTTP response to get the content type and status
       if ([response isKindOfClass:[NSHTTPURLResponse class]])
