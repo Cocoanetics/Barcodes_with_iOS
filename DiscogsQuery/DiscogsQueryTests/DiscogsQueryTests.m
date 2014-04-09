@@ -51,7 +51,7 @@
    // configure stubbed responses
    NSString *path = [self pathForResource:@"query1_response" ofType:@"json"];
 
-   [DTURLProtocolStub addResponse:[DTURLProtocolResponse responseWithFile:path statusCode:200 headers:nil]
+   [DTURLProtocolStub addResponseWithFile:path
                forRequestPassingTest:^BOOL(NSURLRequest *request) {
                   
                   if (![request.URL.host isEqualToString:@"api.discogs.com"])

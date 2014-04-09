@@ -23,7 +23,7 @@
 // constructor for generic responses
 + (instancetype)responseWithData:(NSData *)data statusCode:(NSUInteger)statusCode headers:(NSDictionary *)headers;
 
-// convenience constructor for files. Sets content type.
+// convenience constructor for files. Sets content type header in addition to passed headers from extension.
 + (instancetype)responseWithFile:(NSString *)path statusCode:(NSUInteger)statusCode headers:(NSDictionary *)headers;
 
 @end

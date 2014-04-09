@@ -11,20 +11,15 @@
 // block that evaluates an URL request if a response should be given
 typedef BOOL (^DTMockedServerRequestTest)(NSURLRequest *request);
 
-// block that gets executed if no evaluator exists for a request
-typedef void (^DTMockedServerNoEvaluatorBlock)(NSURLRequest *request);
-
-
 /*
- A protocol for mocking server responses
+ A protocol for stubbing web server responses. Overrides all HTTP and HTTPS requests.
  */
 @interface DTURLProtocolStub : NSURLProtocol
 
 // adds a response for HTTP requests passing a certain test.
 + (void)addResponse:(DTURLProtocolResponse *)response forRequestPassingTest:(DTMockedServerRequestTest)test;
 
-//+ (void)addResponseFromFileAtPath:(NSString *)path forRequestPassingTest:(DTMockedServerRequestTest)test;
-
-@property (nonatomic, copy) DTMockedServerNoEvaluatorBlock noEvaluatorFoundBlock;
+// convenience for adding a response for HTTP request that comes from a file.
++ (void)addResponseWithFile:(NSString *)path forRequestPassingTest:(DTMockedServerRequestTest)test;
 
 @end

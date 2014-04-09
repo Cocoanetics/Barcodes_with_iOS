@@ -8,6 +8,10 @@
 
 #import "DTURLProtocolResponse.h"
 
+#if TARGET_OS_IPHONE
+#import <MobileCoreServices/MobileCoreServices.h>
+#endif
+
 @interface DTURLProtocolResponse ()
 
 @property (nonatomic, copy) NSData *data;
@@ -28,9 +32,18 @@
 {
    DTURLProtocolResponse *response = [[DTURLProtocolResponse alloc] init];
    
+   // make mutable to add content length
+   NSMutableDictionary *tmpDict = [NSMutableDictionary dictionaryWithDictionary:headers];
+   
+   if ([data length])
+   {
+      NSString *lengthStr = [@([data length]) description];
+      tmpDict[@"Content-Length" ] = lengthStr;
+   }
+   
    response.data = data;
    response.statusCode = statusCode;
-   response.headers = headers;
+   response.headers = tmpDict;
    
    return response;
 }
@@ -42,32 +55,21 @@
    NSMutableDictionary *tmpDict = [NSMutableDictionary dictionaryWithDictionary:headers];
    
    NSString *extension = [path pathExtension];
-   NSString *contentType = @"application/octet-stream";
+   NSString *contentType;
    
-   if ([extension isEqualToString:@"json"])
-   {
-      contentType = @"application/json";
-   }
+   // ask for MIME type for the extension
+   CFStringRef typeForExt = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension,(__bridge CFStringRef)extension , NULL);
+	contentType = (__bridge_transfer NSString *)UTTypeCopyPreferredTagWithClass(typeForExt, kUTTagClassMIMEType);
+	CFRelease(typeForExt);
+   
+	if (!contentType)
+	{
+		contentType = @"application/octet-stream";
+	}
    
    tmpDict[@"Content-Type"] = contentType;
    
    return [self responseWithData:data statusCode:statusCode headers:tmpDict];
 }
-
-//+ (instancetype)JSONResponseWithObject:(id)object statusCode:(NSUInteger)statusCode headers:(NSDictionary *)headers
-//{
-//   if (![NSJSONSerialization isValidJSONObject:object])
-//   {
-//      NSLog(@"Cannot encode passed object in JSON");
-//      return nil;
-//   }
-//   
-//   NSMutableDictionary *tmpHeaders = [NSMutableDictionary dictionaryWithDictionary:headers];
-//   
-//   // add JSON
-//   
-//   
-//   
-//}
 
 @end

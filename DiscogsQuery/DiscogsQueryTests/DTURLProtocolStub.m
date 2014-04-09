@@ -19,7 +19,19 @@ typedef DTURLProtocolResponse *(^DTMockedServerRequestEvaluator)(NSURLRequest *r
 // override all requests
 + (BOOL)canInitWithRequest:(NSURLRequest *)request
 {
-   return YES;
+   NSString *scheme = request.URL.scheme;
+   
+   if ([scheme isEqualToString:@"http"])
+   {
+      return YES;
+   }
+
+   if ([scheme isEqualToString:@"https"])
+   {
+      return YES;
+   }
+
+   return NO;
 }
 
 // no need to change request to be canonical
@@ -29,6 +41,36 @@ typedef DTURLProtocolResponse *(^DTMockedServerRequestEvaluator)(NSURLRequest *r
 }
 
 - (void)startLoading
+{
+   DTURLProtocolResponse *stubResponse = [self _stubbedResponseForRequest:self.request];
+   
+   // create HTTP response
+   NSHTTPURLResponse *response = [[NSHTTPURLResponse alloc]
+                                  initWithURL:self.request.URL
+                                  statusCode:stubResponse.statusCode
+                                  HTTPVersion:@"1.1"
+                                  headerFields:stubResponse.headers];
+   
+   [self.client URLProtocol:self
+         didReceiveResponse:response
+         cacheStoragePolicy:NSURLCacheStorageNotAllowed];
+   
+   if ([stubResponse.data length])
+   {
+      [self.client URLProtocol:self didLoadData:stubResponse.data];
+   }
+   
+   [self.client URLProtocolDidFinishLoading:self];
+}
+
+- (void)stopLoading
+{
+   // nothing to do
+}
+
+#pragma mark - Helpers
+
+- (DTURLProtocolResponse *)_stubbedResponseForRequest:(NSURLRequest *)request
 {
    __block DTURLProtocolResponse *stubResponse = nil;
    
@@ -43,40 +85,11 @@ typedef DTURLProtocolResponse *(^DTMockedServerRequestEvaluator)(NSURLRequest *r
       }
    }];
    
-   NSMutableDictionary *tmpDict = [NSMutableDictionary dictionaryWithDictionary:stubResponse.headers];
-
-   BOOL hasData = [stubResponse.data length];
-   
-   // only add length header if there is data
-   if (hasData)
-   {
-      NSString *lengthStr = [@([stubResponse.data length]) description];
-      tmpDict[@"Content-Length" ] = lengthStr;
-   }
-   
-   // create HTTP response
-   NSHTTPURLResponse *response = [[NSHTTPURLResponse alloc]
-                                  initWithURL:self.request.URL
-                                  statusCode:stubResponse.statusCode
-                                  HTTPVersion:@"1.1"
-                                  headerFields:tmpDict];
-   
-   [self.client URLProtocol:self
-         didReceiveResponse:response
-         cacheStoragePolicy:NSURLCacheStorageNotAllowed];
-   
-   if (hasData)
-   {
-      [self.client URLProtocol:self didLoadData:stubResponse.data];
-   }
-   
-   [self.client URLProtocolDidFinishLoading:self];
+   return stubResponse;
 }
 
-- (void)stopLoading
-{
-   // nothing to do
-}
+
+#pragma mark - Public API
 
 + (void)addResponse:(DTURLProtocolResponse *)response forRequestPassingTest:(DTMockedServerRequestTest)test
 {
@@ -99,6 +112,20 @@ typedef DTURLProtocolResponse *(^DTMockedServerRequestEvaluator)(NSURLRequest *r
    };
    
    [_evaluators addObject:[evaluator copy]];
+}
+
++ (void)addResponseWithFile:(NSString *)path forRequestPassingTest:(DTMockedServerRequestTest)test
+{
+   NSFileManager *fileManager = [NSFileManager defaultManager];
+   NSUInteger statusCode = 200;
+   
+   if (![fileManager fileExistsAtPath:path])
+   {
+      statusCode = 404;
+   }
+   
+   DTURLProtocolResponse *response = [DTURLProtocolResponse responseWithFile:path statusCode:statusCode headers:nil];
+   [self addResponse:response forRequestPassingTest:test];
 }
 
 @end
