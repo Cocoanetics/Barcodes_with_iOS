@@ -37,9 +37,9 @@ typedef DTURLProtocolResponse *(^DTURLProtocolStubRequestEvaluator)(NSURLRequest
 }
 
 // no need to change request to be canonical
-+ (NSURLRequest *)canonicalRequestForRequest:(NSURLRequest*)theRequest
++ (NSURLRequest *)canonicalRequestForRequest:(NSURLRequest *)request
 {
-   return theRequest;
+   return request;
 }
 
 - (void)startLoading
