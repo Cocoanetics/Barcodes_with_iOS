@@ -9,6 +9,7 @@
 #import "MediaListViewController.h"
 #import "DTCameraPreviewController.h"
 #import "Release.h"
+#import "ReleaseCell.h"
 #import "DTDiscogs.h"
 
 @interface MediaListViewController () <NSFetchedResultsControllerDelegate, DTCameraPreviewControllerDelegate>
@@ -25,9 +26,8 @@
 {
    [super viewDidLoad];
    
+   // show edit button
    self.navigationItem.rightBarButtonItem = self.editButtonItem;
-   
-
 }
 
 #pragma mark - Table view data source
@@ -46,25 +46,13 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ReleaseCell" forIndexPath:indexPath];
+   ReleaseCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ReleaseCell" forIndexPath:indexPath];
    
    [self configureCell:cell atIndexPath:indexPath];
    
    return cell;
 }
 
-
-/*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
-
-
- // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
    if (editingStyle == UITableViewCellEditingStyleDelete) {
@@ -134,20 +122,33 @@
  }
  */
 
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+- (void)configureCell:(ReleaseCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
    Release *release = [_fetchedResultsController objectAtIndexPath:indexPath];
    
    if (release.title)
    {
-      cell.textLabel.text = release.title;
-      cell.detailTextLabel.text = release.artist;
+      cell.titleLabel.text = release.title;
+      cell.artistLabel.text = release.artist;
+      
+      if ([release.year integerValue])
+      {
+         cell.yearLabel.text = [release.year description];
+      }
+      else
+      {
+         cell.yearLabel.text = nil;
+      }
+      
+      cell.formatLabel.text = release.format;
    }
    else
    {
       // don't have infos yet
-      cell.textLabel.text = release.barcode;
-      cell.detailTextLabel.text = @"No Infos found.";
+      cell.titleLabel.text = release.barcode;
+      cell.artistLabel.text = @"No Infos found.";
+      cell.yearLabel.text = nil;
+      cell.formatLabel.text = nil;
    }
 }
 
@@ -188,7 +189,7 @@
          break;
          
       case NSFetchedResultsChangeUpdate:
-         [self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+         [self configureCell:(ReleaseCell *)[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
          break;
          
       case NSFetchedResultsChangeMove:
@@ -203,6 +204,7 @@
    [self.tableView endUpdates];
 }
 
+// lazy initializer for fetched results controller
 - (NSFetchedResultsController *)fetchedResultsController
 {
    if (!_fetchedResultsController)
@@ -232,6 +234,45 @@
    }
    
    return _fetchedResultsController;
+}
+
+// lazy initializer for MOC
+- (NSManagedObjectContext *)managedObjectContext
+{
+   if (!_managedObjectContext)
+   {
+      NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"DiscogsModel" withExtension:@"momd"];
+      NSManagedObjectModel *model = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
+      
+      // store DB in Documents
+      NSString *docPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+      NSString *storePath = [docPath stringByAppendingPathComponent:@"Discogs.db"];
+      
+      // setup persistent store coordinator
+      NSURL *storeURL = [NSURL fileURLWithPath:storePath];
+      
+      NSError *error = nil;
+      NSPersistentStoreCoordinator *store = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
+      
+      if (![store addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error])
+      {
+         // inconsistent model/store
+         [[NSFileManager defaultManager] removeItemAtURL:storeURL error:NULL];
+         
+         // retry once
+         if (![store addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error])
+         {
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+         }
+      }
+      
+      // MOC suitable for interaction with UIKit
+      _managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+      _managedObjectContext.persistentStoreCoordinator = store;
+   }
+   
+   return _managedObjectContext;
 }
 
 #pragma mark - Navigation
@@ -323,12 +364,14 @@
 }
 
 // convenience that creates a tmp context and saves it asynchronously
-- (void)_performDatabaseUpdatesAndSave:(void (^)(NSManagedObjectContext *context))block
+- (void)_performDatabaseUpdatesAndSave:
+                        (void (^)(NSManagedObjectContext *context))block
 {
    NSParameterAssert(block);
    
    // create temporary context
-   NSManagedObjectContext *tmpContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+   NSManagedObjectContext *tmpContext = [[NSManagedObjectContext alloc]
+                 initWithConcurrencyType:NSPrivateQueueConcurrencyType];
    tmpContext.parentContext = _managedObjectContext;
    
    // private context needs updates on its own queue
@@ -347,57 +390,19 @@
                NSError *error;
                if (![_managedObjectContext save:&error])
                {
-                  NSLog(@"Error saving main context: %@", [error localizedDescription]);
+                  NSLog(@"Error saving main context: %@",
+                        [error localizedDescription]);
                };
             });
          }
          else
          {
-            NSLog(@"Error saving tmp context: %@", [error localizedDescription]);
+            NSLog(@"Error saving tmp context: %@",
+                  [error localizedDescription]);
          }
       }
    }];
 }
 
-
-#pragma mark - Properties
-
-- (NSManagedObjectContext *)managedObjectContext
-{
-   if (!_managedObjectContext)
-   {
-      NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"DiscogsModel" withExtension:@"momd"];
-      NSManagedObjectModel *model = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
-      
-      // store DB in Documents
-      NSString *docPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-      NSString *storePath = [docPath stringByAppendingPathComponent:@"Discogs.db"];
-      
-      // setup persistent store coordinator
-      NSURL *storeURL = [NSURL fileURLWithPath:storePath];
-      
-      NSError *error = nil;
-      NSPersistentStoreCoordinator *store = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
-      
-      if (![store addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error])
-      {
-         // inconsistent model/store
-         [[NSFileManager defaultManager] removeItemAtURL:storeURL error:NULL];
-         
-         // retry once
-         if (![store addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error])
-         {
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-         }
-      }
-      
-      // MOC suitable for interaction with UIKit
-      _managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-      _managedObjectContext.persistentStoreCoordinator = store;
-   }
-   
-   return _managedObjectContext;
-}
 
 @end

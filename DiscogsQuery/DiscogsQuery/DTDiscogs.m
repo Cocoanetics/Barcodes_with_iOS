@@ -143,14 +143,16 @@ NSString * const DTDiscogsErrorDomain = @"DTDiscogs";
          completion(nil, retError);
          return;
       }
-                                    
+      
+      /*
+       // save response into a data file for unit testing
       NSArray *writablePaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
       NSString *documentsPath = [writablePaths lastObject];
       NSString *fileInDocuments = [documentsPath stringByAppendingPathComponent:@"data.txt"];
       
       [data writeToFile:fileInDocuments atomically:NO];
       NSLog(@"output at %@", fileInDocuments);
-      
+      */
       // needs to be a HTTP response to get the content type and status
       if ([response isKindOfClass:[NSHTTPURLResponse class]])
       {
