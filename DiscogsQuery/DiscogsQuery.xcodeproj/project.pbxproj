@@ -11,6 +11,9 @@
 		A74E497518F4276000957DDA /* DTURLProtocolStub.m in Sources */ = {isa = PBXBuildFile; fileRef = A74E497418F4276000957DDA /* DTURLProtocolStub.m */; };
 		A74EB63018F5481100AF749E /* search_not_found.json in Resources */ = {isa = PBXBuildFile; fileRef = A74EB62F18F5481100AF749E /* search_not_found.json */; };
 		A74EB63218F54B5F00AF749E /* resource_not_found.json in Resources */ = {isa = PBXBuildFile; fileRef = A74EB63118F54B5F00AF749E /* resource_not_found.json */; };
+		A781012018F689AA001DDA3D /* MediaListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A781011F18F689AA001DDA3D /* MediaListViewController.m */; };
+		A781012318F68A1F001DDA3D /* DiscogsModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A781012118F68A1F001DDA3D /* DiscogsModel.xcdatamodeld */; };
+		A781012618F68B61001DDA3D /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A781012518F68B61001DDA3D /* CoreData.framework */; };
 		A7DCED3C18ED68F700A41FA9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7DCED3B18ED68F700A41FA9 /* Foundation.framework */; };
 		A7DCED3E18ED68F700A41FA9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7DCED3D18ED68F700A41FA9 /* CoreGraphics.framework */; };
 		A7DCED4018ED68F700A41FA9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7DCED3F18ED68F700A41FA9 /* UIKit.framework */; };
@@ -18,7 +21,6 @@
 		A7DCED4818ED68F700A41FA9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A7DCED4718ED68F700A41FA9 /* main.m */; };
 		A7DCED4C18ED68F700A41FA9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A7DCED4B18ED68F700A41FA9 /* AppDelegate.m */; };
 		A7DCED4F18ED68F700A41FA9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7DCED4D18ED68F700A41FA9 /* Main.storyboard */; };
-		A7DCED5218ED68F700A41FA9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7DCED5118ED68F700A41FA9 /* ViewController.m */; };
 		A7DCED5418ED68F700A41FA9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7DCED5318ED68F700A41FA9 /* Images.xcassets */; };
 		A7DCED5B18ED68F700A41FA9 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7DCED5A18ED68F700A41FA9 /* XCTest.framework */; };
 		A7DCED5C18ED68F700A41FA9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7DCED3B18ED68F700A41FA9 /* Foundation.framework */; };
@@ -45,6 +47,10 @@
 		A74E497418F4276000957DDA /* DTURLProtocolStub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTURLProtocolStub.m; sourceTree = "<group>"; };
 		A74EB62F18F5481100AF749E /* search_not_found.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = search_not_found.json; sourceTree = "<group>"; };
 		A74EB63118F54B5F00AF749E /* resource_not_found.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = resource_not_found.json; sourceTree = "<group>"; };
+		A781011E18F689AA001DDA3D /* MediaListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaListViewController.h; sourceTree = "<group>"; };
+		A781011F18F689AA001DDA3D /* MediaListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaListViewController.m; sourceTree = "<group>"; };
+		A781012218F68A1F001DDA3D /* DiscogsModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DiscogsModel.xcdatamodel; sourceTree = "<group>"; };
+		A781012518F68B61001DDA3D /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		A7DCED3818ED68F700A41FA9 /* DiscogsQuery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DiscogsQuery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7DCED3B18ED68F700A41FA9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A7DCED3D18ED68F700A41FA9 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -56,8 +62,6 @@
 		A7DCED4A18ED68F700A41FA9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		A7DCED4B18ED68F700A41FA9 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		A7DCED4E18ED68F700A41FA9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		A7DCED5018ED68F700A41FA9 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		A7DCED5118ED68F700A41FA9 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		A7DCED5318ED68F700A41FA9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A7DCED5918ED68F700A41FA9 /* DiscogsQueryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DiscogsQueryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7DCED5A18ED68F700A41FA9 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -73,6 +77,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A781012618F68B61001DDA3D /* CoreData.framework in Frameworks */,
 				A7DCED3E18ED68F700A41FA9 /* CoreGraphics.framework in Frameworks */,
 				A7DCED4018ED68F700A41FA9 /* UIKit.framework in Frameworks */,
 				A7DCED3C18ED68F700A41FA9 /* Foundation.framework in Frameworks */,
@@ -125,6 +130,7 @@
 		A7DCED3A18ED68F700A41FA9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A781012518F68B61001DDA3D /* CoreData.framework */,
 				A7DCED3B18ED68F700A41FA9 /* Foundation.framework */,
 				A7DCED3D18ED68F700A41FA9 /* CoreGraphics.framework */,
 				A7DCED3F18ED68F700A41FA9 /* UIKit.framework */,
@@ -139,12 +145,13 @@
 				A7DCED4A18ED68F700A41FA9 /* AppDelegate.h */,
 				A7DCED4B18ED68F700A41FA9 /* AppDelegate.m */,
 				A7DCED4D18ED68F700A41FA9 /* Main.storyboard */,
-				A7DCED5018ED68F700A41FA9 /* ViewController.h */,
-				A7DCED5118ED68F700A41FA9 /* ViewController.m */,
+				A781011E18F689AA001DDA3D /* MediaListViewController.h */,
+				A781011F18F689AA001DDA3D /* MediaListViewController.m */,
 				A7DCED5318ED68F700A41FA9 /* Images.xcassets */,
 				A7DCED4218ED68F700A41FA9 /* Supporting Files */,
 				A7DCED7018ED692F00A41FA9 /* DTDiscogs.h */,
 				A7DCED7118ED692F00A41FA9 /* DTDiscogs.m */,
+				A781012118F68A1F001DDA3D /* DiscogsModel.xcdatamodeld */,
 			);
 			path = DiscogsQuery;
 			sourceTree = "<group>";
@@ -280,9 +287,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A7DCED5218ED68F700A41FA9 /* ViewController.m in Sources */,
 				A7DCED4C18ED68F700A41FA9 /* AppDelegate.m in Sources */,
 				A7DCED7218ED692F00A41FA9 /* DTDiscogs.m in Sources */,
+				A781012018F689AA001DDA3D /* MediaListViewController.m in Sources */,
+				A781012318F68A1F001DDA3D /* DiscogsModel.xcdatamodeld in Sources */,
 				A7DCED4818ED68F700A41FA9 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -494,6 +502,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		A781012118F68A1F001DDA3D /* DiscogsModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				A781012218F68A1F001DDA3D /* DiscogsModel.xcdatamodel */,
+			);
+			currentVersion = A781012218F68A1F001DDA3D /* DiscogsModel.xcdatamodel */;
+			path = DiscogsModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = A7DCED3018ED68F700A41FA9 /* Project object */;
 }
