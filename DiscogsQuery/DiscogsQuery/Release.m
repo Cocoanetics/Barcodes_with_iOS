@@ -12,10 +12,12 @@
 @implementation Release
 
 @dynamic title;
+@dynamic artist;
 @dynamic style;
 @dynamic barcode;
 @dynamic year;
 @dynamic genre;
 @dynamic format;
+@dynamic uri;
 
 @end

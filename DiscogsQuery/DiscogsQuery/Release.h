@@ -13,10 +13,12 @@
 @interface Release : NSManagedObject
 
 @property (nonatomic, retain) NSString * title;
+@property (nonatomic, retain) NSString * artist;
 @property (nonatomic, retain) NSString * style;
 @property (nonatomic, retain) NSString * barcode;
 @property (nonatomic, retain) NSNumber * year;
 @property (nonatomic, retain) NSString * genre;
 @property (nonatomic, retain) NSString * format;
+@property (nonatomic, retain) NSString * uri;
 
 @end

@@ -79,10 +79,32 @@
    }
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+- (NSString *)tableView:(UITableView *)tableView
+                              titleForHeaderInSection:(NSInteger)section
 {
-   id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
+   id <NSFetchedResultsSectionInfo> sectionInfo =
+      [self.fetchedResultsController sections][section];
    return sectionInfo.name;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:
+                                                (NSIndexPath *)indexPath
+{
+   [tableView deselectRowAtIndexPath:indexPath animated:YES];
+   
+   Release *release = [_fetchedResultsController
+                       objectAtIndexPath:indexPath];
+   
+   if (!release.uri)
+   {
+      return;
+   }
+   
+   NSString *URLstr = [@"http://www.discogs.com"
+                       stringByAppendingPathComponent:release.uri];
+   NSURL *URL = [NSURL URLWithString:URLstr];
+   
+   [[UIApplication sharedApplication] openURL:URL];
 }
 
 /*
@@ -119,7 +141,7 @@
    if (release.title)
    {
       cell.textLabel.text = release.title;
-      cell.detailTextLabel.text = release.format;
+      cell.detailTextLabel.text = release.artist;
    }
    else
    {
@@ -190,14 +212,16 @@
       NSEntityDescription *entity = [NSEntityDescription entityForName:@"Release" inManagedObjectContext:[self managedObjectContext]];
       [fetch setEntity:entity];
       
-      NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES];
+      NSSortDescriptor *sort1 = [NSSortDescriptor sortDescriptorWithKey:@"genre" ascending:YES];
+      NSSortDescriptor *sort2 = [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES];
+      NSSortDescriptor *sort3 = [NSSortDescriptor sortDescriptorWithKey:@"artist" ascending:YES];
       
-      fetch.sortDescriptors = @[sort];
+      fetch.sortDescriptors = @[sort1, sort2, sort3];
       
       _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetch
                                                                       managedObjectContext:[self managedObjectContext]
                                                                         sectionNameKeyPath:@"genre"
-                                                                                 cacheName:@"genre"];
+                                                                                 cacheName:@"genre_title_artist"];
       _fetchedResultsController.delegate = self;
       
     	NSError *error = nil;
@@ -271,22 +295,67 @@
       // always use first result
       NSDictionary *theResult = results[0];
       
-      // create temporary context
-      NSManagedObjectContext *tmpContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-      tmpContext.parentContext = _managedObjectContext;
-      
-      // get version of the Release for this context
-      Release *updatedRelease = (Release *)[tmpContext objectWithID:release.objectID];
-      
-      // update values
-      updatedRelease.title = theResult[@"title"];
-      updatedRelease.genre = [theResult[@"genre"] firstObject];
-      updatedRelease.style = [theResult[@"style"] firstObject];
-      updatedRelease.format = [theResult[@"format"] firstObject];
-      updatedRelease.year = @([theResult[@"year"] integerValue]);
+      [self _performDatabaseUpdatesAndSave:^(NSManagedObjectContext *context) {
+         
+         // get version of the Release for this context
+         Release *updatedRelease = (Release *)[context objectWithID:release.objectID];
+         
+         NSString *title = theResult[@"title"];
+         NSString *artist = nil;
+         NSRange rangeOfDash = [title rangeOfString:@"-"];
+         
+         if (rangeOfDash.location != NSNotFound)
+         {
+            artist = [[title substringToIndex:rangeOfDash.location] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            title = [[title substringFromIndex:rangeOfDash.location+1] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+         }
+         
+         // update values
+         updatedRelease.title = title;
+         updatedRelease.artist = artist;
+         updatedRelease.genre = [theResult[@"genre"] firstObject];
+         updatedRelease.style = [theResult[@"style"] firstObject];
+         updatedRelease.format = [theResult[@"format"] firstObject];
+         updatedRelease.year = @([theResult[@"year"] integerValue]);
+         updatedRelease.uri = theResult[@"uri"];
+      }];
+   }];
+}
+
+// convenience that creates a tmp context and saves it asynchronously
+- (void)_performDatabaseUpdatesAndSave:(void (^)(NSManagedObjectContext *context))block
+{
+   NSParameterAssert(block);
+   
+   // create temporary context
+   NSManagedObjectContext *tmpContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+   tmpContext.parentContext = _managedObjectContext;
+   
+   // private context needs updates on its own queue
+   [tmpContext performBlockAndWait:^{
+      block(tmpContext);
       
       // save, pushes changes up to main MOC
-      [tmpContext save:NULL];
+      if ([tmpContext hasChanges])
+      {
+         NSError *error;
+         if ([tmpContext save:&error])
+         {
+            // main MOC saving needs to be on main queue
+            dispatch_async(dispatch_get_main_queue(), ^{
+               
+               NSError *error;
+               if (![_managedObjectContext save:&error])
+               {
+                  NSLog(@"Error saving main context: %@", [error localizedDescription]);
+               };
+            });
+         }
+         else
+         {
+            NSLog(@"Error saving tmp context: %@", [error localizedDescription]);
+         }
+      }
    }];
 }
 

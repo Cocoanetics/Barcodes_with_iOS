@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--Media List View Controller-->
+        <!--Media List View Controller - My Collection-->
         <scene sceneID="pUQ-GB-qnI">
             <objects>
                 <tableViewController id="atJ-AV-E0a" customClass="MediaListViewController" sceneMemberID="viewController">
@@ -43,7 +43,7 @@
                             <outlet property="delegate" destination="atJ-AV-E0a" id="DyX-5F-pRJ"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="7u5-dY-Ed7">
+                    <navigationItem key="navigationItem" title="My Collection" id="7u5-dY-Ed7">
                         <barButtonItem key="leftBarButtonItem" systemItem="add" id="9J6-sM-Z6Y">
                             <connections>
                                 <segue destination="W88-5v-ZcH" kind="modal" identifier="showScanner" id="ysa-lh-Qq5"/>
