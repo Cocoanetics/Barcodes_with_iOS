@@ -23,10 +23,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-/*
+   // some examples: @"6 02498 81553 3",  @"077774620420"
+   
+   
   // try web service wrapper with a search
    DTDiscogs *discogs = [[DTDiscogs alloc] init];
-   [discogs searchForGTIN:@"077774620420"
+   [discogs searchForGTIN:@"724382358923"
                completion:^(id result, NSError *error) {
       
       if (error)
@@ -38,7 +40,6 @@
          NSLog(@"%@", result);
       }
    }];
- */
    
     // Override point for customization after application launch.
     return YES;

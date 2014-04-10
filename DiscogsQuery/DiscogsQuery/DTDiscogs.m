@@ -206,6 +206,12 @@ NSString * const DTDiscogsErrorDomain = @"DTDiscogs";
    NSParameterAssert(gtin);
    NSParameterAssert(completion);
    
+   // convert EAN-13 to UPC if leading 0
+   if ([gtin length]==13 && [gtin hasPrefix:@"0"])
+   {
+      gtin = [gtin substringFromIndex:1];
+   }
+   
    NSString *functionPath = @"/database/search";
 	NSDictionary *params = @{@"type": @"release",
 									 @"barcode": gtin};

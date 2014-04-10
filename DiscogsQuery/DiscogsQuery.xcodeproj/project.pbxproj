@@ -14,6 +14,12 @@
 		A781012018F689AA001DDA3D /* MediaListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A781011F18F689AA001DDA3D /* MediaListViewController.m */; };
 		A781012318F68A1F001DDA3D /* DiscogsModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A781012118F68A1F001DDA3D /* DiscogsModel.xcdatamodeld */; };
 		A781012618F68B61001DDA3D /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A781012518F68B61001DDA3D /* CoreData.framework */; };
+		A78101BE18F6B48D001DDA3D /* DTAVFoundationFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = A78101B718F6B48D001DDA3D /* DTAVFoundationFunctions.m */; };
+		A78101BF18F6B48D001DDA3D /* DTCameraPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A78101B918F6B48D001DDA3D /* DTCameraPreviewController.m */; };
+		A78101C018F6B48D001DDA3D /* DTVideoPreviewInterestBox.m in Sources */ = {isa = PBXBuildFile; fileRef = A78101BB18F6B48D001DDA3D /* DTVideoPreviewInterestBox.m */; };
+		A78101C118F6B48D001DDA3D /* DTVideoPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = A78101BD18F6B48D001DDA3D /* DTVideoPreviewView.m */; };
+		A78101C318F6B495001DDA3D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A78101C218F6B494001DDA3D /* AVFoundation.framework */; };
+		A78101C618F6C1E3001DDA3D /* Release.m in Sources */ = {isa = PBXBuildFile; fileRef = A78101C518F6C1E3001DDA3D /* Release.m */; };
 		A7DCED3C18ED68F700A41FA9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7DCED3B18ED68F700A41FA9 /* Foundation.framework */; };
 		A7DCED3E18ED68F700A41FA9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7DCED3D18ED68F700A41FA9 /* CoreGraphics.framework */; };
 		A7DCED4018ED68F700A41FA9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7DCED3F18ED68F700A41FA9 /* UIKit.framework */; };
@@ -51,6 +57,17 @@
 		A781011F18F689AA001DDA3D /* MediaListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaListViewController.m; sourceTree = "<group>"; };
 		A781012218F68A1F001DDA3D /* DiscogsModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DiscogsModel.xcdatamodel; sourceTree = "<group>"; };
 		A781012518F68B61001DDA3D /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		A78101B618F6B48D001DDA3D /* DTAVFoundationFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTAVFoundationFunctions.h; sourceTree = "<group>"; };
+		A78101B718F6B48D001DDA3D /* DTAVFoundationFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTAVFoundationFunctions.m; sourceTree = "<group>"; };
+		A78101B818F6B48D001DDA3D /* DTCameraPreviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTCameraPreviewController.h; sourceTree = "<group>"; };
+		A78101B918F6B48D001DDA3D /* DTCameraPreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTCameraPreviewController.m; sourceTree = "<group>"; };
+		A78101BA18F6B48D001DDA3D /* DTVideoPreviewInterestBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTVideoPreviewInterestBox.h; sourceTree = "<group>"; };
+		A78101BB18F6B48D001DDA3D /* DTVideoPreviewInterestBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTVideoPreviewInterestBox.m; sourceTree = "<group>"; };
+		A78101BC18F6B48D001DDA3D /* DTVideoPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTVideoPreviewView.h; sourceTree = "<group>"; };
+		A78101BD18F6B48D001DDA3D /* DTVideoPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTVideoPreviewView.m; sourceTree = "<group>"; };
+		A78101C218F6B494001DDA3D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		A78101C418F6C1E3001DDA3D /* Release.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Release.h; sourceTree = "<group>"; };
+		A78101C518F6C1E3001DDA3D /* Release.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Release.m; sourceTree = "<group>"; };
 		A7DCED3818ED68F700A41FA9 /* DiscogsQuery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DiscogsQuery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7DCED3B18ED68F700A41FA9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A7DCED3D18ED68F700A41FA9 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -77,6 +94,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A78101C318F6B495001DDA3D /* AVFoundation.framework in Frameworks */,
 				A781012618F68B61001DDA3D /* CoreData.framework in Frameworks */,
 				A7DCED3E18ED68F700A41FA9 /* CoreGraphics.framework in Frameworks */,
 				A7DCED4018ED68F700A41FA9 /* UIKit.framework in Frameworks */,
@@ -108,6 +126,21 @@
 			name = DTURLProtocolStub;
 			sourceTree = "<group>";
 		};
+		A78101B518F6B47E001DDA3D /* Copied Code */ = {
+			isa = PBXGroup;
+			children = (
+				A78101B618F6B48D001DDA3D /* DTAVFoundationFunctions.h */,
+				A78101B718F6B48D001DDA3D /* DTAVFoundationFunctions.m */,
+				A78101B818F6B48D001DDA3D /* DTCameraPreviewController.h */,
+				A78101B918F6B48D001DDA3D /* DTCameraPreviewController.m */,
+				A78101BA18F6B48D001DDA3D /* DTVideoPreviewInterestBox.h */,
+				A78101BB18F6B48D001DDA3D /* DTVideoPreviewInterestBox.m */,
+				A78101BC18F6B48D001DDA3D /* DTVideoPreviewView.h */,
+				A78101BD18F6B48D001DDA3D /* DTVideoPreviewView.m */,
+			);
+			name = "Copied Code";
+			sourceTree = "<group>";
+		};
 		A7DCED2F18ED68F700A41FA9 = {
 			isa = PBXGroup;
 			children = (
@@ -130,6 +163,7 @@
 		A7DCED3A18ED68F700A41FA9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A78101C218F6B494001DDA3D /* AVFoundation.framework */,
 				A781012518F68B61001DDA3D /* CoreData.framework */,
 				A7DCED3B18ED68F700A41FA9 /* Foundation.framework */,
 				A7DCED3D18ED68F700A41FA9 /* CoreGraphics.framework */,
@@ -142,6 +176,7 @@
 		A7DCED4118ED68F700A41FA9 /* DiscogsQuery */ = {
 			isa = PBXGroup;
 			children = (
+				A78101B518F6B47E001DDA3D /* Copied Code */,
 				A7DCED4A18ED68F700A41FA9 /* AppDelegate.h */,
 				A7DCED4B18ED68F700A41FA9 /* AppDelegate.m */,
 				A7DCED4D18ED68F700A41FA9 /* Main.storyboard */,
@@ -152,6 +187,8 @@
 				A7DCED7018ED692F00A41FA9 /* DTDiscogs.h */,
 				A7DCED7118ED692F00A41FA9 /* DTDiscogs.m */,
 				A781012118F68A1F001DDA3D /* DiscogsModel.xcdatamodeld */,
+				A78101C418F6C1E3001DDA3D /* Release.h */,
+				A78101C518F6C1E3001DDA3D /* Release.m */,
 			);
 			path = DiscogsQuery;
 			sourceTree = "<group>";
@@ -287,11 +324,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A78101C118F6B48D001DDA3D /* DTVideoPreviewView.m in Sources */,
 				A7DCED4C18ED68F700A41FA9 /* AppDelegate.m in Sources */,
 				A7DCED7218ED692F00A41FA9 /* DTDiscogs.m in Sources */,
 				A781012018F689AA001DDA3D /* MediaListViewController.m in Sources */,
 				A781012318F68A1F001DDA3D /* DiscogsModel.xcdatamodeld in Sources */,
+				A78101BF18F6B48D001DDA3D /* DTCameraPreviewController.m in Sources */,
 				A7DCED4818ED68F700A41FA9 /* main.m in Sources */,
+				A78101C018F6B48D001DDA3D /* DTVideoPreviewInterestBox.m in Sources */,
+				A78101BE18F6B48D001DDA3D /* DTAVFoundationFunctions.m in Sources */,
+				A78101C618F6C1E3001DDA3D /* Release.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
