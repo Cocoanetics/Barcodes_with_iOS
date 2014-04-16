@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="ufC-wZ-h7g">
+            <objects>
+                <viewController id="vXZ-lx-hvc" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
+                        <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="center" id="kh9-bI-dsS">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="http://www.manning.com/drobnik/drobnik_cover150.jpg" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oMB-mr-hTC">
+                                <rect key="frame" x="20" y="72" width="280" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Jby-NZ-062"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="URL to download:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="afz-iV-phS">
+                                <rect key="frame" x="20" y="43" width="139" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yrd-54-0Q0">
+                                <rect key="frame" x="20" y="182" width="280" height="366"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eNJ-bX-2sD">
+                                <rect key="frame" x="102" y="110" width="116" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Download Image">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="download:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="cdp-qw-JZd"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="yrd-54-0Q0" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" id="0R3-aa-Vn2"/>
+                            <constraint firstItem="afz-iV-phS" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="23" id="3cL-66-ESF"/>
+                            <constraint firstItem="oMB-mr-hTC" firstAttribute="centerX" secondItem="eNJ-bX-2sD" secondAttribute="centerX" id="9fl-Ye-OeM"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="yrd-54-0Q0" secondAttribute="bottom" constant="20" id="H21-vF-paB"/>
+                            <constraint firstItem="afz-iV-phS" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" id="Jfx-d7-d7t"/>
+                            <constraint firstItem="oMB-mr-hTC" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" id="VVE-ec-Br7"/>
+                            <constraint firstItem="yrd-54-0Q0" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="162" id="WDL-f2-wo3"/>
+                            <constraint firstAttribute="trailing" secondItem="oMB-mr-hTC" secondAttribute="trailing" constant="20" id="hUb-Jt-zBb"/>
+                            <constraint firstItem="oMB-mr-hTC" firstAttribute="top" secondItem="afz-iV-phS" secondAttribute="bottom" constant="8" id="lMg-tc-3tK"/>
+                            <constraint firstItem="eNJ-bX-2sD" firstAttribute="top" secondItem="oMB-mr-hTC" secondAttribute="bottom" constant="8" id="sHR-K3-Glj"/>
+                            <constraint firstAttribute="trailing" secondItem="yrd-54-0Q0" secondAttribute="trailing" constant="20" id="zW8-fM-fqw"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="yrd-54-0Q0" id="Vjf-PC-aR8"/>
+                        <outlet property="urlField" destination="oMB-mr-hTC" id="KDE-Mh-3Kg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>
