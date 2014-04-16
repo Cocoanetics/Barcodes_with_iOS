@@ -375,7 +375,7 @@
    tmpContext.parentContext = _managedObjectContext;
    
    // private context needs updates on its own queue
-   [tmpContext performBlockAndWait:^{
+   [tmpContext performBlock:^{
       block(tmpContext);
       
       // save, pushes changes up to main MOC
