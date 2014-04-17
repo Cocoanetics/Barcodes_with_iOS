@@ -97,7 +97,8 @@ NSString * const DTDiscogsErrorDomain = @"DTDiscogs";
 								parameters:(NSDictionary *)parameters
                         completion:(DTDiscogsCompletion)completion
 {
-   NSURL *methodURL = [self _methodURLForPath:path parameters:parameters];
+   NSURL *methodURL = [self _methodURLForPath:path
+                                   parameters:parameters];
    NSURLRequest *request = [NSURLRequest requestWithURL:methodURL];
    
    NSURLSessionDataTask *task = [[self session]

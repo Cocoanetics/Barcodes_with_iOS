@@ -279,14 +279,16 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
    if ([segue.identifier isEqualToString:@"showScanner"]) {
-      UINavigationController *nav =  (UINavigationController *)segue.destinationViewController;
-      DTCameraPreviewController *preview = (DTCameraPreviewController *)nav.viewControllers[0];
+      UINavigationController *nav =  (UINavigationController *)
+                                        segue.destinationViewController;
+      DTCameraPreviewController *preview = (DTCameraPreviewController *)
+                                                 nav.viewControllers[0];
       preview.delegate = self;
    }
 }
 
 
-- (IBAction)unwindFromScannerViewController:(UIStoryboardSegue *)unwindSegue {
+- (IBAction)unwindFromScannerViewController:(UIStoryboardSegue *)segue {
    // intentionally left black
 }
 
