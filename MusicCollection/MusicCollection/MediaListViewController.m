@@ -277,10 +277,8 @@
 
 #pragma mark - Navigation
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-   if ([segue.identifier isEqualToString:@"showScanner"])
-   {
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+   if ([segue.identifier isEqualToString:@"showScanner"]) {
       UINavigationController *nav =  (UINavigationController *)segue.destinationViewController;
       DTCameraPreviewController *preview = (DTCameraPreviewController *)nav.viewControllers[0];
       preview.delegate = self;
@@ -288,14 +286,16 @@
 }
 
 
-- (IBAction)unwindFromScannerViewController:(UIStoryboardSegue *)unwindSegue
-{
+- (IBAction)unwindFromScannerViewController:(UIStoryboardSegue *)unwindSegue {
+   // intentionally left black
 }
 
-- (void)previewController:(DTCameraPreviewController *)previewController didScanCode:(NSString *)code ofType:(NSString *)type
+- (void)previewController:(DTCameraPreviewController *)previewController
+              didScanCode:(NSString *)code ofType:(NSString *)type
 {
-   NSEntityDescription *entity = [[_fetchedResultsController fetchRequest] entity];
-   Release *release = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:_managedObjectContext];
+   Release *release = [NSEntityDescription
+                       insertNewObjectForEntityForName:@"Release"
+                       inManagedObjectContext:_managedObjectContext];
    
    release.barcode = code;
    release.genre = @"Unknown";
@@ -310,26 +310,22 @@
    // dismiss scanner
    [previewController performSegueWithIdentifier:@"unwind" sender:self];
    
-   
+   // retrieve more info via Discogs
    DTDiscogs *discogs = [[DTDiscogs alloc] init];
-   
    [discogs searchForGTIN:code completion:^(id result, NSError *error) {
       
-      if (error)
-      {
+      if (error) {
          return;
       }
       
-      if (![result isKindOfClass:[NSDictionary class]])
-      {
+      if (![result isKindOfClass:[NSDictionary class]]) {
          return;
       }
       
       NSDictionary *dict = (NSDictionary *)result;
       NSArray *results = dict[@"results"];
       
-      if ([results count]<1)
-      {
+      if ([results count]<1) {
          return;
       }
       
@@ -337,7 +333,6 @@
       NSDictionary *theResult = results[0];
       
       [self _performDatabaseUpdatesAndSave:^(NSManagedObjectContext *context) {
-         
          // get version of the Release for this context
          Release *updatedRelease = (Release *)[context objectWithID:release.objectID];
          
@@ -345,8 +340,7 @@
          NSString *artist = nil;
          NSRange rangeOfDash = [title rangeOfString:@"-"];
          
-         if (rangeOfDash.location != NSNotFound)
-         {
+         if (rangeOfDash.location != NSNotFound) {
             artist = [[title substringToIndex:rangeOfDash.location] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
             title = [[title substringFromIndex:rangeOfDash.location+1] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
          }
