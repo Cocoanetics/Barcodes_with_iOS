@@ -292,6 +292,41 @@
    // intentionally left black
 }
 
+// update a Release object from a Discogs result dictionary
+- (void)_updateRelease:(Release *)release
+        fromDictionary:(NSDictionary *)dict {
+   [self _performDatabaseUpdatesAndSave:
+    ^(NSManagedObjectContext *context) {
+       // get version of the Release for temp context
+       Release *updatedRelease = (Release *)
+       [context objectWithID:release.objectID];
+       
+       NSString *title = dict[@"title"];
+       NSString *artist = nil;
+       NSRange rangeOfDash = [title rangeOfString:@"-"];
+       
+       // split title field into title and artist
+       if (rangeOfDash.location != NSNotFound) {
+          artist = [[title substringToIndex:rangeOfDash.location]
+                    stringByTrimmingCharactersInSet:
+                    [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+          title = [[title substringFromIndex:rangeOfDash.location+1]
+                   stringByTrimmingCharactersInSet:
+                   [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+       }
+       
+       // update values
+       updatedRelease.title = title;
+       updatedRelease.artist = artist;
+       updatedRelease.genre = [dict[@"genre"] firstObject];
+       updatedRelease.style = [dict[@"style"] firstObject];
+       updatedRelease.format = [dict[@"format"] firstObject];
+       updatedRelease.year = @([dict[@"year"] integerValue]);
+       updatedRelease.uri = dict[@"uri"];
+    }];
+}
+
+
 - (void)previewController:(DTCameraPreviewController *)previewController
               didScanCode:(NSString *)code ofType:(NSString *)type
 {
@@ -315,47 +350,20 @@
    // retrieve more info via Discogs
    DTDiscogs *discogs = [[DTDiscogs alloc] init];
    [discogs searchForGTIN:code completion:^(id result, NSError *error) {
-      
-      if (error) {
-         return;
-      }
-      
-      if (![result isKindOfClass:[NSDictionary class]]) {
+      if (error || ![result isKindOfClass:[NSDictionary class]]) {
          return;
       }
       
       NSDictionary *dict = (NSDictionary *)result;
       NSArray *results = dict[@"results"];
       
-      if ([results count]<1) {
+      if (![results count]) {
          return;
       }
       
       // always use first result
       NSDictionary *theResult = results[0];
-      
-      [self _performDatabaseUpdatesAndSave:^(NSManagedObjectContext *context) {
-         // get version of the Release for this context
-         Release *updatedRelease = (Release *)[context objectWithID:release.objectID];
-         
-         NSString *title = theResult[@"title"];
-         NSString *artist = nil;
-         NSRange rangeOfDash = [title rangeOfString:@"-"];
-         
-         if (rangeOfDash.location != NSNotFound) {
-            artist = [[title substringToIndex:rangeOfDash.location] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-            title = [[title substringFromIndex:rangeOfDash.location+1] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-         }
-         
-         // update values
-         updatedRelease.title = title;
-         updatedRelease.artist = artist;
-         updatedRelease.genre = [theResult[@"genre"] firstObject];
-         updatedRelease.style = [theResult[@"style"] firstObject];
-         updatedRelease.format = [theResult[@"format"] firstObject];
-         updatedRelease.year = @([theResult[@"year"] integerValue]);
-         updatedRelease.uri = theResult[@"uri"];
-      }];
+      [self _updateRelease:release fromDictionary:theResult];
    }];
 }
 
