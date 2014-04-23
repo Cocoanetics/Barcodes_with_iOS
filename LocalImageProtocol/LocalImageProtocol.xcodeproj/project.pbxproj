@@ -15,6 +15,8 @@
 		A7E3F9901907F01000675264 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7E3F98E1907F01000675264 /* Main.storyboard */; };
 		A7E3F9931907F01000675264 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3F9921907F01000675264 /* ViewController.m */; };
 		A7E3F9951907F01000675264 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7E3F9941907F01000675264 /* Images.xcassets */; };
+		A7E3F9B41907F16300675264 /* LocalImageProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3F9B31907F16300675264 /* LocalImageProtocol.m */; };
+		A7E3F9B61907F50500675264 /* Oliver.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A7E3F9B51907F50500675264 /* Oliver.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,9 @@
 		A7E3F9921907F01000675264 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		A7E3F9941907F01000675264 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A7E3F99B1907F01000675264 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		A7E3F9B21907F16300675264 /* LocalImageProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalImageProtocol.h; sourceTree = "<group>"; };
+		A7E3F9B31907F16300675264 /* LocalImageProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalImageProtocol.m; sourceTree = "<group>"; };
+		A7E3F9B51907F50500675264 /* Oliver.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Oliver.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +84,7 @@
 		A7E3F9821907F01000675264 /* LocalImageProtocol */ = {
 			isa = PBXGroup;
 			children = (
+				A7E3F9B11907F14900675264 /* LocalImageProtocol */,
 				A7E3F98B1907F01000675264 /* AppDelegate.h */,
 				A7E3F98C1907F01000675264 /* AppDelegate.m */,
 				A7E3F98E1907F01000675264 /* Main.storyboard */,
@@ -93,11 +99,21 @@
 		A7E3F9831907F01000675264 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A7E3F9B51907F50500675264 /* Oliver.jpg */,
 				A7E3F9841907F01000675264 /* LocalImageProtocol-Info.plist */,
 				A7E3F9881907F01000675264 /* main.m */,
 				A7E3F98A1907F01000675264 /* LocalImageProtocol-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A7E3F9B11907F14900675264 /* LocalImageProtocol */ = {
+			isa = PBXGroup;
+			children = (
+				A7E3F9B21907F16300675264 /* LocalImageProtocol.h */,
+				A7E3F9B31907F16300675264 /* LocalImageProtocol.m */,
+			);
+			name = LocalImageProtocol;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -152,6 +168,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7E3F9B61907F50500675264 /* Oliver.jpg in Resources */,
 				A7E3F9951907F01000675264 /* Images.xcassets in Resources */,
 				A7E3F9901907F01000675264 /* Main.storyboard in Resources */,
 			);
@@ -167,6 +184,7 @@
 				A7E3F9931907F01000675264 /* ViewController.m in Sources */,
 				A7E3F98D1907F01000675264 /* AppDelegate.m in Sources */,
 				A7E3F9891907F01000675264 /* main.m in Sources */,
+				A7E3F9B41907F16300675264 /* LocalImageProtocol.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
