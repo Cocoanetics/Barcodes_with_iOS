@@ -31,6 +31,8 @@
    
    NSMutableSet *_visibleCodes;
    NSMutableDictionary *_visibleShapes;
+	
+	BOOL _isDisappearing;
 }
 
 - (void)dealloc
@@ -92,9 +94,8 @@
    [_captureSession addOutput:_metaDataOutput];
    
    // Specify to scan for supported 2D barcode types
-   NSArray *barcodes2D = @[AVMetadataObjectTypePDF417Code,
-                           AVMetadataObjectTypeQRCode,
-                           AVMetadataObjectTypeAztecCode];
+   NSArray *barcodes2D = @[AVMetadataObjectTypeEAN8Code,
+                           AVMetadataObjectTypeEAN13Code];
    NSArray *availableTypes = [_metaDataOutput
                               availableMetadataObjectTypes];
    
@@ -483,6 +484,14 @@
    [super viewDidDisappear:animated];
    
    [_captureSession stopRunning];
+	_isDisappearing = NO;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+	[super viewWillDisappear:animated];
+	
+	_isDisappearing = YES;
 }
 
 - (BOOL)shouldAutorotate
@@ -527,6 +536,12 @@
 didOutputMetadataObjects:(NSArray *)metadataObjects
        fromConnection:(AVCaptureConnection *)connection
 {
+	// ignore metadata events if VC is being dismissed
+	if (_isDisappearing)
+	{
+		return;
+	}
+	
    // set to take on codes that this pass of the method is reporting
    NSMutableSet *reportedCodes = [NSMutableSet set];
    
