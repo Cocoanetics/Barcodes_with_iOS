@@ -36,8 +36,7 @@
 }
 
 // called before each -test...
-- (void)setUp
-{
+- (void)setUp {
    [super setUp];
 
    // warn us if no response is configured for a request
@@ -64,7 +63,7 @@
    // semaphore for waiting for end of request
    _requestSemaphore = dispatch_semaphore_create(0);
    
-   // for demo: also register protocol stub for normal NSURLConnections
+   // for demo: alsxo register protocol stub for normal NSURLConnections
    [NSURLProtocol registerClass:[DTURLProtocolStub class]];
 }
 
@@ -73,7 +72,7 @@
 // session config that stubs the HTTP/S protocol
 - (NSURLSessionConfiguration *)_testSessionConfiguration {
    NSURLSessionConfiguration *config = [NSURLSessionConfiguration
-                                        defaultSessionConfiguration];
+                                        ephemeralSessionConfiguration];
    config.protocolClasses = @[[DTURLProtocolStub class]];
    
    return config;
@@ -162,9 +161,7 @@
                           ofType:@"json"];
    
    [DTURLProtocolStub addResponseWithFile:path statusCode:404
-                    forRequestPassingTest:^BOOL(NSURLRequest *request) {
-                       return YES;
-                    }];
+                    forRequestPassingTest:NULL];
 }
 
 - (NSString *)_pathForResource:(NSString *)resource
@@ -328,17 +325,51 @@
 
 # pragma mark - Demonstrate Unit-Testing NSURLConnection
 
+- (void)testFakeApple {
+   NSString *string = @"Hello, I am Apple. Really! ;-)";
+   [DTURLProtocolStub addPlainTextResponse:string statusCode:200
+                     forRequestPassingTest:^BOOL(NSURLRequest *request) {
+                        NSString *host = request.URL.host;
+                        
+                        if ([host isEqualToString:@"www.apple.com"])
+                        {
+                           return YES;
+                        }
+                        
+                        return NO;
+                     }];
+
+   NSURL *URL = [NSURL URLWithString:@"http://www.apple.com"];
+   NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+   NSHTTPURLResponse *response;
+   NSError *error;
+   NSData *data = [NSURLConnection sendSynchronousRequest:request
+                                        returningResponse:&response
+                                                    error:&error];
+   NSString *responseString =
+   [[NSString alloc] initWithData:data
+                         encoding:NSUTF8StringEncoding];
+   
+   NSString *contentType = response.allHeaderFields[@"Content-Type"];
+   
+   XCTAssertEqualObjects(string, responseString,
+                         @"wrong response string");
+   XCTAssertEqual(response.statusCode, 200,
+                  @"Status should be 200");
+   XCTAssertEqualObjects(contentType, @"text/plain",
+                         @"wrong content type");
+}
+
+
 - (void)testURLConnection404 {
    NSString *string = @"404 Not Found";
    [DTURLProtocolStub addPlainTextResponse:string statusCode:404
                      forRequestPassingTest:NULL];
    
-   NSURL *URL = [NSURL URLWithString:@"http://www.domain.com"];
+   NSURL *URL = [NSURL URLWithString:@"http://www.apple.com"];
    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
    NSHTTPURLResponse *response;
    NSError *error;
-   
-   // convert response data to string
    NSData *data = [NSURLConnection sendSynchronousRequest:request
                                         returningResponse:&response
                                                     error:&error];
@@ -366,7 +397,7 @@
    [DTURLProtocolStub addErrorResponse:offlineError
                  forRequestPassingTest:NULL];
    
-   NSURL *URL = [NSURL URLWithString:@"http://www.asdfasdfasdfsas.com"];
+   NSURL *URL = [NSURL URLWithString:@"http://www.apple.com"];
    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
    NSHTTPURLResponse *response;
    NSError *error;

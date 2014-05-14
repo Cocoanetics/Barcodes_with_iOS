@@ -326,7 +326,7 @@
    {
       for (AVCaptureInputPort *port in [connection inputPorts])
       {
-         if ([[port mediaType] isEqual:AVMediaTypeVideo] )
+         if ([port.mediaType isEqual:AVMediaTypeVideo] )
          {
             return connection;
          }
