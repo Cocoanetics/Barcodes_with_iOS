@@ -15,6 +15,8 @@
 		A7516A15192B7D600030AAAF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7516A13192B7D600030AAAF /* Main.storyboard */; };
 		A7516A18192B7D600030AAAF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7516A17192B7D600030AAAF /* ViewController.m */; };
 		A7516A1A192B7D600030AAAF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7516A19192B7D600030AAAF /* Images.xcassets */; };
+		A77B53B3192B807000ACBE14 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A77B53B2192B807000ACBE14 /* CoreBluetooth.framework */; };
+		A77B53B5192B81AC00ACBE14 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A77B53B4192B81AC00ACBE14 /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		A7516A17192B7D600030AAAF /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		A7516A19192B7D600030AAAF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A7516A20192B7D600030AAAF /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		A77B53B2192B807000ACBE14 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		A77B53B4192B81AC00ACBE14 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +43,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A77B53B5192B81AC00ACBE14 /* CoreLocation.framework in Frameworks */,
+				A77B53B3192B807000ACBE14 /* CoreBluetooth.framework in Frameworks */,
 				A7516A04192B7D600030AAAF /* CoreGraphics.framework in Frameworks */,
 				A7516A06192B7D600030AAAF /* UIKit.framework in Frameworks */,
 				A7516A02192B7D600030AAAF /* Foundation.framework in Frameworks */,
@@ -68,6 +74,8 @@
 		A7516A00192B7D600030AAAF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A77B53B4192B81AC00ACBE14 /* CoreLocation.framework */,
+				A77B53B2192B807000ACBE14 /* CoreBluetooth.framework */,
 				A7516A01192B7D600030AAAF /* Foundation.framework */,
 				A7516A03192B7D600030AAAF /* CoreGraphics.framework */,
 				A7516A05192B7D600030AAAF /* UIKit.framework */,
@@ -128,6 +136,15 @@
 			attributes = {
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = Cocoanetics;
+				TargetAttributes = {
+					A75169FD192B7D600030AAAF = {
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
+					};
+				};
 			};
 			buildConfigurationList = A75169F9192B7D600030AAAF /* Build configuration list for PBXProject "BeaconEmitter" */;
 			compatibilityVersion = "Xcode 3.2";

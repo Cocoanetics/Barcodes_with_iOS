@@ -6,8 +6,12 @@
 //  Copyright (c) 2014 Cocoanetics. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 @interface ViewController : UIViewController
+
+@property (weak, nonatomic) IBOutlet UITextField *UUIDTextField;
+@property (weak, nonatomic) IBOutlet UITextField *majorTextField;
+@property (weak, nonatomic) IBOutlet UITextField *minorTextField;
+
+@property (weak, nonatomic) IBOutlet UISwitch *beaconSwitch;
 
 @end

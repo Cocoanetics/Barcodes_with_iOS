@@ -79,6 +79,9 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="31" id="bxv-V8-yiq"/>
                                 </constraints>
+                                <connections>
+                                    <action selector="advertisingSwitch:" destination="vXZ-lx-hvc" eventType="valueChanged" id="nlB-i7-iCa"/>
+                                </connections>
                             </switch>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -102,6 +105,12 @@
                             <constraint firstItem="N4d-rB-WmE" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="19" id="slP-v8-2RH"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="UUIDTextField" destination="HZq-d9-SEA" id="YZf-q4-W70"/>
+                        <outlet property="beaconSwitch" destination="82i-Jf-dxn" id="CFR-J3-r05"/>
+                        <outlet property="majorTextField" destination="N4d-rB-WmE" id="3Oj-3K-r8X"/>
+                        <outlet property="minorTextField" destination="Yzb-a3-kJ8" id="Lle-4J-xGg"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
