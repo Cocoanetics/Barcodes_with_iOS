@@ -11,6 +11,7 @@
 @implementation SalePlacemark
 {
    NSString *_name;
+   NSString *_identifier;
 }
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary
@@ -24,6 +25,7 @@
    if (mark)
    {
       mark->_name = dictionary[@"Name"];
+      mark->_identifier = dictionary[@"Identifier"];
    }
    
    return self;

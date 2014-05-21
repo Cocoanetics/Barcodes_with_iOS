@@ -12,4 +12,6 @@
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
+@property (nonatomic, readonly) NSString *identifier;
+
 @end

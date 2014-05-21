@@ -9,16 +9,32 @@
 #import "AppDelegate.h"
 #import "YardSaleManager.h"
 #import "MapViewController.h"
+#import "SalePlacemark.h"
+
+@interface AppDelegate () <CLLocationManagerDelegate>
+
+@end
 
 @implementation AppDelegate
+{
+   YardSaleManager *_saleManager;
+   CLLocationManager *_locationMgr;
+   CLLocation *_mostRecentLoc;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
    // create sale manager
+   _saleManager = [YardSaleManager new];
+   
+   // pass it to root map view
    MapViewController *vc = (MapViewController *)self.window.rootViewController;
    NSAssert([vc isKindOfClass:[MapViewController class]],
             @"Root VC is not a MapViewController!");
-   vc.yardSaleManager = [YardSaleManager new];
+   vc.yardSaleManager = _saleManager;
+   
+   // create location manager
+   [self _enableLocationUpdatesIfAuthorized];
    
    return YES;
 }
@@ -43,11 +59,160 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+   
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+#pragma mark - Helpers
+
+- (void)_enableLocationUpdatesIfAuthorized
+{
+   CLAuthorizationStatus authStatus = [CLLocationManager authorizationStatus];
+   
+   switch (authStatus)
+   {
+      case kCLAuthorizationStatusNotDetermined:
+      case kCLAuthorizationStatusAuthorized:
+      {
+         NSLog(@"authorized or not determined");
+         
+         // initialize location manager
+         if (!_locationMgr)
+        {
+            _locationMgr = [[CLLocationManager alloc] init];
+            _locationMgr.delegate = self;
+           
+//           [_locationMgr allowDeferredLocationUpdatesUntilTraveled:_locationMgr.maximumRegionMonitoringDistance/2.0 timeout:CLTimeIntervalMax];
+           
+            [_locationMgr startMonitoringSignificantLocationChanges];
+//           [_locationMgr startUpdatingLocation];
+         }
+         break;
+      }
+         
+      case kCLAuthorizationStatusDenied:
+      case kCLAuthorizationStatusRestricted:
+      {
+         NSLog(@"policy has restricted location updates or user denied it");
+         
+         _locationMgr = nil;
+         break;
+      }
+   }
+}
+
+// after this only the 10 closest regions will be monitored
+- (void)_updateMonitoredRegionsForLocation:(CLLocation *)loc
+{
+   if (![CLLocationManager isMonitoringAvailableForClass:
+         [CLCircularRegion class]])
+   {
+      NSLog(@"Monitoring not available for CLCircularRegion");
+      return;
+   }
+   
+   // get closest 10 yard sales
+   NSMutableArray *sales = [[_saleManager
+                         annotationsClosestToLocation:loc] mutableCopy];
+   
+   // IDs to monitor
+   NSMutableArray *identsToMonitor =
+    [[sales valueForKeyPath:@"@unionOfObjects.identifier"] mutableCopy];
+   
+   for (CLRegion *region in _locationMgr.monitoredRegions)
+   {
+      if ([identsToMonitor containsObject:region.identifier])
+      {
+         // already monitoring this, remove it from to-do list
+         [identsToMonitor removeObject:region.identifier];
+      }
+      else
+      {
+         // not interested in this any more
+         [_locationMgr stopMonitoringForRegion:region];
+      }
+   }
+   
+   // add remaining Yard Sales to be monitored
+   
+   for (SalePlacemark *onePlace in sales)
+   {
+      if (![identsToMonitor containsObject:onePlace.identifier])
+      {
+         // not interested in this one
+         continue;
+      }
+      
+      CLCircularRegion *region =
+      [[CLCircularRegion alloc] initWithCenter:onePlace.coordinate
+                                        radius:100
+                                    identifier:onePlace.identifier];
+      [_locationMgr startMonitoringForRegion:region];
+   }
+
+   // requires slight delay, fails otherwise if a region was unmonitored
+   dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
+                                (int64_t)(0.2 * NSEC_PER_SEC)),
+                  dispatch_get_main_queue(), ^{
+      for (CLRegion *oneRegion in _locationMgr.monitoredRegions)
+      {
+         [_locationMgr requestStateForRegion:oneRegion];
+      }
+   });
+}
+
+#pragma mark - CLLocationManagerDelegate
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+   CLLocation *location = [locations lastObject];
+   
+   if (location.coordinate.longitude != _mostRecentLoc.coordinate.longitude ||
+       location.coordinate.latitude != _mostRecentLoc.coordinate.latitude)
+   {
+      _mostRecentLoc = [locations lastObject];
+      
+      [self _updateMonitoredRegionsForLocation:location];
+   }
+}
+
+- (void)locationManager:(CLLocationManager *)manager
+      didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region
+{
+   switch (state)
+   {
+      case CLRegionStateUnknown:
+      {
+         NSLog(@"Unknown %@", region.identifier);
+         
+         break;
+      }
+         
+      case CLRegionStateInside:
+      {
+         NSLog(@"Inside %@", region.identifier);
+         
+         break;
+      }
+         
+      case CLRegionStateOutside:
+      {
+         NSLog(@"Outside %@", region.identifier);
+         
+         break;
+      }
+   }
+}
+
+- (void)locationManager:(CLLocationManager *)manager
+monitoringDidFailForRegion:(CLRegion *)region
+              withError:(NSError *)error
+{
+   NSLog(@"%@", error);
 }
 
 @end

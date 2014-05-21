@@ -14,5 +14,4 @@
    #import <UIKit/UIKit.h>
    #import <Foundation/Foundation.h>
    #import <MapKit/MapKit.h>
-   #import <AddressBookUI/AddressBookUI.h>
 #endif

@@ -12,4 +12,7 @@
 
 @property (nonatomic, readonly) NSArray *annotations;
 
+// returns the 10 clostest annotations
+- (NSArray *)annotationsClosestToLocation:(CLLocation *)location;
+
 @end

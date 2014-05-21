@@ -10,6 +10,9 @@
 #import "SalePlacemark.h"
 
 @implementation YardSaleManager
+{
+   NSArray *_annotations;
+}
 
 - (instancetype)init
 {
@@ -36,6 +39,32 @@
    }
    
    _annotations = [tmpArray copy];
+}
+
+- (NSArray *)annotationsClosestToLocation:(CLLocation *)location
+{
+   NSArray *sorted = [[self annotations] sortedArrayUsingComparator:
+      ^NSComparisonResult(SalePlacemark *pl1, SalePlacemark *pl2) {
+         CLLocationDistance dist1 = [location distanceFromLocation:pl1.location];
+         CLLocationDistance dist2 = [location distanceFromLocation:pl2.location];
+         
+         return [@(dist1) compare:@(dist2)];
+   }];
+   
+   NSRange range = NSMakeRange(0, MIN(10, [sorted count]));
+   return [sorted subarrayWithRange:range];
+}
+
+#pragma mark - Properties
+
+- (NSArray *)annotations
+{
+   if (!_annotations)
+   {
+      [self _loadAnnotations];
+   }
+   
+   return _annotations;
 }
 
 @end
