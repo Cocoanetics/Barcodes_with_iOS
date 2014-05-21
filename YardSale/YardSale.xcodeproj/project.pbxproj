@@ -17,6 +17,9 @@
 		A7A8D04D192C898A00C93383 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7A8D04C192C898A00C93383 /* MapViewController.m */; };
 		A7A8D04F192C898A00C93383 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7A8D04E192C898A00C93383 /* Images.xcassets */; };
 		A7A8D06C192C8A0A00C93383 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7A8D06B192C8A0A00C93383 /* MapKit.framework */; };
+		A7A8D06E192C8B5A00C93383 /* Locations.plist in Resources */ = {isa = PBXBuildFile; fileRef = A7A8D06D192C8B5A00C93383 /* Locations.plist */; };
+		A7A8D072192C8DD800C93383 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7A8D071192C8DD800C93383 /* AddressBookUI.framework */; };
+		A7A8D075192C918800C93383 /* SalePlacemark.m in Sources */ = {isa = PBXBuildFile; fileRef = A7A8D074192C918800C93383 /* SalePlacemark.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +39,11 @@
 		A7A8D04E192C898A00C93383 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A7A8D055192C898A00C93383 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		A7A8D06B192C8A0A00C93383 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		A7A8D06D192C8B5A00C93383 /* Locations.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Locations.plist; sourceTree = "<group>"; };
+		A7A8D06F192C8BE900C93383 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		A7A8D071192C8DD800C93383 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
+		A7A8D073192C918800C93383 /* SalePlacemark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SalePlacemark.h; sourceTree = "<group>"; };
+		A7A8D074192C918800C93383 /* SalePlacemark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SalePlacemark.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7A8D072192C8DD800C93383 /* AddressBookUI.framework in Frameworks */,
 				A7A8D06C192C8A0A00C93383 /* MapKit.framework in Frameworks */,
 				A7A8D039192C898900C93383 /* CoreGraphics.framework in Frameworks */,
 				A7A8D03B192C898900C93383 /* UIKit.framework in Frameworks */,
@@ -73,6 +82,8 @@
 		A7A8D035192C898900C93383 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A7A8D071192C8DD800C93383 /* AddressBookUI.framework */,
+				A7A8D06F192C8BE900C93383 /* CoreLocation.framework */,
 				A7A8D06B192C8A0A00C93383 /* MapKit.framework */,
 				A7A8D036192C898900C93383 /* Foundation.framework */,
 				A7A8D038192C898900C93383 /* CoreGraphics.framework */,
@@ -92,6 +103,8 @@
 				A7A8D04C192C898A00C93383 /* MapViewController.m */,
 				A7A8D04E192C898A00C93383 /* Images.xcassets */,
 				A7A8D03D192C898900C93383 /* Supporting Files */,
+				A7A8D073192C918800C93383 /* SalePlacemark.h */,
+				A7A8D074192C918800C93383 /* SalePlacemark.m */,
 			);
 			path = YardSale;
 			sourceTree = "<group>";
@@ -103,6 +116,7 @@
 				A7A8D03F192C898900C93383 /* InfoPlist.strings */,
 				A7A8D042192C898900C93383 /* main.m */,
 				A7A8D044192C898900C93383 /* YardSale-Prefix.pch */,
+				A7A8D06D192C8B5A00C93383 /* Locations.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -161,6 +175,7 @@
 			files = (
 				A7A8D04F192C898A00C93383 /* Images.xcassets in Resources */,
 				A7A8D041192C898900C93383 /* InfoPlist.strings in Resources */,
+				A7A8D06E192C8B5A00C93383 /* Locations.plist in Resources */,
 				A7A8D04A192C898A00C93383 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -175,6 +190,7 @@
 				A7A8D04D192C898A00C93383 /* MapViewController.m in Sources */,
 				A7A8D047192C898900C93383 /* AppDelegate.m in Sources */,
 				A7A8D043192C898900C93383 /* main.m in Sources */,
+				A7A8D075192C918800C93383 /* SalePlacemark.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
