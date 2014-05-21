@@ -183,8 +183,9 @@
    }
    
    // update deferred updates to half of max distance
-   [_locationMgr allowDeferredLocationUpdatesUntilTraveled:maxDistance/2.0
-                                                   timeout:CLTimeIntervalMax];
+   [_locationMgr
+       allowDeferredLocationUpdatesUntilTraveled:maxDistance/2.0
+                                         timeout:CLTimeIntervalMax];
 
    // requires slight delay, fails otherwise if a region was unmonitored
    dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
@@ -197,7 +198,10 @@
    });
 }
 
-- (void)_sendLocalNoteAfterDuration:(NSTimeInterval)duration message:(NSString *)msg soundName:(NSString *)sound userInfo:(NSDictionary *)userInfo
+- (void)_sendLocalNoteAfterDuration:(NSTimeInterval)duration
+                            message:(NSString *)msg
+                          soundName:(NSString *)sound
+                           userInfo:(NSDictionary *)userInfo
 {
    UILocalNotification *note = [[UILocalNotification alloc] init];
    note.alertAction = @"Visit";
@@ -211,21 +215,26 @@
 
 - (SalePlacemark *)_salePlaceForIdentifier:(NSString *)identifier
 {
-   NSPredicate *predicate = [NSPredicate predicateWithFormat:@"identifier == %@", identifier];
-   NSArray *matches = [[_saleManager annotations] filteredArrayUsingPredicate:predicate];
+   NSPredicate *predicate =
+      [NSPredicate predicateWithFormat:@"identifier == %@", identifier];
+   NSArray *matches =
+     [[_saleManager annotations] filteredArrayUsingPredicate:predicate];
    return [matches firstObject];
 }
 
 #pragma mark - CLLocationManagerDelegate
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+- (void)locationManager:(CLLocationManager *)manager
+     didUpdateLocations:(NSArray *)locations
 {
    NSLog(@"%s", __PRETTY_FUNCTION__);
    
    CLLocation *location = [locations lastObject];
    
-   if (location.coordinate.longitude != _mostRecentLoc.coordinate.longitude ||
-       location.coordinate.latitude != _mostRecentLoc.coordinate.latitude)
+   if (location.coordinate.longitude
+       != _mostRecentLoc.coordinate.longitude ||
+       location.coordinate.latitude
+       != _mostRecentLoc.coordinate.latitude)
    {
       _mostRecentLoc = [locations lastObject];
       
@@ -256,10 +265,14 @@
             return;
          }
          
-         SalePlacemark *salePlace = [self _salePlaceForIdentifier:region.identifier];
-         NSString *msg = [NSString stringWithFormat:@"%@ is closeby!", salePlace.title];
+         SalePlacemark *salePlace =
+            [self _salePlaceForIdentifier:region.identifier];
+         NSString *msg = [NSString stringWithFormat:@"%@ is closeby!",
+                          salePlace.title];
          NSDictionary *userInfo = @{@"SaleID": region.identifier};
-         [self _sendLocalNoteAfterDuration:5 message:msg soundName:UILocalNotificationDefaultSoundName userInfo:userInfo];
+         [self _sendLocalNoteAfterDuration:5 message:msg
+                           soundName:UILocalNotificationDefaultSoundName
+                                  userInfo:userInfo];
          
          _lastNotifiedSaleID = region.identifier;
          
