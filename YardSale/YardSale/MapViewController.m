@@ -8,43 +8,27 @@
 
 #import "MapViewController.h"
 #import "SalePlacemark.h"
+#import "YardSaleManager.h"
 
 @interface MapViewController () <MKMapViewDelegate>
 
 @end
 
 @implementation MapViewController
-{
-   NSArray *_annotations;
-}
+
 
 - (void)viewDidLoad
 {
    [super viewDidLoad];
    
-   [self _loadAnnotations];
+   // get all annotations from manager
+   NSArray *annotations = _yardSaleManager.annotations;
    
    // add annotations to map
-   [self.mapView addAnnotations:_annotations];
+   [self.mapView addAnnotations:annotations];
    
    // zoom to fit all annoations
-   [self.mapView showAnnotations:_annotations animated:YES];
-}
-
-#pragma mark - Helpers
-
-- (void)_loadAnnotations
-{
-   NSString *path =[[NSBundle mainBundle] pathForResource:@"Locations"
-                                                   ofType:@"plist"];
-   NSArray *locs = [NSArray arrayWithContentsOfFile:path];
-   NSMutableArray *tmpArray = [NSMutableArray array];
-   for (NSDictionary *oneLoc in locs)
-   {
-      SalePlacemark *place = [[SalePlacemark alloc] initWithDictionary:oneLoc];
-      [tmpArray addObject:place];
-   }
-   _annotations = [tmpArray copy];
+   [self.mapView showAnnotations:annotations animated:YES];
 }
 
 #pragma mark - MKMapViewDelegate

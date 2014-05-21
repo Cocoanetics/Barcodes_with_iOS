@@ -6,8 +6,12 @@
 //  Copyright (c) 2014 Cocoanetics. All rights reserved.
 //
 
+@class YardSaleManager;
+
 @interface MapViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
+
+@property (nonatomic, strong) YardSaleManager *yardSaleManager;
 
 @end

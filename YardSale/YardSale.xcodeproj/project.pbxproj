@@ -20,6 +20,7 @@
 		A7A8D06E192C8B5A00C93383 /* Locations.plist in Resources */ = {isa = PBXBuildFile; fileRef = A7A8D06D192C8B5A00C93383 /* Locations.plist */; };
 		A7A8D072192C8DD800C93383 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7A8D071192C8DD800C93383 /* AddressBookUI.framework */; };
 		A7A8D075192C918800C93383 /* SalePlacemark.m in Sources */ = {isa = PBXBuildFile; fileRef = A7A8D074192C918800C93383 /* SalePlacemark.m */; };
+		A7CB3272192C9ADC00F422B7 /* YardSaleManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A7CB3271192C9ADC00F422B7 /* YardSaleManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,8 @@
 		A7A8D071192C8DD800C93383 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		A7A8D073192C918800C93383 /* SalePlacemark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SalePlacemark.h; sourceTree = "<group>"; };
 		A7A8D074192C918800C93383 /* SalePlacemark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SalePlacemark.m; sourceTree = "<group>"; };
+		A7CB3270192C9ADC00F422B7 /* YardSaleManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YardSaleManager.h; sourceTree = "<group>"; };
+		A7CB3271192C9ADC00F422B7 /* YardSaleManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YardSaleManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +108,8 @@
 				A7A8D03D192C898900C93383 /* Supporting Files */,
 				A7A8D073192C918800C93383 /* SalePlacemark.h */,
 				A7A8D074192C918800C93383 /* SalePlacemark.m */,
+				A7CB3270192C9ADC00F422B7 /* YardSaleManager.h */,
+				A7CB3271192C9ADC00F422B7 /* YardSaleManager.m */,
 			);
 			path = YardSale;
 			sourceTree = "<group>";
@@ -191,6 +196,7 @@
 				A7A8D047192C898900C93383 /* AppDelegate.m in Sources */,
 				A7A8D043192C898900C93383 /* main.m in Sources */,
 				A7A8D075192C918800C93383 /* SalePlacemark.m in Sources */,
+				A7CB3272192C9ADC00F422B7 /* YardSaleManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -331,6 +337,7 @@
 				A7A8D067192C898A00C93383 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
