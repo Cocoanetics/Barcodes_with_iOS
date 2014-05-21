@@ -178,6 +178,7 @@
       [[CLCircularRegion alloc] initWithCenter:onePlace.coordinate
                                         radius:100
                                     identifier:onePlace.identifier];
+      region.notifyOnExit = NO; // don't care
       [_locationMgr startMonitoringForRegion:region];
    }
    
