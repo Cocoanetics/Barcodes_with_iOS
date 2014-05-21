@@ -12,5 +12,25 @@
 		<key>Identifier</key>
 		<string>363E4ED6-4684-4732-9720-F9386D3FA2E9</string>
 	</dict>
+	<dict>
+		<key>Latitude</key>
+		<real>37.3321082</real>
+		<key>Longitude</key>
+		<real>-122.0307465</real>
+		<key>Name</key>
+		<string>Apple</string>
+		<key>Identifier</key>
+		<string>363E4ED6-4684-4732-9720-F9386D3FA2EA</string>
+	</dict>
+	<dict>
+		<key>Latitude</key>
+		<real>37.7793862</real>
+		<key>Longitude</key>
+		<real>-122.400774</real>
+		<key>Name</key>
+		<string>Moscone</string>
+		<key>Identifier</key>
+		<string>363E4ED6-4684-4732-9720-F9386D3FA2EB</string>
+	</dict>
 </array>
 </plist>

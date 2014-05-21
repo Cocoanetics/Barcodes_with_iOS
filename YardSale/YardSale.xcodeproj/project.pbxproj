@@ -154,6 +154,15 @@
 			attributes = {
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = Cocoanetics;
+				TargetAttributes = {
+					A7A8D032192C898900C93383 = {
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
+					};
+				};
 			};
 			buildConfigurationList = A7A8D02E192C898900C93383 /* Build configuration list for PBXProject "YardSale" */;
 			compatibilityVersion = "Xcode 3.2";

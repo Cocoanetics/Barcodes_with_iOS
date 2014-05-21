@@ -49,11 +49,6 @@
    return pav;
 }
 
-//-(void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
-//{
-//   NSLog(@"Title:%@",[view.annotation description]);
-//}
-
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
 {
    // hide the bubble

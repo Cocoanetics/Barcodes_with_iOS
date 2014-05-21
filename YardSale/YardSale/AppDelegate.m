@@ -60,6 +60,10 @@
 {
    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
    
+   if (_mostRecentLoc)
+   {
+      [self _updateMonitoredRegionsForLocation:_mostRecentLoc];
+   }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -89,7 +93,15 @@
 //           [_locationMgr allowDeferredLocationUpdatesUntilTraveled:_locationMgr.maximumRegionMonitoringDistance/2.0 timeout:CLTimeIntervalMax];
            
             [_locationMgr startMonitoringSignificantLocationChanges];
-//           [_locationMgr startUpdatingLocation];
+           
+           
+           // used for testing because simulator does not send updates for significant location change monitoring
+           
+           /*
+           _locationMgr.distanceFilter = 1000;
+           _locationMgr.desiredAccuracy = kCLLocationAccuracyKilometer;
+           [_locationMgr startUpdatingLocation];
+            */
          }
          break;
       }
@@ -138,9 +150,13 @@
    }
    
    // add remaining Yard Sales to be monitored
+   CLLocationDistance maxDistance = 0;
    
    for (SalePlacemark *onePlace in sales)
    {
+      CLLocationDistance dist = [loc distanceFromLocation:onePlace.location];
+      maxDistance = MAX(dist, maxDistance);
+      
       if (![identsToMonitor containsObject:onePlace.identifier])
       {
          // not interested in this one
@@ -153,6 +169,10 @@
                                     identifier:onePlace.identifier];
       [_locationMgr startMonitoringForRegion:region];
    }
+   
+   // update deferred updates to half of max distance
+   [_locationMgr allowDeferredLocationUpdatesUntilTraveled:maxDistance/2.0
+                                                   timeout:CLTimeIntervalMax];
 
    // requires slight delay, fails otherwise if a region was unmonitored
    dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
@@ -169,6 +189,8 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
+   NSLog(@"%s", __PRETTY_FUNCTION__);
+   
    CLLocation *location = [locations lastObject];
    
    if (location.coordinate.longitude != _mostRecentLoc.coordinate.longitude ||
