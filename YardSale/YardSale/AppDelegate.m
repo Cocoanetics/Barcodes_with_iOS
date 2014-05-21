@@ -20,6 +20,7 @@
    YardSaleManager *_saleManager;
    CLLocationManager *_locationMgr;
    CLLocation *_mostRecentLoc;
+   NSString *_lastNotifiedSaleID;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -248,10 +249,18 @@
       {
          NSLog(@"Inside %@", region.identifier);
          
+         if ([_lastNotifiedSaleID isEqualToString:region.identifier])
+         {
+            // already notified this one
+            return;
+         }
+         
          SalePlacemark *salePlace = [self _salePlaceForIdentifier:region.identifier];
          NSString *msg = [NSString stringWithFormat:@"%@ is closeby!", salePlace.title];
          NSDictionary *userInfo = @{@"SaleID": region.identifier};
          [self _sendLocalNoteAfterDuration:5 message:msg soundName:UILocalNotificationDefaultSoundName userInfo:userInfo];
+         
+         _lastNotifiedSaleID = region.identifier;
          
          break;
       }
