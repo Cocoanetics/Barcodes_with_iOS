@@ -71,6 +71,16 @@
    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+// received after the user reacts to the local notification action or if the app is in foreground during receipt of the notification
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
+   SalePlacemark *salePlace = [self _salePlaceForIdentifier:notification.userInfo[@"SaleID"]];
+   NSString *msg = [NSString stringWithFormat:@"Welcome to %@", salePlace.title];
+   
+   UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Glad to see you!" message:msg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+   [alert show];
+}
+
 #pragma mark - Helpers
 
 - (void)_enableLocationUpdatesIfAuthorized
@@ -185,6 +195,25 @@
    });
 }
 
+- (void)_sendLocalNoteAfterDuration:(NSTimeInterval)duration message:(NSString *)msg soundName:(NSString *)sound userInfo:(NSDictionary *)userInfo
+{
+   UILocalNotification *note = [[UILocalNotification alloc] init];
+   note.alertAction = @"Visit";
+   note.alertBody = msg;
+   note.fireDate = [[NSDate date] dateByAddingTimeInterval:duration];
+   note.soundName = sound;
+   note.userInfo = userInfo;
+   
+   [[UIApplication sharedApplication] scheduleLocalNotification:note];
+}
+
+- (SalePlacemark *)_salePlaceForIdentifier:(NSString *)identifier
+{
+   NSPredicate *predicate = [NSPredicate predicateWithFormat:@"identifier == %@", identifier];
+   NSArray *matches = [[_saleManager annotations] filteredArrayUsingPredicate:predicate];
+   return [matches firstObject];
+}
+
 #pragma mark - CLLocationManagerDelegate
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
@@ -203,7 +232,8 @@
 }
 
 - (void)locationManager:(CLLocationManager *)manager
-      didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region
+      didDetermineState:(CLRegionState)state
+              forRegion:(CLRegion *)region
 {
    switch (state)
    {
@@ -217,6 +247,11 @@
       case CLRegionStateInside:
       {
          NSLog(@"Inside %@", region.identifier);
+         
+         SalePlacemark *salePlace = [self _salePlaceForIdentifier:region.identifier];
+         NSString *msg = [NSString stringWithFormat:@"%@ is closeby!", salePlace.title];
+         NSDictionary *userInfo = @{@"SaleID": region.identifier};
+         [self _sendLocalNoteAfterDuration:5 message:msg soundName:UILocalNotificationDefaultSoundName userInfo:userInfo];
          
          break;
       }
