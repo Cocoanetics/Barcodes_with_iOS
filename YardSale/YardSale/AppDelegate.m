@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "YardSaleManager.h"
 #import "MapViewController.h"
-#import "SalePlacemark.h"
+#import "SalePlace.h"
 
 @interface AppDelegate () <CLLocationManagerDelegate>
 
@@ -55,8 +55,17 @@
 - (void)application:(UIApplication *)application
          didReceiveLocalNotification:(UILocalNotification *)notification
 {
-   SalePlacemark *salePlace =
-      [self _salePlaceForIdentifier:notification.userInfo[@"SaleID"]];
+   MapViewController *vc =
+   (MapViewController *)self.window.rootViewController;
+   
+   if (vc.presentedViewController)
+   {
+      // In-Store VC already showing
+      return;
+   }
+
+   SalePlace *salePlace =
+   [self _salePlaceForIdentifier:notification.userInfo[@"SaleID"]];
    NSString *msg = [NSString stringWithFormat:@"Welcome to %@",
                     salePlace.title];
    
@@ -67,6 +76,8 @@
                          cancelButtonTitle:@"Ok"
                          otherButtonTitles:nil];
    [alert show];
+   
+   [vc showInStoreUIForSalePlace:salePlace];
 }
 
 #pragma mark - Helpers
@@ -144,7 +155,7 @@
    // add remaining Yard Sales to be monitored
    CLLocationDistance maxDistance = 0;
    
-   for (SalePlacemark *onePlace in sales)
+   for (SalePlace *onePlace in sales)
    {
       CLLocationDistance dist =
          [loc distanceFromLocation:onePlace.location];
@@ -182,7 +193,7 @@
 }
 
 // sends a local notification for a Yard Sale Place
-- (void)_sendLocalNoteForSalePlace:(SalePlacemark *)place
+- (void)_sendLocalNoteForSalePlace:(SalePlace *)place
                      afterDuration:(NSTimeInterval)duration
 {
    NSString *msg = [NSString stringWithFormat:@"%@ is closeby!",
@@ -198,7 +209,7 @@
    [[UIApplication sharedApplication] scheduleLocalNotification:note];
 }
 
-- (SalePlacemark *)_salePlaceForIdentifier:(NSString *)identifier
+- (SalePlace *)_salePlaceForIdentifier:(NSString *)identifier
 {
    NSPredicate *predicate =
    [NSPredicate predicateWithFormat:@"identifier == %@", identifier];
@@ -248,7 +259,7 @@
             return;
          }
          
-         SalePlacemark *salePlace =
+         SalePlace *salePlace =
          [self _salePlaceForIdentifier:region.identifier];
          [self _sendLocalNoteForSalePlace:salePlace
                             afterDuration:0];

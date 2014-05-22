@@ -7,7 +7,7 @@
 //
 
 #import "YardSaleManager.h"
-#import "SalePlacemark.h"
+#import "SalePlace.h"
 
 @implementation YardSaleManager
 {
@@ -34,7 +34,7 @@
    NSMutableArray *tmpArray = [NSMutableArray array];
    for (NSDictionary *oneLoc in locs)
    {
-      SalePlacemark *place = [[SalePlacemark alloc] initWithDictionary:oneLoc];
+      SalePlace *place = [[SalePlace alloc] initWithDictionary:oneLoc];
       [tmpArray addObject:place];
    }
    
@@ -44,7 +44,7 @@
 - (NSArray *)annotationsClosestToLocation:(CLLocation *)location
 {
    NSArray *sorted = [[self annotations] sortedArrayUsingComparator:
-      ^NSComparisonResult(SalePlacemark *pl1, SalePlacemark *pl2) {
+      ^NSComparisonResult(SalePlace *pl1, SalePlace *pl2) {
          CLLocationDistance dist1 = [location distanceFromLocation:pl1.location];
          CLLocationDistance dist2 = [location distanceFromLocation:pl2.location];
          

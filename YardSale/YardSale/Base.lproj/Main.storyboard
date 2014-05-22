@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -34,10 +34,63 @@
                     </view>
                     <connections>
                         <outlet property="mapView" destination="Z09-xL-VfR" id="8Ws-dP-DEP"/>
+                        <segue destination="uPb-Ua-jxc" kind="modal" identifier="ShowSalePlace" id="HPw-L5-gOm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="234" y="119"/>
+        </scene>
+        <!--In Store View Controller - Store Details-->
+        <scene sceneID="Lgk-RJ-01e">
+            <objects>
+                <exit id="tSa-Jf-0Zm" userLabel="Exit" sceneMemberID="exit"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mc8-1v-4XV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="GbX-R8-XER" customClass="InStoreViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="cNS-iF-V9n">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="gdw-EV-buK">
+                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gdw-EV-buK" id="hAh-sO-igb">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="GbX-R8-XER" id="gYC-cR-cKj"/>
+                            <outlet property="delegate" destination="GbX-R8-XER" id="cDB-eu-b3c"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Store Details" id="kaP-9b-qeT">
+                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="fYl-1S-6bq">
+                            <connections>
+                                <segue destination="tSa-Jf-0Zm" kind="unwind" unwindAction="unwindFromStoreDetail:" id="7Ry-gD-rBA"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+            </objects>
+            <point key="canvasLocation" x="1144" y="119"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="tDb-5Y-rLV">
+            <objects>
+                <navigationController definesPresentationContext="YES" id="uPb-Ua-jxc" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="KTe-Ts-Ksb">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="GbX-R8-XER" kind="relationship" relationship="rootViewController" id="nEy-jn-B9v"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mna-5W-VGR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="690" y="119"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

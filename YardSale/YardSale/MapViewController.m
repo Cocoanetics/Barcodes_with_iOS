@@ -7,7 +7,9 @@
 //
 
 #import "MapViewController.h"
-#import "SalePlacemark.h"
+#import "InStoreViewController.h"
+
+#import "SalePlace.h"
 #import "YardSaleManager.h"
 
 @interface MapViewController () <MKMapViewDelegate>
@@ -41,7 +43,7 @@
    }
    
    MKPinAnnotationView *pav = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:nil];
-   pav.canShowCallout = YES;
+   pav.canShowCallout = YES; // otherwise no callout is shown on selection
    
    UIButton *detailButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
    pav.rightCalloutAccessoryView=detailButton;
@@ -51,9 +53,34 @@
 
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
 {
-   // hide the bubble
+//   // hide the bubble
    [mapView deselectAnnotation:view.annotation animated:YES];
+   
+   // show in-store UI
+   [self performSegueWithIdentifier:@"ShowSalePlace" sender:view];
 }
 
+#pragma mark - Navigation
+
+- (void)showInStoreUIForSalePlace:(SalePlace *)place
+{
+   MKAnnotationView *view = [self.mapView viewForAnnotation:place];
+   [self performSegueWithIdentifier:@"ShowSalePlace" sender:view];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+   if ([segue.identifier isEqualToString:@"ShowSalePlace"])
+   {
+      UINavigationController *nav = [segue destinationViewController];
+      InStoreViewController *vc = nav.viewControllers[0];
+      vc.salePlace = [sender annotation];
+   }
+}
+
+- (IBAction)unwindFromStoreDetail:(UIStoryboardSegue *)segue
+{
+   // dummy, nothing to do here
+}
 
 @end
