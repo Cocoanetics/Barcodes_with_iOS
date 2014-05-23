@@ -8,10 +8,12 @@
 
 #import "InStoreViewController.h"
 #import "SalePlace.h"
+#import "DTCameraPreviewController.h"
 
 #define NUMBER_TABLES 5
 
-@interface InStoreViewController () <CLLocationManagerDelegate>
+@interface InStoreViewController () <CLLocationManagerDelegate,
+                                     DTCameraPreviewControllerDelegate>
 
 @end
 
@@ -133,6 +135,53 @@ rangingBeaconsDidFailForRegion:(CLBeaconRegion *)region
    
    // show all tables/sections
    [self setFilteredTable:-1];
+}
+
+#pragma mark - Navigation
+
+- (IBAction)unwindFromScannerViewController:(UIStoryboardSegue *)segue {
+   // intentionally left black
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+   if ([segue.identifier isEqualToString:@"ShowScanner"])
+   {
+      UINavigationController *nav = [segue destinationViewController];
+      DTCameraPreviewController *vc = nav.viewControllers[0];
+      vc.delegate = self;
+   }
+}
+
+- (void)previewController:(DTCameraPreviewController *)previewController
+              didScanCode:(NSString *)code ofType:(NSString *)type
+{
+   // dismiss scanner
+   [previewController performSegueWithIdentifier:@"unwind" sender:self];
+   
+   NSString *msg;
+   
+   if (_filteredTable>=0)
+   {
+      msg = [NSString stringWithFormat:@"Scanned '%@' "
+             "from table %ld at "
+             "%@", code, _filteredTable+1,
+             _salePlace.title];
+   }
+   else
+   {
+      msg = [NSString stringWithFormat:@"Scanned '%@' "
+             "at %@", code,
+             _salePlace.title];
+   }
+
+
+   UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Scanned!"
+                                                   message:msg
+                                                  delegate:nil
+                                         cancelButtonTitle:@"Ok"
+                                         otherButtonTitles:nil];
+   [alert show];
 }
 
 #pragma mark - Properties

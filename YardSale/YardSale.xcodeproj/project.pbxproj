@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		A750E3F5192E2B5200DAF557 /* InStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A750E3F4192E2B5200DAF557 /* InStoreViewController.m */; };
+		A79466B9192F514400A9DFBF /* DTAVFoundationFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = A79466B2192F514400A9DFBF /* DTAVFoundationFunctions.m */; };
+		A79466BA192F514400A9DFBF /* DTCameraPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A79466B4192F514400A9DFBF /* DTCameraPreviewController.m */; };
+		A79466BB192F514400A9DFBF /* DTVideoPreviewInterestBox.m in Sources */ = {isa = PBXBuildFile; fileRef = A79466B6192F514400A9DFBF /* DTVideoPreviewInterestBox.m */; };
+		A79466BC192F514400A9DFBF /* DTVideoPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = A79466B8192F514400A9DFBF /* DTVideoPreviewView.m */; };
+		A79466BF192F517400A9DFBF /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A79466BE192F517400A9DFBF /* AVFoundation.framework */; };
 		A7A8D037192C898900C93383 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7A8D036192C898900C93383 /* Foundation.framework */; };
 		A7A8D039192C898900C93383 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7A8D038192C898900C93383 /* CoreGraphics.framework */; };
 		A7A8D03B192C898900C93383 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7A8D03A192C898900C93383 /* UIKit.framework */; };
@@ -27,6 +32,15 @@
 /* Begin PBXFileReference section */
 		A750E3F3192E2B5200DAF557 /* InStoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InStoreViewController.h; sourceTree = "<group>"; };
 		A750E3F4192E2B5200DAF557 /* InStoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InStoreViewController.m; sourceTree = "<group>"; };
+		A79466B1192F514400A9DFBF /* DTAVFoundationFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTAVFoundationFunctions.h; sourceTree = "<group>"; };
+		A79466B2192F514400A9DFBF /* DTAVFoundationFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTAVFoundationFunctions.m; sourceTree = "<group>"; };
+		A79466B3192F514400A9DFBF /* DTCameraPreviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTCameraPreviewController.h; sourceTree = "<group>"; };
+		A79466B4192F514400A9DFBF /* DTCameraPreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTCameraPreviewController.m; sourceTree = "<group>"; };
+		A79466B5192F514400A9DFBF /* DTVideoPreviewInterestBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTVideoPreviewInterestBox.h; sourceTree = "<group>"; };
+		A79466B6192F514400A9DFBF /* DTVideoPreviewInterestBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTVideoPreviewInterestBox.m; sourceTree = "<group>"; };
+		A79466B7192F514400A9DFBF /* DTVideoPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTVideoPreviewView.h; sourceTree = "<group>"; };
+		A79466B8192F514400A9DFBF /* DTVideoPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTVideoPreviewView.m; sourceTree = "<group>"; };
+		A79466BE192F517400A9DFBF /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		A7A8D033192C898900C93383 /* YardSale.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YardSale.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7A8D036192C898900C93383 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A7A8D038192C898900C93383 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -57,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A79466BF192F517400A9DFBF /* AVFoundation.framework in Frameworks */,
 				A7A8D072192C8DD800C93383 /* AddressBookUI.framework in Frameworks */,
 				A7A8D06C192C8A0A00C93383 /* MapKit.framework in Frameworks */,
 				A7A8D039192C898900C93383 /* CoreGraphics.framework in Frameworks */,
@@ -90,6 +105,21 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		A79466BD192F514700A9DFBF /* Copied Code */ = {
+			isa = PBXGroup;
+			children = (
+				A79466B1192F514400A9DFBF /* DTAVFoundationFunctions.h */,
+				A79466B2192F514400A9DFBF /* DTAVFoundationFunctions.m */,
+				A79466B3192F514400A9DFBF /* DTCameraPreviewController.h */,
+				A79466B4192F514400A9DFBF /* DTCameraPreviewController.m */,
+				A79466B5192F514400A9DFBF /* DTVideoPreviewInterestBox.h */,
+				A79466B6192F514400A9DFBF /* DTVideoPreviewInterestBox.m */,
+				A79466B7192F514400A9DFBF /* DTVideoPreviewView.h */,
+				A79466B8192F514400A9DFBF /* DTVideoPreviewView.m */,
+			);
+			name = "Copied Code";
+			sourceTree = "<group>";
+		};
 		A7A8D02A192C898900C93383 = {
 			isa = PBXGroup;
 			children = (
@@ -110,6 +140,7 @@
 		A7A8D035192C898900C93383 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A79466BE192F517400A9DFBF /* AVFoundation.framework */,
 				A7A8D071192C8DD800C93383 /* AddressBookUI.framework */,
 				A7A8D06F192C8BE900C93383 /* CoreLocation.framework */,
 				A7A8D06B192C8A0A00C93383 /* MapKit.framework */,
@@ -124,6 +155,7 @@
 		A7A8D03C192C898900C93383 /* YardSale */ = {
 			isa = PBXGroup;
 			children = (
+				A79466BD192F514700A9DFBF /* Copied Code */,
 				A750E3F7192E333D00DAF557 /* Model */,
 				A750E3F6192E333000DAF557 /* View Controllers */,
 				A7A8D045192C898900C93383 /* AppDelegate.h */,
@@ -223,9 +255,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				A7A8D04D192C898A00C93383 /* MapViewController.m in Sources */,
+				A79466BB192F514400A9DFBF /* DTVideoPreviewInterestBox.m in Sources */,
+				A79466B9192F514400A9DFBF /* DTAVFoundationFunctions.m in Sources */,
 				A7A8D047192C898900C93383 /* AppDelegate.m in Sources */,
 				A750E3F5192E2B5200DAF557 /* InStoreViewController.m in Sources */,
 				A7A8D043192C898900C93383 /* main.m in Sources */,
+				A79466BA192F514400A9DFBF /* DTCameraPreviewController.m in Sources */,
+				A79466BC192F514400A9DFBF /* DTVideoPreviewView.m in Sources */,
 				A7A8D075192C918800C93383 /* SalePlace.m in Sources */,
 				A7CB3272192C9ADC00F422B7 /* YardSaleManager.m in Sources */,
 			);
