@@ -144,8 +144,6 @@ rangingBeaconsDidFailForRegion:(CLBeaconRegion *)region
 {
    if (table != _filteredTable)
    {
-      NSLog(@"filtered table: %ld", table+1);
-      
       _filteredTable = table;
       
       // refresh table sections with animation
