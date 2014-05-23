@@ -262,7 +262,7 @@
          SalePlace *salePlace =
          [self _salePlaceForIdentifier:region.identifier];
          [self _sendLocalNoteForSalePlace:salePlace
-                            afterDuration:10];
+                            afterDuration:0];  // set duration to e.g. 5 secs for testing
          
          _lastNotifiedSaleID = region.identifier;
          
