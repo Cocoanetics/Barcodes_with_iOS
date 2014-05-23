@@ -111,7 +111,7 @@
    
    if (![beacons count])
    {
-      // no beacons, show all table
+      // no beacons, show all tables
       [self setFilteredTable:-1];
       return;
    }
@@ -147,6 +147,8 @@ rangingBeaconsDidFailForRegion:(CLBeaconRegion *)region
       NSLog(@"filtered table: %ld", table+1);
       
       _filteredTable = table;
+      
+      // refresh table sections with animation
       NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, NUMBER_TABLES)];
       [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
    }
