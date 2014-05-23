@@ -9,119 +9,147 @@
 #import "InStoreViewController.h"
 #import "SalePlace.h"
 
-@interface InStoreViewController ()
+#define NUMBER_TABLES 5
+
+@interface InStoreViewController () <CLLocationManagerDelegate>
 
 @end
 
 @implementation InStoreViewController
-
-- (id)initWithStyle:(UITableViewStyle)style
 {
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
+   CLLocationManager *_beaconManager;
+   CLBeaconRegion *_inStoreRegion;
+   NSInteger _filteredTable;
 }
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+   [super viewDidLoad];
+   
+   NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:@"C70EEE03-8E77-4A57-B462-13CB0A3ED97E"];
+   _inStoreRegion = [[CLBeaconRegion alloc] initWithProximityUUID:uuid identifier:@"In-Store"];
+   
+   // default is to show all products
+   _filteredTable = -1;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
    [super viewWillAppear:animated];
    
+   // set title to show that this is a specific store
    self.navigationItem.title = self.salePlace.title;
+   
+   if (![CLLocationManager isRangingAvailable])
+   {
+      NSLog(@"Ranging not available");
+      return;
+   }
+   
+   // create dedicated beacon ranging manager
+   _beaconManager = [[CLLocationManager alloc] init];
+   _beaconManager.delegate = self;
+   [_beaconManager startRangingBeaconsInRegion:_inStoreRegion];
 }
 
-//- (void)didReceiveMemoryWarning
-//{
-//    [super didReceiveMemoryWarning];
-//    // Dispose of any resources that can be recreated.
-//}
-//
-//#pragma mark - Table view data source
-//
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-//{
-//#warning Potentially incomplete method implementation.
-//    // Return the number of sections.
-//    return 0;
-//}
-//
-//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-//{
-//#warning Incomplete method implementation.
-//    // Return the number of rows in the section.
-//    return 0;
-//}
+- (void)viewWillDisappear:(BOOL)animated
+{
+   // clean up beacon ranging
+   [_beaconManager stopMonitoringForRegion:_inStoreRegion];
+   _beaconManager.delegate = nil;
+   _beaconManager = nil;
+}
 
-/*
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+   // Return the number of sections.
+   return NUMBER_TABLES;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+   if (_filteredTable == -1 || section == _filteredTable)
+   {
+      return 10;
+   }
+   
+   // hide table
+   return 0;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
-    return cell;
+   //    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+   
+   // Configure the cell...
+   UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+   cell.textLabel.text = [NSString stringWithFormat:@"Product %ld on table %ld", indexPath.row+1, indexPath.section+1];
+   
+   return cell;
 }
-*/
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+   if (_filteredTable == -1 || section == _filteredTable)
+   {
+      return [NSString stringWithFormat:@"Table %ld", section+1];
+   }
+   
+   // hide table section header
+   return nil;
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+#pragma mark - CLLocationManagerDelegate
+
+- (void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region
 {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+   // remove beacons that have disappeared
+   NSPredicate *pred = [NSPredicate predicateWithFormat:@"rssi < 0 AND proximity > 0"];
+   beacons = [beacons filteredArrayUsingPredicate:pred];
+   
+   if (![beacons count])
+   {
+      // no beacons, show all table
+      [self setFilteredTable:-1];
+      return;
+   }
+   
+   // sort beacons by signal strength
+   NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"rssi" ascending:NO];
+   beacons = [beacons sortedArrayUsingDescriptors:@[sort]];
+   
+   // get first beacon, this is the closest
+   CLBeacon *beacon = [beacons firstObject];
+   NSInteger closestTable = [beacon.minor integerValue];
+   
+   // filter products to only show this table
+   [self setFilteredTable:closestTable];
 }
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+- (void)locationManager:(CLLocationManager *)manager
+rangingBeaconsDidFailForRegion:(CLBeaconRegion *)region
+              withError:(NSError *)error
 {
+   NSLog(@"%@", [error localizedDescription]);
+   
+   // show all tables/sections
+   [self setFilteredTable:-1];
 }
-*/
 
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+#pragma mark - Properties
+
+- (void)setFilteredTable:(NSInteger)table
 {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
+   if (table != _filteredTable)
+   {
+      NSLog(@"filtered table: %ld", table+1);
+      
+      _filteredTable = table;
+      NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, NUMBER_TABLES)];
+      [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+   }
 }
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
