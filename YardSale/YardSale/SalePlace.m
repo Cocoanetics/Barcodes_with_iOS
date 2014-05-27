@@ -20,12 +20,13 @@
    coord.latitude = [dictionary[@"Latitude"] floatValue];
    coord.longitude = [dictionary[@"Longitude"] floatValue];
 
-   SalePlace *mark = [super initWithCoordinate:coord addressDictionary:nil];
+   self = [super initWithCoordinate:coord
+                             addressDictionary:nil];
    
-   if (mark)
+   if (self)
    {
-      mark->_name = dictionary[@"Name"];
-      mark->_identifier = dictionary[@"Identifier"];
+      _name = dictionary[@"Name"];
+      _identifier = dictionary[@"Identifier"];
    }
    
    return self;
