@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 Cocoanetics. All rights reserved.
 //
 
-#import <MapKit/MapKit.h>
-
 @interface SalePlace : MKPlacemark
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
