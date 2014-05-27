@@ -84,7 +84,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-   cell.textLabel.text = [NSString stringWithFormat:@"Product %ld on table %ld", indexPath.row+1, indexPath.section+1];
+   cell.textLabel.text = [NSString stringWithFormat:@"Product %ld on table %ld", (long)indexPath.row+1, (long)indexPath.section+1];
    
    return cell;
 }
@@ -93,7 +93,7 @@
 {
    if (_filteredTable == -1 || section == _filteredTable)
    {
-      return [NSString stringWithFormat:@"Table %ld", section+1];
+      return [NSString stringWithFormat:@"Table %ld", (long)section+1];
    }
    
    // hide table section header
@@ -164,8 +164,8 @@ rangingBeaconsDidFailForRegion:(CLBeaconRegion *)region
    if (_filteredTable>=0)
    {
       msg = [NSString stringWithFormat:@"Scanned '%@' "
-             "from table %ld at "
-             "%@", code, _filteredTable+1,
+             "from table %ld "
+             "%@", code, (long)_filteredTable+1,
              _salePlace.title];
    }
    else
