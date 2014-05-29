@@ -87,14 +87,11 @@
    CLAuthorizationStatus authStatus =
       [CLLocationManager authorizationStatus];
    
-   switch (authStatus)
-   {
+   switch (authStatus) {
       case kCLAuthorizationStatusNotDetermined:
-      case kCLAuthorizationStatusAuthorized:
-      {
+      case kCLAuthorizationStatusAuthorized: {
          // initialize location manager
-         if (!_locationMgr)
-         {
+         if (!_locationMgr) {
             _locationMgr = [[CLLocationManager alloc] init];
             _locationMgr.delegate = self;
             
@@ -113,8 +110,7 @@
       }
          
       case kCLAuthorizationStatusDenied:
-      case kCLAuthorizationStatusRestricted:
-      {
+      case kCLAuthorizationStatusRestricted: {
          _locationMgr = nil;
          break;
       }
@@ -125,8 +121,7 @@
 - (void)_updateMonitoredRegionsForLocation:(CLLocation *)loc
 {
    if (![CLLocationManager isMonitoringAvailableForClass:
-         [CLCircularRegion class]])
-   {
+         [CLCircularRegion class]]) {
       NSLog(@"Monitoring not available for CLCircularRegion");
       return;
    }
@@ -138,15 +133,12 @@
    NSMutableArray *identsToMonitor =
    [[sales valueForKeyPath:@"@unionOfObjects.identifier"] mutableCopy];
    
-   for (CLRegion *region in _locationMgr.monitoredRegions)
-   {
-      if ([identsToMonitor containsObject:region.identifier])
-      {
+   for (CLRegion *region in _locationMgr.monitoredRegions) {
+      if ([identsToMonitor containsObject:region.identifier]) {
          // already monitoring this, remove it from to-do list
          [identsToMonitor removeObject:region.identifier];
       }
-      else
-      {
+      else {
          // not interested in this any more
          [_locationMgr stopMonitoringForRegion:region];
       }
@@ -155,8 +147,7 @@
    // add remaining Yard Sales to be monitored
    CLLocationDistance maxDistance = 0;
    
-   for (SalePlace *onePlace in sales)
-   {
+   for (SalePlace *onePlace in sales) {
       CLLocationDistance dist =
          [loc distanceFromLocation:onePlace.location];
       maxDistance = MAX(dist, maxDistance);
@@ -228,8 +219,7 @@
    if (location.coordinate.longitude
        != _mostRecentLoc.coordinate.longitude ||
        location.coordinate.latitude
-       != _mostRecentLoc.coordinate.latitude)
-   {
+       != _mostRecentLoc.coordinate.latitude) {
       _mostRecentLoc = [locations lastObject];
       
       [self _updateMonitoredRegionsForLocation:location];
