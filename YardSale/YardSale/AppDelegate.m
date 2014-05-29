@@ -185,8 +185,7 @@
 
 // sends a local notification for a Yard Sale Place
 - (void)_sendLocalNoteForSalePlace:(SalePlace *)place
-                     afterDuration:(NSTimeInterval)duration
-{
+                     afterDuration:(NSTimeInterval)duration {
    NSString *msg = [NSString stringWithFormat:@"%@ is closeby!",
                     place.title];
    
@@ -198,15 +197,6 @@
    note.userInfo = @{@"SaleID": place.identifier};
    
    [[UIApplication sharedApplication] scheduleLocalNotification:note];
-}
-
-- (SalePlace *)_salePlaceForIdentifier:(NSString *)identifier
-{
-   NSPredicate *predicate =
-   [NSPredicate predicateWithFormat:@"identifier == %@", identifier];
-   NSArray *matches =
-   [[_saleManager annotations] filteredArrayUsingPredicate:predicate];
-   return [matches firstObject];
 }
 
 #pragma mark - CLLocationManagerDelegate
@@ -228,39 +218,31 @@
 
 - (void)locationManager:(CLLocationManager *)manager
       didDetermineState:(CLRegionState)state
-              forRegion:(CLRegion *)region
-{
-   switch (state)
-   {
-      case CLRegionStateUnknown:
-      {
+              forRegion:(CLRegion *)region {
+   switch (state) {
+      case CLRegionStateUnknown: {
          NSLog(@"Unknown %@", region.identifier);
-         
          break;
       }
          
-      case CLRegionStateInside:
-      {
+      case CLRegionStateInside: {
          NSLog(@"Inside %@", region.identifier);
          
-         if ([_lastNotifiedSaleID isEqualToString:region.identifier])
-         {
+         if ([_lastNotifiedSaleID isEqualToString:region.identifier]) {
             // already notified this one
             return;
          }
          
          SalePlace *salePlace =
-         [self _salePlaceForIdentifier:region.identifier];
+            [_saleManager salePlaceForIdentifier:region.identifier];
          [self _sendLocalNoteForSalePlace:salePlace
                             afterDuration:0];  // set duration to e.g. 5 secs for testing
          
          _lastNotifiedSaleID = region.identifier;
-         
          break;
       }
          
-      case CLRegionStateOutside:
-      {
+      case CLRegionStateOutside: {
          NSLog(@"Outside %@", region.identifier);
          
          break;
