@@ -41,16 +41,15 @@
    _annotations = [tmpArray copy];
 }
 
-- (NSArray *)annotationsClosestToLocation:(CLLocation *)location
-{
+- (NSArray *)annotationsClosestToLocation:(CLLocation *)location {
    NSArray *sorted = [[self annotations] sortedArrayUsingComparator:
       ^NSComparisonResult(SalePlace *pl1, SalePlace *pl2) {
-         CLLocationDistance dist1 = [location distanceFromLocation:pl1.location];
-         CLLocationDistance dist2 = [location distanceFromLocation:pl2.location];
-         
+         CLLocationDistance dist1 =
+            [location distanceFromLocation:pl1.location];
+         CLLocationDistance dist2 =
+            [location distanceFromLocation:pl2.location];
          return [@(dist1) compare:@(dist2)];
    }];
-   
    NSRange range = NSMakeRange(0, MIN(10, [sorted count]));
    return [sorted subarrayWithRange:range];
 }
