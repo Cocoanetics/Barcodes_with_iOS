@@ -54,6 +54,14 @@
    return [sorted subarrayWithRange:range];
 }
 
+- (SalePlace *)salePlaceForIdentifier:(NSString *)identifier {
+   NSPredicate *predicate =
+      [NSPredicate predicateWithFormat:@"identifier == %@", identifier];
+   NSArray *matches =
+      [[self annotations] filteredArrayUsingPredicate:predicate];
+   return [matches firstObject];
+}
+
 #pragma mark - Properties
 
 - (NSArray *)annotations
