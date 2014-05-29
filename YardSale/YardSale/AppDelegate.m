@@ -65,7 +65,8 @@
    }
 
    SalePlace *salePlace =
-   [self _salePlaceForIdentifier:notification.userInfo[@"SaleID"]];
+      [_saleManager salePlaceForIdentifier:
+          notification.userInfo[@"SaleID"]];
    NSString *msg = [NSString stringWithFormat:@"Welcome to %@",
                     salePlace.title];
    
@@ -236,7 +237,7 @@
          SalePlace *salePlace =
             [_saleManager salePlaceForIdentifier:region.identifier];
          [self _sendLocalNoteForSalePlace:salePlace
-                            afterDuration:0];  // set duration to e.g. 5 secs for testing
+                            afterDuration:5];  // set duration to e.g. 5 secs for testing
          
          _lastNotifiedSaleID = region.identifier;
          break;
