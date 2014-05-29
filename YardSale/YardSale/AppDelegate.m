@@ -42,19 +42,16 @@
    return YES;
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application
-{
+- (void)applicationDidBecomeActive:(UIApplication *)application {
    // update monitored regions when app becomes active
-   if (_mostRecentLoc)
-   {
+   if (_mostRecentLoc) {
       [self _updateMonitoredRegionsForLocation:_mostRecentLoc];
    }
 }
 
 // received after the user reacts to the local notification action or if the app is in foreground during receipt of the notification
 - (void)application:(UIApplication *)application
-         didReceiveLocalNotification:(UILocalNotification *)notification
-{
+       didReceiveLocalNotification:(UILocalNotification *)notification {
    MapViewController *vc =
    (MapViewController *)self.window.rootViewController;
    
@@ -69,7 +66,6 @@
           notification.userInfo[@"SaleID"]];
    NSString *msg = [NSString stringWithFormat:@"Welcome to %@",
                     salePlace.title];
-   
    UIAlertView *alert = [[UIAlertView alloc]
                          initWithTitle:@"Glad to see you!"
                          message:msg
