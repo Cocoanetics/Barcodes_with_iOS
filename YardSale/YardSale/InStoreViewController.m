@@ -24,26 +24,23 @@
    NSInteger _filteredTable;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
    [super viewDidLoad];
-   
-   NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:@"C70EEE03-8E77-4A57-B462-13CB0A3ED97E"];
-   _inStoreRegion = [[CLBeaconRegion alloc] initWithProximityUUID:uuid identifier:@"In-Store"];
-   
+   NSUUID *uuid = [[NSUUID alloc]
+            initWithUUIDString:@"C70EEE03-8E77-4A57-B462-13CB0A3ED97E"];
+   _inStoreRegion = [[CLBeaconRegion alloc]
+                     initWithProximityUUID:uuid identifier:@"In-Store"];
    // default is to show all products
    _filteredTable = -1;
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
    [super viewWillAppear:animated];
    
    // set title to show that this is a specific store
    self.navigationItem.title = self.salePlace.title;
    
-   if (![CLLocationManager isRangingAvailable])
-   {
+   if (![CLLocationManager isRangingAvailable]) {
       NSLog(@"Ranging not available");
       return;
    }
@@ -54,8 +51,9 @@
    [_beaconManager startRangingBeaconsInRegion:_inStoreRegion];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
+- (void)viewWillDisappear:(BOOL)animated {
+   [super viewWillDisappear:animated];
+   
    // clean up beacon ranging
    [_beaconManager stopMonitoringForRegion:_inStoreRegion];
    _beaconManager.delegate = nil;
@@ -64,16 +62,14 @@
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
    // Return the number of sections.
    return NUMBER_TABLES;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-   if (_filteredTable == -1 || section == _filteredTable)
-   {
+- (NSInteger)tableView:(UITableView *)tableView
+     numberOfRowsInSection:(NSInteger)section {
+   if (_filteredTable == -1 || section == _filteredTable) {
       return 10;
    }
    
@@ -81,18 +77,21 @@
    return 0;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-   UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-   cell.textLabel.text = [NSString stringWithFormat:@"Product %ld on table %ld", (long)indexPath.row+1, (long)indexPath.section+1];
-   
+- (UITableViewCell *)tableView:(UITableView *)tableView
+                     cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+   UITableViewCell *cell = [[UITableViewCell alloc]
+                            initWithStyle:UITableViewCellStyleDefault
+                            reuseIdentifier:nil];
+   cell.textLabel.text =
+      [NSString stringWithFormat:@"Product %ld on table %ld",
+                                 (long)indexPath.row+1,
+                                 (long)indexPath.section+1];
    return cell;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-   if (_filteredTable == -1 || section == _filteredTable)
-   {
+- (NSString *)tableView:(UITableView *)tableView
+              titleForHeaderInSection:(NSInteger)section {
+   if (_filteredTable == -1 || section == _filteredTable) {
       return [NSString stringWithFormat:@"Table %ld", (long)section+1];
    }
    
@@ -102,35 +101,36 @@
 
 #pragma mark - CLLocationManagerDelegate
 
-- (void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region
-{
+- (void)locationManager:(CLLocationManager *)manager
+        didRangeBeacons:(NSArray *)beacons
+               inRegion:(CLBeaconRegion *)region {
    // remove beacons that have disappeared
-   NSPredicate *pred = [NSPredicate predicateWithFormat:@"rssi < 0 AND proximity > 0"];
+   NSPredicate *pred =
+      [NSPredicate predicateWithFormat:@"rssi < 0 AND proximity > 0"];
    beacons = [beacons filteredArrayUsingPredicate:pred];
    
-   if (![beacons count])
-   {
+   if (![beacons count]) {
       // no beacons, show all tables
       [self setFilteredTable:-1];
       return;
    }
    
    // sort beacons by signal strength
-   NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"rssi" ascending:NO];
+   NSSortDescriptor *sort =
+      [NSSortDescriptor sortDescriptorWithKey:@"rssi" ascending:NO];
    beacons = [beacons sortedArrayUsingDescriptors:@[sort]];
    
    // get first beacon, this is the closest
    CLBeacon *beacon = [beacons firstObject];
-   NSInteger closestTable = [beacon.minor integerValue];
+   NSInteger closestTableNumber = [beacon.minor integerValue];
    
    // filter products to only show this table
-   [self setFilteredTable:closestTable];
+   [self setFilteredTable:closestTableNumber];
 }
 
 - (void)locationManager:(CLLocationManager *)manager
 rangingBeaconsDidFailForRegion:(CLBeaconRegion *)region
-              withError:(NSError *)error
-{
+              withError:(NSError *)error {
    NSLog(@"%@", [error localizedDescription]);
    
    // show all tables/sections
@@ -145,8 +145,7 @@ rangingBeaconsDidFailForRegion:(CLBeaconRegion *)region
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-   if ([segue.identifier isEqualToString:@"ShowScanner"])
-   {
+   if ([segue.identifier isEqualToString:@"ShowScanner"]) {
       UINavigationController *nav = [segue destinationViewController];
       DTCameraPreviewController *vc = nav.viewControllers[0];
       vc.delegate = self;
@@ -161,15 +160,13 @@ rangingBeaconsDidFailForRegion:(CLBeaconRegion *)region
    
    NSString *msg;
    
-   if (_filteredTable>=0)
-   {
+   if (_filteredTable>=0) {
       msg = [NSString stringWithFormat:@"Scanned '%@' "
              "from table %ld "
              "%@", code, (long)_filteredTable+1,
              _salePlace.title];
    }
-   else
-   {
+   else {
       msg = [NSString stringWithFormat:@"Scanned '%@' "
              "at %@", code,
              _salePlace.title];
@@ -186,15 +183,15 @@ rangingBeaconsDidFailForRegion:(CLBeaconRegion *)region
 
 #pragma mark - Properties
 
-- (void)setFilteredTable:(NSInteger)table
-{
-   if (table != _filteredTable)
-   {
+- (void)setFilteredTable:(NSInteger)table {
+   if (table != _filteredTable) {
       _filteredTable = table;
-      
       // refresh table sections with animation
-      NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, NUMBER_TABLES)];
-      [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+      NSIndexSet *indexSet =
+         [NSIndexSet indexSetWithIndexesInRange:
+             NSMakeRange(0, NUMBER_TABLES)];
+      [self.tableView reloadSections:indexSet
+                    withRowAnimation:UITableViewRowAnimationAutomatic];
    }
 }
 
