@@ -48,8 +48,7 @@
    }
 }
 
-- (void)_startAdvertising
-{
+- (void)_startAdvertising {
    // get values from UI
    NSString *UUIDString = self.UUIDTextField.text;
    NSInteger major = [self.majorTextField.text integerValue];
