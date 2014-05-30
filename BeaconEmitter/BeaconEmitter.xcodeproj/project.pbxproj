@@ -140,7 +140,7 @@
 					A75169FD192B7D600030AAAF = {
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
