@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>Latitude</key>
+		<real>48.053134</real>
+		<key>Longitude</key>
+		<real>14.585162</real>
+		<key>Name</key>
+		<string>Oliver</string>
+		<key>Identifier</key>
+		<string>363E4ED6-4684-4732-9720-F9386D3FA2E9</string>
+	</dict>
+	<dict>
+		<key>Latitude</key>
+		<real>37.332057</real>
+		<key>Longitude</key>
+		<real>-122.0315941</real>
+		<key>Name</key>
+		<string>Apple</string>
+		<key>Identifier</key>
+		<string>363E4ED6-4684-4732-9720-F9386D3FA2EA</string>
+	</dict>
+	<dict>
+		<key>Latitude</key>
+		<real>37.7793862</real>
+		<key>Longitude</key>
+		<real>-122.400774</real>
+		<key>Name</key>
+		<string>Moscone</string>
+		<key>Identifier</key>
+		<string>363E4ED6-4684-4732-9720-F9386D3FA2EB</string>
+	</dict>
+</array>
+</plist>
