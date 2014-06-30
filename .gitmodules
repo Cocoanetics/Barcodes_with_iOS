@@ -1,3 +1,6 @@
 [submodule "BarCodeKit"]
 	path = BarCodeKit
 	url = git@git.cocoanetics.com:parts/barcodekit.git
+[submodule "MusicCollection/Externals/DTOAuth"]
+	path = MusicCollection/Externals/DTOAuth
+	url = git@github.com:Cocoanetics/DTOAuth.git

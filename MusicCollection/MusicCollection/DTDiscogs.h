@@ -8,6 +8,7 @@
 
 extern NSString * const DTDiscogsErrorDomain;
 
+@class DTOAuthClient;
 
 /*
  Completion handler for Discogs API calls
@@ -28,5 +29,7 @@ typedef void (^DTDiscogsCompletion)(id result, NSError *error);
 - (void)searchForGTIN:(NSString *)gtin completion:(DTDiscogsCompletion)completion;
 
 - (NSURLSession *)session;
+
+@property (nonatomic, strong) DTOAuthClient *oauthClient;
 
 @end

@@ -11,6 +11,9 @@
 #import "Release.h"
 #import "ReleaseCell.h"
 #import "DTDiscogs.h"
+#import "DTOAuthClient.h"
+#import "DTOAuthWebViewController.h"
+
 
 @interface MediaListViewController () <NSFetchedResultsControllerDelegate, DTCameraPreviewControllerDelegate>
 
@@ -20,6 +23,10 @@
 {
    NSManagedObjectContext *_managedObjectContext;
    NSFetchedResultsController *_fetchedResultsController;
+	
+	
+	DTDiscogs *_discogs;
+	NSString *_scannedCodeToSearchFor;
 }
 
 - (void)viewDidLoad
@@ -28,7 +35,196 @@
    
    // show edit button
    self.navigationItem.rightBarButtonItem = self.editButtonItem;
+	
+	_discogs = [[DTDiscogs alloc] init];
 }
+
+- (void)viewDidAppear:(BOOL)animated
+{
+	[super viewDidAppear:animated];
+	
+	if (!_scannedCodeToSearchFor || !animated)
+	{
+		return;
+	}
+	
+	// we returned from the scanner, so let's handle the code
+	[self _handleScannedCode:_scannedCodeToSearchFor];
+	_scannedCodeToSearchFor = nil;
+}
+
+#pragma mark - Release searching helpers
+
+// update a Release object from a Discogs result dictionary
+- (void)_updateRelease:(Release *)release
+        fromDictionary:(NSDictionary *)dict {
+   [self _performDatabaseUpdatesAndSave:
+    ^(NSManagedObjectContext *context) {
+       // get version of the Release for temp context
+       Release *updatedRelease = (Release *)
+       [context objectWithID:release.objectID];
+       
+       NSString *title = dict[@"title"];
+       NSString *artist = nil;
+       NSRange rangeOfDash = [title rangeOfString:@"-"];
+       
+       // split title field into title and artist
+       if (rangeOfDash.location != NSNotFound) {
+          artist = [[title substringToIndex:rangeOfDash.location]
+                    stringByTrimmingCharactersInSet:
+                    [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+          title = [[title substringFromIndex:rangeOfDash.location+1]
+                   stringByTrimmingCharactersInSet:
+                   [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+       }
+       
+       // update values
+       updatedRelease.title = title;
+       updatedRelease.artist = artist;
+       updatedRelease.genre = [dict[@"genre"] firstObject];
+       updatedRelease.style = [dict[@"style"] firstObject];
+       updatedRelease.format = [dict[@"format"] firstObject];
+       updatedRelease.year = @([dict[@"year"] integerValue]);
+       updatedRelease.uri = dict[@"uri"];
+    }];
+}
+
+- (void)_handleScannedCode:(NSString *)code
+{
+	// create a new Release object and fill in barcode
+	Release *release = [NSEntityDescription
+                       insertNewObjectForEntityForName:@"Release"
+                       inManagedObjectContext:_managedObjectContext];
+   
+   release.barcode = code;
+   release.genre = @"Unknown";
+   
+   // Save the context.
+   NSError *error = nil;
+   if (![_managedObjectContext save:&error]) {
+      NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+      abort();
+   }
+	
+	// this is the search we want to perform
+	void (^search)(void) = ^{
+		// retrieve more info via Discogs
+		[_discogs searchForGTIN:code completion:^(id result, NSError *error) {
+			if (error || ![result isKindOfClass:[NSDictionary class]]) {
+				return;
+			}
+			
+			NSDictionary *dict = (NSDictionary *)result;
+			NSArray *results = dict[@"results"];
+			
+			if (![results count]) {
+				return;
+			}
+			
+			// always use first result
+			NSDictionary *theResult = results[0];
+			[self _updateRelease:release fromDictionary:theResult];
+		}];
+	};
+	
+	if ([_discogs.oauthClient isAuthenticated])
+	{
+		search();
+	}
+	else
+	{
+		[self _authenticateAndThenPerformBlock:search];
+	}
+}
+
+- (void)_authenticateAndThenPerformBlock:(void (^)(void))block
+{
+	[_discogs.oauthClient requestTokenWithCompletion:^(NSError *error) {
+		if (error)
+		{
+			NSLog(@"Error requesting token: %@",
+					[error localizedDescription]);
+			return;
+		}
+		
+		dispatch_async(dispatch_get_main_queue(), ^{
+			DTOAuthWebViewController *webView = [[DTOAuthWebViewController alloc] init];
+			UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:webView];
+			
+			[self presentViewController:nav animated:YES completion:NULL];
+			
+			NSURLRequest *request = [_discogs.oauthClient userTokenAuthorizationRequest];
+			
+			[webView startAuthorizationFlowWithRequest:request
+													  completion:^(BOOL isAuthenticated, NSString *verifier) {
+														  
+														  // dismiss the web view
+														  [self dismissViewControllerAnimated:YES completion:NO];
+														  
+														  if (!isAuthenticated)
+														  {
+															  NSLog(@"User did not authorize app");
+															  return;
+														  }
+														  
+														  [_discogs.oauthClient authorizeTokenWithVerifier:verifier completion:^(NSError *error) {
+															  
+															  if (error)
+															  {
+																  NSLog(@"Unable to exchange bearer token for access token: %@", [error localizedDescription]);
+																  return;
+															  }
+															  
+															  
+															  block();
+														  }];
+														  
+													  }];
+		});
+	}];
+}
+
+// convenience that creates a tmp context and saves it asynchronously
+- (void)_performDatabaseUpdatesAndSave:
+(void (^)(NSManagedObjectContext *context))block
+{
+   NSParameterAssert(block);
+   
+   // create temporary context
+   NSManagedObjectContext *tmpContext = [[NSManagedObjectContext alloc]
+													  initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+   tmpContext.parentContext = _managedObjectContext;
+   
+   // private context needs updates on its own queue
+   [tmpContext performBlock:^{
+      block(tmpContext);
+      
+      // save, pushes changes up to main MOC
+      if ([tmpContext hasChanges])
+      {
+         NSError *error;
+         if ([tmpContext save:&error])
+         {
+            // main MOC saving needs to be on main queue
+            dispatch_async(dispatch_get_main_queue(), ^{
+               
+               NSError *error;
+               if (![_managedObjectContext save:&error])
+               {
+                  NSLog(@"Error saving main context: %@",
+                        [error localizedDescription]);
+               };
+            });
+         }
+         else
+         {
+            NSLog(@"Error saving tmp context: %@",
+                  [error localizedDescription]);
+         }
+      }
+   }];
+}
+
 
 #pragma mark - Table view data source
 
@@ -292,121 +488,18 @@
    // intentionally left black
 }
 
-// update a Release object from a Discogs result dictionary
-- (void)_updateRelease:(Release *)release
-        fromDictionary:(NSDictionary *)dict {
-   [self _performDatabaseUpdatesAndSave:
-    ^(NSManagedObjectContext *context) {
-       // get version of the Release for temp context
-       Release *updatedRelease = (Release *)
-       [context objectWithID:release.objectID];
-       
-       NSString *title = dict[@"title"];
-       NSString *artist = nil;
-       NSRange rangeOfDash = [title rangeOfString:@"-"];
-       
-       // split title field into title and artist
-       if (rangeOfDash.location != NSNotFound) {
-          artist = [[title substringToIndex:rangeOfDash.location]
-                    stringByTrimmingCharactersInSet:
-                    [NSCharacterSet whitespaceAndNewlineCharacterSet]];
-          title = [[title substringFromIndex:rangeOfDash.location+1]
-                   stringByTrimmingCharactersInSet:
-                   [NSCharacterSet whitespaceAndNewlineCharacterSet]];
-       }
-       
-       // update values
-       updatedRelease.title = title;
-       updatedRelease.artist = artist;
-       updatedRelease.genre = [dict[@"genre"] firstObject];
-       updatedRelease.style = [dict[@"style"] firstObject];
-       updatedRelease.format = [dict[@"format"] firstObject];
-       updatedRelease.year = @([dict[@"year"] integerValue]);
-       updatedRelease.uri = dict[@"uri"];
-    }];
-}
-
-
 - (void)previewController:(DTCameraPreviewController *)previewController
-              didScanCode:(NSString *)code ofType:(NSString *)type
-{
-   Release *release = [NSEntityDescription
-                       insertNewObjectForEntityForName:@"Release"
-                       inManagedObjectContext:_managedObjectContext];
-   
-   release.barcode = code;
-   release.genre = @"Unknown";
-   
-   // Save the context.
-   NSError *error = nil;
-   if (![_managedObjectContext save:&error]) {
-      NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-      abort();
-   }
-   
+              didScanCode:(NSString *)code ofType:(NSString *)type {
+	
+	_scannedCodeToSearchFor = code;
+	
    // dismiss scanner
    [previewController performSegueWithIdentifier:@"unwind" sender:self];
-   
-   // retrieve more info via Discogs
-   DTDiscogs *discogs = [[DTDiscogs alloc] init];
-   [discogs searchForGTIN:code completion:^(id result, NSError *error) {
-      if (error || ![result isKindOfClass:[NSDictionary class]]) {
-         return;
-      }
-      
-      NSDictionary *dict = (NSDictionary *)result;
-      NSArray *results = dict[@"results"];
-      
-      if (![results count]) {
-         return;
-      }
-      
-      // always use first result
-      NSDictionary *theResult = results[0];
-      [self _updateRelease:release fromDictionary:theResult];
-   }];
+	
+//	// delay search until after segue is done
+//	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//		[self _handleScannedCode:code];
+//	});
 }
-
-// convenience that creates a tmp context and saves it asynchronously
-- (void)_performDatabaseUpdatesAndSave:
-                        (void (^)(NSManagedObjectContext *context))block
-{
-   NSParameterAssert(block);
-   
-   // create temporary context
-   NSManagedObjectContext *tmpContext = [[NSManagedObjectContext alloc]
-                 initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-   tmpContext.parentContext = _managedObjectContext;
-   
-   // private context needs updates on its own queue
-   [tmpContext performBlock:^{
-      block(tmpContext);
-      
-      // save, pushes changes up to main MOC
-      if ([tmpContext hasChanges])
-      {
-         NSError *error;
-         if ([tmpContext save:&error])
-         {
-            // main MOC saving needs to be on main queue
-            dispatch_async(dispatch_get_main_queue(), ^{
-               
-               NSError *error;
-               if (![_managedObjectContext save:&error])
-               {
-                  NSLog(@"Error saving main context: %@",
-                        [error localizedDescription]);
-               };
-            });
-         }
-         else
-         {
-            NSLog(@"Error saving tmp context: %@",
-                  [error localizedDescription]);
-         }
-      }
-   }];
-}
-
 
 @end
