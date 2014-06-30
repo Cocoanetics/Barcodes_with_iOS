@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A70C8072195C5E6400D3ADEF /* libDTOAuth_iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A70C806F195C5C8000D3ADEF /* libDTOAuth_iOS.a */; };
 		A74E497218F4257000957DDA /* DTURLProtocolResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = A74E497118F4257000957DDA /* DTURLProtocolResponse.m */; };
 		A74E497518F4276000957DDA /* DTURLProtocolStub.m in Sources */ = {isa = PBXBuildFile; fileRef = A74E497418F4276000957DDA /* DTURLProtocolStub.m */; };
 		A74EB63018F5481100AF749E /* search_not_found.json in Resources */ = {isa = PBXBuildFile; fileRef = A74EB62F18F5481100AF749E /* search_not_found.json */; };
@@ -37,6 +38,34 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		A70C806C195C5C8000D3ADEF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A70C8060195C5C8000D3ADEF /* DTOAuth.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A7B27337195421F300E536A3;
+			remoteInfo = Demo;
+		};
+		A70C806E195C5C8000D3ADEF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A70C8060195C5C8000D3ADEF /* DTOAuth.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A786D8E91959A2B700442121;
+			remoteInfo = "Static Library (iOS)";
+		};
+		A70C8070195C5C8000D3ADEF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A70C8060195C5C8000D3ADEF /* DTOAuth.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A70F8E0C195ACC7C0078C54C;
+			remoteInfo = "Unit Tests";
+		};
+		A70C8073195C5E6800D3ADEF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A70C8060195C5C8000D3ADEF /* DTOAuth.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = A786D8E81959A2B700442121;
+			remoteInfo = "Static Library (iOS)";
+		};
 		A7DCED5E18ED68F700A41FA9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A7DCED3018ED68F700A41FA9 /* Project object */;
@@ -47,6 +76,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A70C8060195C5C8000D3ADEF /* DTOAuth.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = DTOAuth.xcodeproj; sourceTree = "<group>"; };
 		A74E497018F4257000957DDA /* DTURLProtocolResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTURLProtocolResponse.h; sourceTree = "<group>"; };
 		A74E497118F4257000957DDA /* DTURLProtocolResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTURLProtocolResponse.m; sourceTree = "<group>"; };
 		A74E497318F4276000957DDA /* DTURLProtocolStub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTURLProtocolStub.h; sourceTree = "<group>"; };
@@ -95,6 +125,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A70C8072195C5E6400D3ADEF /* libDTOAuth_iOS.a in Frameworks */,
 				A78101C318F6B495001DDA3D /* AVFoundation.framework in Frameworks */,
 				A781012618F68B61001DDA3D /* CoreData.framework in Frameworks */,
 				A7DCED3E18ED68F700A41FA9 /* CoreGraphics.framework in Frameworks */,
@@ -116,6 +147,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A70C8040195C5C8000D3ADEF /* Externals */ = {
+			isa = PBXGroup;
+			children = (
+				A70C8041195C5C8000D3ADEF /* DTOAuth */,
+			);
+			path = Externals;
+			sourceTree = "<group>";
+		};
+		A70C8041195C5C8000D3ADEF /* DTOAuth */ = {
+			isa = PBXGroup;
+			children = (
+				A70C8060195C5C8000D3ADEF /* DTOAuth.xcodeproj */,
+			);
+			path = DTOAuth;
+			sourceTree = "<group>";
+		};
+		A70C8061195C5C8000D3ADEF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A70C806D195C5C8000D3ADEF /* DTOAuth.app */,
+				A70C806F195C5C8000D3ADEF /* libDTOAuth_iOS.a */,
+				A70C8071195C5C8000D3ADEF /* Unit Tests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		A74E497618F4599300957DDA /* DTURLProtocolStub */ = {
 			isa = PBXGroup;
 			children = (
@@ -183,6 +240,7 @@
 		A7DCED2F18ED68F700A41FA9 = {
 			isa = PBXGroup;
 			children = (
+				A70C8040195C5C8000D3ADEF /* Externals */,
 				A7DCED4118ED68F700A41FA9 /* MusicCollection */,
 				A7DCED6018ED68F700A41FA9 /* Unit Tests */,
 				A7DCED3A18ED68F700A41FA9 /* Frameworks */,
@@ -274,6 +332,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				A70C8074195C5E6800D3ADEF /* PBXTargetDependency */,
 			);
 			name = MusicCollection;
 			productName = DiscogsQuery;
@@ -323,6 +382,12 @@
 			mainGroup = A7DCED2F18ED68F700A41FA9;
 			productRefGroup = A7DCED3918ED68F700A41FA9 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = A70C8061195C5C8000D3ADEF /* Products */;
+					ProjectRef = A70C8060195C5C8000D3ADEF /* DTOAuth.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				A7DCED3718ED68F700A41FA9 /* MusicCollection */,
@@ -330,6 +395,30 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		A70C806D195C5C8000D3ADEF /* DTOAuth.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = DTOAuth.app;
+			remoteRef = A70C806C195C5C8000D3ADEF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A70C806F195C5C8000D3ADEF /* libDTOAuth_iOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libDTOAuth_iOS.a;
+			remoteRef = A70C806E195C5C8000D3ADEF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A70C8071195C5C8000D3ADEF /* Unit Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Unit Tests.xctest";
+			remoteRef = A70C8070195C5C8000D3ADEF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		A7DCED3618ED68F700A41FA9 /* Resources */ = {
@@ -385,6 +474,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		A70C8074195C5E6800D3ADEF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Static Library (iOS)";
+			targetProxy = A70C8073195C5E6800D3ADEF /* PBXContainerItemProxy */;
+		};
 		A7DCED5F18ED68F700A41FA9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = A7DCED3718ED68F700A41FA9 /* MusicCollection */;
@@ -483,6 +577,7 @@
 				GCC_PREFIX_HEADER = "MusicCollection/MusicCollection-Prefix.pch";
 				INFOPLIST_FILE = "MusicCollection/MusicCollection-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "${SOURCE_ROOT}/Externals/DTOAuth/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -496,6 +591,7 @@
 				GCC_PREFIX_HEADER = "MusicCollection/MusicCollection-Prefix.pch";
 				INFOPLIST_FILE = "MusicCollection/MusicCollection-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "${SOURCE_ROOT}/Externals/DTOAuth/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
