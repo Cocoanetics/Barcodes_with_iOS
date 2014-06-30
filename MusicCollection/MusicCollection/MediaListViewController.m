@@ -496,10 +496,7 @@
    // dismiss scanner
    [previewController performSegueWithIdentifier:@"unwind" sender:self];
 	
-//	// delay search until after segue is done
-//	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//		[self _handleScannedCode:code];
-//	});
+	// once this animation is done, viewDidAppear:YES will be called
 }
 
 @end
