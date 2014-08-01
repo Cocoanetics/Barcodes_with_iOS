@@ -159,7 +159,7 @@
 													  completion:^(BOOL isAuthenticated, NSString *verifier) {
 														  
 														  // dismiss the web view
-														  [self dismissViewControllerAnimated:YES completion:NO];
+														  [self dismissViewControllerAnimated:YES completion:NULL];
 														  
 														  if (!isAuthenticated)
 														  {
@@ -366,6 +366,9 @@
       case NSFetchedResultsChangeDelete:
          [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
          break;
+			
+		default:
+			break;
    }
 }
 
