@@ -39,18 +39,21 @@
 	_discogs = [[DTDiscogs alloc] init];
 }
 
-- (void)viewDidAppear:(BOOL)animated
+//- (void)viewDidAppear:(BOOL)animated {
+//   [super viewDidAppear:animated];
+//	
+//   if (!_scannedCodeToSearchFor) {
+//	   return;
+//   }
+//	
+//   // we returned from the scanner, so let's handle the code
+//   [self _handleScannedCode:_scannedCodeToSearchFor];
+//   _scannedCodeToSearchFor = nil;
+//}
+
+- (void)viewWillDisappear:(BOOL)animated
 {
-	[super viewDidAppear:animated];
-	
-	if (!_scannedCodeToSearchFor || !animated)
-	{
-		return;
-	}
-	
-	// we returned from the scanner, so let's handle the code
-	[self _handleScannedCode:_scannedCodeToSearchFor];
-	_scannedCodeToSearchFor = nil;
+   [super viewWillDisappear:animated];
 }
 
 #pragma mark - Release searching helpers
@@ -89,14 +92,15 @@
     }];
 }
 
-- (void)_handleScannedCode:(NSString *)code
+
+- (Release *)_insertNewReleaseWithGTIN:(NSString *)GTIN
 {
-	// create a new Release object and fill in barcode
-	Release *release = [NSEntityDescription
+   // create a new Release object and fill in barcode
+   Release *release = [NSEntityDescription
                        insertNewObjectForEntityForName:@"Release"
                        inManagedObjectContext:_managedObjectContext];
    
-   release.barcode = code;
+   release.barcode = GTIN;
    release.genre = @"Unknown";
    
    // Save the context.
@@ -105,83 +109,94 @@
       NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
       abort();
    }
+   
+   return release;
+}
+
+- (void)_performSearchAndUpdateRelease:(Release *)release {
+   // retrieve more info via Discogs
+   [_discogs searchForGTIN:release.barcode completion:^(id result,
+                                             NSError *error) {
+      if (error || ![result isKindOfClass:[NSDictionary class]]) {
+         return;
+      }
+      
+      NSDictionary *dict = (NSDictionary *)result;
+      NSArray *results = dict[@"results"];
+      
+      if (![results count]) {
+         return;
+      }
+      
+      // always use first result
+      NSDictionary *theResult = results[0];
+      [self _updateRelease:release fromDictionary:theResult];
+   }];
+}
+
+- (void)_handleScannedCode:(NSString *)code {
+	// create a new Release object and fill in barcode
+   Release *release = [self _insertNewReleaseWithGTIN:code];
 	
-	// this is the search we want to perform
-	void (^search)(void) = ^{
-		// retrieve more info via Discogs
-		[_discogs searchForGTIN:code completion:^(id result, NSError *error) {
-			if (error || ![result isKindOfClass:[NSDictionary class]]) {
-				return;
-			}
-			
-			NSDictionary *dict = (NSDictionary *)result;
-			NSArray *results = dict[@"results"];
-			
-			if (![results count]) {
-				return;
-			}
-			
-			// always use first result
-			NSDictionary *theResult = results[0];
-			[self _updateRelease:release fromDictionary:theResult];
-		}];
-	};
-	
-	if ([_discogs.oauthClient isAuthenticated])
-	{
-		search();
-	}
-	else
-	{
-		[self _authenticateAndThenPerformBlock:search];
+	if ([_discogs.oauthClient isAuthenticated]) {
+      // perform search/update right away
+      [self _performSearchAndUpdateRelease:release];
+	} else {
+      // authenticate first ...
+      [self _authenticateAndThenPerformBlock:^{
+         // ... and then search/update
+         [self _performSearchAndUpdateRelease:release];
+      }];
 	}
 }
 
-- (void)_authenticateAndThenPerformBlock:(void (^)(void))block
-{
+// carries out the 3-leg OAuth flow and if all goes well executes block
+- (void)_authenticateAndThenPerformBlock:(void (^)(void))block {
+   // LEG 1
 	[_discogs.oauthClient requestTokenWithCompletion:^(NSError *error) {
-		if (error)
-		{
+		if (error) {
 			NSLog(@"Error requesting token: %@",
 					[error localizedDescription]);
 			return;
 		}
 		
+      // LEG 2
 		dispatch_async(dispatch_get_main_queue(), ^{
-			DTOAuthWebViewController *webView = [[DTOAuthWebViewController alloc] init];
-			UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:webView];
-			
+			DTOAuthWebViewController *webView =
+         [[DTOAuthWebViewController alloc] init];
+			UINavigationController *nav =
+         [[UINavigationController alloc]
+          initWithRootViewController:webView];
 			[self presentViewController:nav animated:YES completion:NULL];
 			
-			NSURLRequest *request = [_discogs.oauthClient userTokenAuthorizationRequest];
+			NSURLRequest *request = [_discogs.oauthClient
+                                  userTokenAuthorizationRequest];
 			
 			[webView startAuthorizationFlowWithRequest:request
-													  completion:^(BOOL isAuthenticated, NSString *verifier) {
+          completion:^(BOOL isAuthenticated, NSString *verifier) {
+               // dismiss the web view
+               [self dismissViewControllerAnimated:YES completion:NULL];
 														  
-														  // dismiss the web view
-														  [self dismissViewControllerAnimated:YES completion:NULL];
-														  
-														  if (!isAuthenticated)
-														  {
-															  NSLog(@"User did not authorize app");
-															  return;
-														  }
-														  
-														  [_discogs.oauthClient authorizeTokenWithVerifier:verifier completion:^(NSError *error) {
-															  
-															  if (error)
-															  {
-																  NSLog(@"Unable to exchange bearer token for access token: %@", [error localizedDescription]);
-																  return;
-															  }
-															  
-															  
-															  block();
-														  }];
-														  
-													  }];
-		});
-	}];
+               if (!isAuthenticated) {
+                  NSLog(@"User did not authorize app");
+                  return;
+               }
+											
+               // LEG 3
+               [_discogs.oauthClient authorizeTokenWithVerifier:verifier
+                completion:^(NSError *error) {
+                   if (error) {
+                      NSLog(@"Unable to get access token: %@",
+                            [error localizedDescription]);
+                       return;
+                   }
+						
+                   // finally execute block
+                   block();
+                }];
+          }];
+      });
+   }];
 }
 
 // convenience that creates a tmp context and saves it asynchronously
@@ -290,33 +305,6 @@
    
    [[UIApplication sharedApplication] openURL:URL];
 }
-
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
- {
- }
- */
-
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
-
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
- {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
 
 - (void)configureCell:(ReleaseCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
@@ -493,13 +481,15 @@
 
 - (void)previewController:(DTCameraPreviewController *)previewController
               didScanCode:(NSString *)code ofType:(NSString *)type {
-	
-	_scannedCodeToSearchFor = code;
-	
    // dismiss scanner
    [previewController performSegueWithIdentifier:@"unwind" sender:self];
-	
-	// once this animation is done, viewDidAppear:YES will be called
+   
+   // wait with handling scanned code until dismissal animation is done
+   [self.transitionCoordinator animateAlongsideTransition:NULL
+           completion:^(id<UIViewControllerTransitionCoordinatorContext>
+                        context) {
+      [self _handleScannedCode:code];
+   }];
 }
 
 @end
