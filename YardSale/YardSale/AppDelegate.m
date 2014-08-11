@@ -154,9 +154,8 @@
    CLAuthorizationStatus authStatus =
       [CLLocationManager authorizationStatus];
    
-   // nothing we can do, but inform user
-   if (authStatus == kCLAuthorizationStatusDenied ||
-       authStatus == kCLAuthorizationStatusRestricted) {
+   // if denied or restricted all we can do is to tell user
+   if (authStatus < kCLAuthorizationStatusAuthorized ) {
       [self _informUserAboutNoAuthorization];
       _locationMgr = nil;
       return;
