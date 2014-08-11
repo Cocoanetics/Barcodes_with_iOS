@@ -49,6 +49,7 @@
    
    switch (authStatus)
    {
+      default: // also handles iOS 8 status codes
       case kCLAuthorizationStatusNotDetermined:
       case kCLAuthorizationStatusAuthorized:
       {
@@ -60,6 +61,11 @@
             _locationMgr = [[CLLocationManager alloc] init];
             _locationMgr.delegate = self;
          
+            if ([_locationMgr respondsToSelector:@selector(requestWhenInUseAuthorization)])
+            {
+               [_locationMgr requestWhenInUseAuthorization];
+            }
+            
             [_locationMgr startUpdatingLocation];
          }
          break;
