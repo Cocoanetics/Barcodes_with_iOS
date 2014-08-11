@@ -60,11 +60,14 @@
          {
             _locationMgr = [[CLLocationManager alloc] init];
             _locationMgr.delegate = self;
-         
+
+#if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_7_1
+            // on iOS 8 you need to explicitly request authorization
             if ([_locationMgr respondsToSelector:@selector(requestWhenInUseAuthorization)])
             {
                [_locationMgr requestWhenInUseAuthorization];
             }
+#endif
             
             [_locationMgr startUpdatingLocation];
          }
