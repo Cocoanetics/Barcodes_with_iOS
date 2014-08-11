@@ -12,11 +12,14 @@
 #import "SalePlace.h"
 #import "YardSaleManager.h"
 
-@interface MapViewController () <MKMapViewDelegate>
+@interface MapViewController () <MKMapViewDelegate, CLLocationManagerDelegate>
 
 @end
 
 @implementation MapViewController
+{
+   CLLocationManager *_locationManager;
+}
 
 
 - (void)viewDidLoad {
@@ -30,6 +33,26 @@
    
    // zoom to fit all annoations
    [self.mapView showAnnotations:annotations animated:YES];
+
+   // iOS 8: workaround for bug needing separate authorization
+#if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_7_1
+   if ([CLLocationManager authorizationStatus]
+       == kCLAuthorizationStatusNotDetermined
+       && [CLLocationManager instancesRespondToSelector:
+           @selector(requestWhenInUseAuthorization)]) {
+          // cannot enable just yet
+          self.mapView.showsUserLocation = NO;
+          
+          // need to request authorization forst
+          _locationManager = [[CLLocationManager alloc] init];
+          _locationManager.delegate = self;
+          [_locationManager requestWhenInUseAuthorization];
+          
+          // we don't really need locations, but the first update
+          // proves that we got authorized
+          [_locationManager startUpdatingLocation];
+       }
+#endif
 }
 
 #pragma mark - MKMapViewDelegate
@@ -60,6 +83,18 @@
    
    // show in-store UI
    [self performSegueWithIdentifier:@"ShowSalePlace" sender:view];
+}
+
+#pragma mark - CLLocationManagerDelegate
+
+- (void)locationManager:(CLLocationManager *)manager
+     didUpdateLocations:(NSArray *)locations
+{
+   [_locationManager stopUpdatingLocation];
+   _locationManager = nil;
+   
+   // apparently we are allowed access, so enable the blue dot
+   self.mapView.showsUserLocation = YES;
 }
 
 #pragma mark - Navigation
