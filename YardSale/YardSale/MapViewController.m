@@ -33,7 +33,12 @@
    
    // zoom to fit all annoations
    [self.mapView showAnnotations:annotations animated:YES];
+}
 
+- (void)viewWillAppear:(BOOL)animated
+{
+   [super viewWillAppear:animated];
+   
    // iOS 8: workaround for bug needing separate authorization
 #if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_7_1
    if ([CLLocationManager authorizationStatus]
