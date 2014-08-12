@@ -35,8 +35,8 @@
    NSAssert([vc isKindOfClass:[MapViewController class]],
             @"Root VC is not a MapViewController!");
    vc.yardSaleManager = _saleManager;
-   
-   // create location manager
+
+   // create location manager or show alerts with insufficient authorization
    [self _enableLocationUpdatesIfAuthorized];
    
    // ask for local notification permission
@@ -46,6 +46,9 @@
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
+   // create location manager or show alerts with insufficient authorization
+   [self _enableLocationUpdatesIfAuthorized];
+
    // update monitored regions when app becomes active
    if (_mostRecentLoc) {
       [self _updateMonitoredRegionsForLocation:_mostRecentLoc];
@@ -88,13 +91,11 @@
 
 #pragma mark - Helpers
 
-- (void)_showSalePlaceForIdentifier:(NSString *)identifier
-{
+- (void)_showSalePlaceForIdentifier:(NSString *)identifier {
    MapViewController *vc =
    (MapViewController *)self.window.rootViewController;
    
-   if (vc.presentedViewController)
-   {
+   if (vc.presentedViewController) {
       // In-Store VC already showing
       return;
    }
@@ -149,13 +150,13 @@
    [alertView show];
 }
 
-- (void)_enableLocationUpdatesIfAuthorized
-{
+- (void)_enableLocationUpdatesIfAuthorized {
    CLAuthorizationStatus authStatus =
       [CLLocationManager authorizationStatus];
    
    // if denied or restricted all we can do is to tell user
-   if (authStatus < kCLAuthorizationStatusAuthorized ) {
+   if (authStatus == kCLAuthorizationStatusRestricted ||
+       authStatus == kCLAuthorizationStatusDenied) {
       [self _informUserAboutNoAuthorization];
       _locationMgr = nil;
       return;
@@ -163,8 +164,7 @@
    
    // on iOS 8 we might have too restricted location updates
 #if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_7_1
-   if (authStatus == kCLAuthorizationStatusAuthorizedWhenInUse)
-   {
+   if (authStatus == kCLAuthorizationStatusAuthorizedWhenInUse) {
       [self _informUserAboutBackgroundAuthorization];
    }
 #endif
@@ -195,18 +195,17 @@
    }
 }
 
-- (void)_authorizeLocalNotifications
-{
+- (void)_authorizeLocalNotifications {
 #if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_7_1
    UIApplication *app = [UIApplication sharedApplication];
-   UIUserNotificationSettings *settings =
-   [UIUserNotificationSettings settingsForTypes:
-    UIUserNotificationTypeAlert|UIUserNotificationTypeSound
-                                     categories:nil];
-   
-   if ([app respondsToSelector:@selector(registerUserNotificationSettings:)])
+   if ([app respondsToSelector:
+        @selector(registerUserNotificationSettings:)])
    {
-      [app registerUserNotificationSettings:settings];
+      UIUserNotificationSettings *settings =
+      [UIUserNotificationSettings settingsForTypes:
+       UIUserNotificationTypeAlert|UIUserNotificationTypeSound
+                                        categories:nil];
+     [app registerUserNotificationSettings:settings];
    }
 #endif
 }
@@ -280,6 +279,10 @@
 // sends a local notification for a Yard Sale Place
 - (void)_sendLocalNoteForSalePlace:(SalePlace *)place
                      afterDuration:(NSTimeInterval)duration {
+   if ([_lastNotifiedSaleID isEqualToString:place.identifier]) {
+      // already notified this one
+      return;
+   }
    
    UIApplication *app = [UIApplication sharedApplication];
    
@@ -287,23 +290,23 @@
    BOOL shouldAddSound = YES;
    
 #if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_7_1
-   UIUserNotificationSettings *settings =
-                                  [app currentUserNotificationSettings];
-   
-   if (!settings.types)
-   {
-      // we'll come back here in the callback to registering
-      return;
-   }
-   
-   if (!(settings.types & UIUserNotificationTypeAlert))
-   {
-      shouldAddMsg = NO;
-   }
-
-   if (!(settings.types & UIUserNotificationTypeSound))
-   {
-      shouldAddSound = NO;
+   if ([app respondsToSelector:
+        @selector(currentUserNotificationSettings)]) {
+      UIUserNotificationSettings *settings =
+      [app currentUserNotificationSettings];
+      
+      if (!settings.types) {
+         // we'll come back here in the callback to registering
+         return;
+      }
+      
+      if (!(settings.types & UIUserNotificationTypeAlert)) {
+         shouldAddMsg = NO;
+      }
+      
+      if (!(settings.types & UIUserNotificationTypeSound)) {
+         shouldAddSound = NO;
+      }
    }
 #endif
    
@@ -313,13 +316,11 @@
    UILocalNotification *note = [[UILocalNotification alloc] init];
    note.alertAction = @"Visit";
    
-   if (shouldAddMsg)
-   {
+   if (shouldAddMsg) {
       note.alertBody = msg;
    }
    
-   if (shouldAddSound)
-   {
+   if (shouldAddSound) {
       note.soundName = UILocalNotificationDefaultSoundName;
    }
    
@@ -359,15 +360,10 @@
       case CLRegionStateInside: {
          NSLog(@"Inside %@", region.identifier);
          
-         if ([_lastNotifiedSaleID isEqualToString:region.identifier]) {
-            // already notified this one
-            return;
-         }
-         
          SalePlace *salePlace =
             [_saleManager salePlaceForIdentifier:region.identifier];
          [self _sendLocalNoteForSalePlace:salePlace
-                            afterDuration:5];  // set duration to e.g. 5 secs for testing
+                            afterDuration:0];  // set duration to e.g. 5 secs for testing
          
          break;
       }
