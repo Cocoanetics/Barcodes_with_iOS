@@ -9,7 +9,7 @@ teamIdentifier = "Z7L2YCUH45"
 organizationName = "Cocoanetics Cinema"
 logoText = "Cocoanetics"
 description = "VIP Movie Night Sofa Seat"
-eventDate = Time.new(2014, 01, 17, 12, 1, 0, "+02:00")
+eventDate = Time.new(2014, 8, 13, 16, 0, 0, "+02:00")
 seat = "1A"
 
 # use current timestamp as serial number
@@ -68,7 +68,7 @@ pass["locations"] = [{
 # assemble a "signed" barcode message 
 barcodeMessage = "TICKET:#{eventDateString},#{seat},#{serialNumber}"
 salt = "EXTRA SECRET SAUCE"
-barcodeMessageSignature = Digest::MD5.hexdigest barcodeMessage + salt
+barcodeMessageSignature = Digest::SHA1.hexdigest barcodeMessage + salt
 barcodeMessage = barcodeMessage + "|#{barcodeMessageSignature}"
 
 # create the barcode
