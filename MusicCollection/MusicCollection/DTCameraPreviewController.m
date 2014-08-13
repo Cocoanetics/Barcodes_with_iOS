@@ -234,6 +234,7 @@
                                            
                    // need to start capture session
                    [_captureSession startRunning];
+                   [self _updateMetadataRectOfInterest];
                 }
                 else
                 {
@@ -367,8 +368,6 @@
 {
    if (!_captureSession.isRunning)
    {
-      NSLog(@"Capture Session is not running yet, "\
-            @"so we wouldn't get a useful rect of interest");
       return;
    }
    
