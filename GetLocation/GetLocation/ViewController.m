@@ -47,7 +47,7 @@
 {
    CLAuthorizationStatus authStatus = [CLLocationManager authorizationStatus];
    
-   if (authStatus < kCLAuthorizationStatusAuthorized)
+   if (authStatus == kCLAuthorizationStatusRestricted || authStatus == kCLAuthorizationStatusDenied)
    {
       NSLog(@"policy has restricted location updates or user denied it");
       _locationMgr = nil;

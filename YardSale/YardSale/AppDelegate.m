@@ -73,7 +73,10 @@
    
    completionHandler();
 }
+#endif
 
+// on iOS 8 this is called as soon as the user taps on a button on the notification authorization alert
+#if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_7_1
  - (void)application:(UIApplication *)application
          didRegisterUserNotificationSettings:
          (UIUserNotificationSettings *)notificationSettings {
@@ -93,7 +96,7 @@
 
 - (void)_showSalePlaceForIdentifier:(NSString *)identifier {
    MapViewController *vc =
-   (MapViewController *)self.window.rootViewController;
+                    (MapViewController *)self.window.rootViewController;
    
    if (vc.presentedViewController) {
       // In-Store VC already showing
@@ -360,10 +363,19 @@
       case CLRegionStateInside: {
          NSLog(@"Inside %@", region.identifier);
          
-         SalePlace *salePlace =
+         // The book only features the ELSE of this IF
+         if ([UIApplication sharedApplication].applicationState
+                                      == UIApplicationStateBackground) {
+            // in background schedule a local notification
+            SalePlace *salePlace =
             [_saleManager salePlaceForIdentifier:region.identifier];
-         [self _sendLocalNoteForSalePlace:salePlace
-                            afterDuration:0];  // set duration to e.g. 5 secs for testing
+            [self _sendLocalNoteForSalePlace:salePlace
+                               afterDuration:0];  // set duration to e.g. 5 secs for testing
+         }
+         else {
+            // in foreground open in-store UI right away
+            [self _showSalePlaceForIdentifier:region.identifier];
+         }
          
          break;
       }
