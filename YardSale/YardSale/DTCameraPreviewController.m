@@ -25,7 +25,7 @@
    AVCaptureStillImageOutput *_imageOutput;
    AVCaptureSession *_captureSession;
    DTVideoPreviewView *_videoPreview;
-   
+   Continuous
    AVCaptureMetadataOutput *_metaDataOutput;
    dispatch_queue_t _metaDataQueue;
    
@@ -793,7 +793,7 @@ didOutputMetadataObjects:(NSArray *)metadataObjects
              setFocusMode:AVCaptureFocusModeContinuousAutoFocus];
          }
          
-         NSLog(@"Focus Mode: Continuos");
+         NSLog(@"Focus Mode: Continuous");
       }
    }
 }

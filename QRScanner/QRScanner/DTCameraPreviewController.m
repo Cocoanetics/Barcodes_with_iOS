@@ -1,4 +1,4 @@
-//
+Continuous//
 //  ViewController.m
 //  QRScanner
 //
@@ -778,7 +778,7 @@ didOutputMetadataObjects:(NSArray *)metadataObjects
              setFocusMode:AVCaptureFocusModeContinuousAutoFocus];
          }
          
-         NSLog(@"Focus Mode: Continuos");
+         NSLog(@"Focus Mode: Continuous");
       }
    }
 }

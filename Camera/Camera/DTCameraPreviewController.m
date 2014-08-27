@@ -484,7 +484,7 @@
 				[_camera setFocusMode:AVCaptureFocusModeContinuousAutoFocus];
 			}
 			
-			NSLog(@"Focus Mode: Continuos");
+			NSLog(@"Focus Mode: Continuous");
 		}
 	}
 }
