@@ -81,10 +81,10 @@ Continuous//
    [_metaDataOutput setMetadataObjectsDelegate:self
                                          queue:_metaDataQueue];
    
-   // Connect meta data output only if possible
+   // Connect metadata output only if possible
    if (![_captureSession canAddOutput:_metaDataOutput])
    {
-      NSLog(@"Unable to add meta data output to capture session");
+      NSLog(@"Unable to add metadata output to capture session");
       return;
    }
    
