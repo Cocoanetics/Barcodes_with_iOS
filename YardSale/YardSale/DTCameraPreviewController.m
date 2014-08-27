@@ -25,7 +25,6 @@
    AVCaptureStillImageOutput *_imageOutput;
    AVCaptureSession *_captureSession;
    DTVideoPreviewView *_videoPreview;
-   Continuous
    AVCaptureMetadataOutput *_metaDataOutput;
    dispatch_queue_t _metaDataQueue;
    
