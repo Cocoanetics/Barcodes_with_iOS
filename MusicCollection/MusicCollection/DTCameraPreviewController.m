@@ -70,7 +70,6 @@
    [alert show];
 }
 
-
 - (void)_setupMetadataOutput
 {
    // Create a new metadata output
@@ -84,8 +83,7 @@
                                          queue:_metaDataQueue];
    
    // Connect metadata output only if possible
-   if (![_captureSession canAddOutput:_metaDataOutput])
-   {
+   if (![_captureSession canAddOutput:_metaDataOutput]) {
       NSLog(@"Unable to add metadata output to capture session");
       return;
    }
@@ -94,13 +92,13 @@
    [_captureSession addOutput:_metaDataOutput];
    
    // Specify to scan for supported 2D barcode types
-   NSArray *barcodes2D = @[AVMetadataObjectTypeEAN8Code,
-                           AVMetadataObjectTypeEAN13Code];
+   NSArray *barcodes2D = @[AVMetadataObjectTypePDF417Code,
+                           AVMetadataObjectTypeQRCode,
+                           AVMetadataObjectTypeAztecCode];
    NSArray *availableTypes = [_metaDataOutput
                               availableMetadataObjectTypes];
    
-   if (![availableTypes count])
-   {
+   if (![availableTypes count]) {
       NSLog(@"Unable to get any available metadata types, "\
             @"did you forget the addOutput: on the capture session?");
       return;
@@ -109,23 +107,17 @@
    // Extra defensive: only adds supported types, log unsupported
    NSMutableArray *tmpArray = [NSMutableArray array];
    
-   for (NSString *oneCodeType in barcodes2D)
-   {
-      if ([availableTypes containsObject:oneCodeType])
-      {
+   for (NSString *oneCodeType in barcodes2D) {
+      if ([availableTypes containsObject:oneCodeType]) {
          [tmpArray addObject:oneCodeType];
       }
-      else
-      {
+      else {
          NSLog(@"Weird: Code type '%@' is not reported as supported "\
                @"on this device", oneCodeType);
       }
    }
    
-   _metaDataOutput.metadataObjectTypes = tmpArray;
-   
-   if ([tmpArray count])
-   {
+   if ([tmpArray count]) {
       _metaDataOutput.metadataObjectTypes = tmpArray;
    }
    
