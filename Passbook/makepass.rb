@@ -14,7 +14,7 @@ eventDate = Time.new(2014, 8, 13, 16, 0, 0, "+02:00")
 seat = "1A"
 event_latitude = 14.5877
 event_longitude = 48.0528
-# ---- no need to touch anything below this line
+# --- note: a few less frequently changed values are further down
 
 # use current timestamp as serial number
 serialNumber = Time.now.to_i.to_s
@@ -60,7 +60,6 @@ barcode = {
   "format" => "PKBarcodeFormatQR",
   "messageEncoding" => "iso-8859-1"
 }
-
 barcode["message"] = barcodeMessage
 
 # header fields
