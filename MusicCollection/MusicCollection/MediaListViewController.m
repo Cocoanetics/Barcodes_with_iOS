@@ -330,7 +330,7 @@
    {
       // don't have infos yet
       cell.titleLabel.text = release.barcode;
-      cell.artistLabel.text = @"No Infos found.";
+      cell.artistLabel.text = @"No info found.";
       cell.yearLabel.text = nil;
       cell.formatLabel.text = nil;
    }
