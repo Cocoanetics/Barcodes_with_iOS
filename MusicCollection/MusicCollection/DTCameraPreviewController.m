@@ -92,9 +92,8 @@
    [_captureSession addOutput:_metaDataOutput];
    
    // Specify to scan for supported 2D barcode types
-   NSArray *barcodes2D = @[AVMetadataObjectTypePDF417Code,
-                           AVMetadataObjectTypeQRCode,
-                           AVMetadataObjectTypeAztecCode];
+   NSArray *barcodes2D = @[AVMetadataObjectTypeEAN13Code,
+                           AVMetadataObjectTypeEAN8Code];
    NSArray *availableTypes = [_metaDataOutput
                               availableMetadataObjectTypes];
    
