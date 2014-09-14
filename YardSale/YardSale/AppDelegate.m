@@ -122,7 +122,7 @@
 {
    NSString *title = @"Location Updates disabled";
    NSString *msg = @"YardSale cannot access to your location." \
-   @"Because of this it cannot alert you to closeby yard sales " \
+   @"Because of this it cannot alert you to close by yard sales " \
    @"or show your location on the map";
    
    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title
@@ -139,7 +139,7 @@
    NSString *title = @"Location Updates too restrictive";
    NSString *msg = @"YardSale cannot access to your location " \
    @"while the app is not active. Without your authorization " \
-   @"we cannot alert you about closeby yard sales if you come " \
+   @"we cannot alert you about close by yard sales if you come " \
    @"close to one.\n\n" \
    @"Please go into your privacy " \
    @"settings to authorize background access as well";
@@ -313,7 +313,7 @@
    }
 #endif
    
-   NSString *msg = [NSString stringWithFormat:@"%@ is closeby!",
+   NSString *msg = [NSString stringWithFormat:@"%@ is close by!",
                     place.title];
    
    UILocalNotification *note = [[UILocalNotification alloc] init];
@@ -370,7 +370,7 @@
             SalePlace *salePlace =
             [_saleManager salePlaceForIdentifier:region.identifier];
             [self _sendLocalNoteForSalePlace:salePlace
-                               afterDuration:0];  // set duration to e.g. 5 secs for testing
+                               afterDuration:5];  // set duration to e.g. 5 secs for testing
          }
          else {
             // in foreground open in-store UI right away
