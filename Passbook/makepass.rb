@@ -4,13 +4,17 @@ require 'json'
 require "openssl"
 
 # pass details
+# --- note: customize to your needs!
 passTypeIdentifier = "pass.com.drobnik.vipmovie"
 teamIdentifier = "Z7L2YCUH45"
 organizationName = "Cocoanetics Cinema"
 logoText = "Cocoanetics"
 description = "VIP Movie Night Sofa Seat"
-eventDate = Time.new(2014, 01, 17, 12, 1, 0, "+02:00")
+eventDate = Time.new(2014, 8, 13, 16, 0, 0, "+02:00")
 seat = "1A"
+event_latitude = 14.5877
+event_longitude = 48.0528
+# --- note: a few less frequently changed values are further down
 
 # use current timestamp as serial number
 serialNumber = Time.now.to_i.to_s
@@ -45,30 +49,10 @@ rescue => err
   exit 1
 end
 
-# assemble the pass in a hash
-pass = {
-  "formatVersion" => 1
-}
-
-# add pass meta data
-pass["passTypeIdentifier"] = passTypeIdentifier
-pass["serialNumber"] = serialNumber
-pass["teamIdentifier"] = teamIdentifier
-pass["organizationName"] = organizationName
-pass["logoText"] = logoText
-pass["description"] = description
-
-# add relevancy info
-pass["relevantDate"] = eventDateString
-pass["locations"] = [{
-  "longitude" => 48.0528,
-  "latitude" => 14.5877
-}]
-
 # assemble a "signed" barcode message 
 barcodeMessage = "TICKET:#{eventDateString},#{seat},#{serialNumber}"
 salt = "EXTRA SECRET SAUCE"
-barcodeMessageSignature = Digest::MD5.hexdigest barcodeMessage + salt
+barcodeMessageSignature = Digest::SHA1.hexdigest barcodeMessage + salt
 barcodeMessage = barcodeMessage + "|#{barcodeMessageSignature}"
 
 # create the barcode
@@ -76,9 +60,7 @@ barcode = {
   "format" => "PKBarcodeFormatQR",
   "messageEncoding" => "iso-8859-1"
 }
-
 barcode["message"] = barcodeMessage
-pass["barcode"] = barcode
 
 # header fields
 headerFields = [{
@@ -122,6 +104,29 @@ backFields = [
   "value" => "Free popcorn and drink at entrance. Please arrive sufficiently early to pick your seat and allow show to start on time."
   }
 ] 
+
+# assemble the pass in a hash
+pass = {
+  "formatVersion" => 1
+}
+
+# add barcode
+pass["barcode"] = barcode
+
+# add pass meta data
+pass["passTypeIdentifier"] = passTypeIdentifier
+pass["serialNumber"] = serialNumber
+pass["teamIdentifier"] = teamIdentifier
+pass["organizationName"] = organizationName
+pass["logoText"] = logoText
+pass["description"] = description
+
+# add relevancy info
+pass["relevantDate"] = eventDateString
+pass["locations"] = [{
+  "longitude" => event_longitude,
+  "latitude" => event_latitude
+}]
                   
 # put ticket fields together                  
 pass["eventTicket"] = {

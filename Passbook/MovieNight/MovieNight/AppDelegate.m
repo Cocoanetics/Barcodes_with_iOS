@@ -81,6 +81,24 @@
 	return output;
 }
 
+- (NSString *)_SHA1ForString:(NSString *)string
+{
+   NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
+   uint8_t digest[CC_SHA1_DIGEST_LENGTH];
+   
+   CC_SHA1(data.bytes, (CC_LONG)data.length, digest);
+   
+   NSMutableString *output = [NSMutableString stringWithCapacity:
+                              CC_SHA1_DIGEST_LENGTH * 2];
+   
+   for (int i = 0; i < CC_SHA1_DIGEST_LENGTH; i++)
+   {
+      [output appendFormat:@"%02x", digest[i]];
+   }
+   
+   return output;
+}
+
 - (void)previewController:(DTCameraPreviewController *)previewController
               didScanCode:(NSString *)code
                    ofType:(NSString *)type
@@ -112,7 +130,7 @@
 	NSString *details = components[0];
 	NSString *saltedDetails = [details stringByAppendingString:salt];
 	NSString *signature = components[1];
-	NSString *verify = [self _MD5ForString:saltedDetails];
+	NSString *verify = [self _SHA1ForString:saltedDetails];
 	
 	if (![signature isEqualToString:verify])
 	{
@@ -136,7 +154,7 @@
 	// check if event date no futher than 1 hour away
 	NSTimeInterval intervalToNow = [date timeIntervalSinceNow];
 	
-	if (intervalToNow < 3600)
+	if (intervalToNow < -3600)
 	{
 		[self _reportInvalidTicket:@"Event on this ticket is more than "
                                   "60 mins in the past"];

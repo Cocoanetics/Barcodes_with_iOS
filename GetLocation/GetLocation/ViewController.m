@@ -47,32 +47,30 @@
 {
    CLAuthorizationStatus authStatus = [CLLocationManager authorizationStatus];
    
-   switch (authStatus)
+   if (authStatus == kCLAuthorizationStatusRestricted || authStatus == kCLAuthorizationStatusDenied)
    {
-      case kCLAuthorizationStatusNotDetermined:
-      case kCLAuthorizationStatusAuthorized:
+      NSLog(@"policy has restricted location updates or user denied it");
+      _locationMgr = nil;
+      return;
+   }
+   
+   NSLog(@"authorized or not determined");
+   
+   // initialize location manager
+   if (!_locationMgr)
+   {
+      _locationMgr = [[CLLocationManager alloc] init];
+      _locationMgr.delegate = self;
+      
+      // on iOS 8 you need to explicitly request authorization
+#if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_7_1
+      if ([_locationMgr respondsToSelector:@selector(requestWhenInUseAuthorization)])
       {
-         NSLog(@"authorized or not determined");
-         
-         // initialize location manager
-         if (!_locationMgr)
-         {
-            _locationMgr = [[CLLocationManager alloc] init];
-            _locationMgr.delegate = self;
-         
-            [_locationMgr startUpdatingLocation];
-         }
-         break;
+         [_locationMgr requestWhenInUseAuthorization];
       }
-         
-      case kCLAuthorizationStatusDenied:
-      case kCLAuthorizationStatusRestricted:
-      {
-         NSLog(@"policy has restricted location updates or user denied it");
-         
-         _locationMgr = nil;
-         break;
-      }
+#endif
+      
+      [_locationMgr startUpdatingLocation];
    }
 }
 

@@ -10,10 +10,28 @@
 
 @implementation DTBarcodeImageView
 
+- (instancetype)initWithFrame:(CGRect)frame
+{
+   self = [super initWithFrame:frame];
+   
+   if (self) {
+      [self _commonSetup];
+   }
+   
+   return self;
+}
+
 - (void)awakeFromNib {
+   [self _commonSetup];
+}
+
+#pragma mark - Helpers
+
+- (void)_commonSetup
+{
    UILongPressGestureRecognizer *longPress =
    [[UILongPressGestureRecognizer alloc] initWithTarget:self
-                                                 action:@selector(handleLongPress:)];
+                                    action:@selector(handleLongPress:)];
    [self addGestureRecognizer:longPress];
    
    self.userInteractionEnabled = YES;
@@ -27,6 +45,8 @@
    
    return NO;
 }
+
+#pragma mark - First Responder
 
 - (BOOL)canBecomeFirstResponder
 {

@@ -1,3 +1,6 @@
 /* Localized versions of Info.plist keys */
 
 "NSLocationUsageDescription" = "Weil eine App zum Anzeigen der aktuellen Position aber ohne Zugriff zur Positionsinfo ziemlich witzlos ist.";
+
+// new iOS 8 usage descriptions
+"NSLocationWhenInUseUsageDescription" = "Weil eine App zum Anzeigen der aktuellen Position aber ohne Zugriff zur Positionsinfo ziemlich witzlos ist.";

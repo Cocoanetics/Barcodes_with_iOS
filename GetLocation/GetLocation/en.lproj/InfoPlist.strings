@@ -1,3 +1,6 @@
 /* Localized versions of Info.plist keys */
 
-"NSLocationUsageDescription" = "Because an app to display your current address but no access to your location is rather pointless.";
+"NSLocationUsageDescription" = "Because an app to display your current address but that has no access to your location is rather pointless.";
+
+// new iOS 8 usage descriptions
+"NSLocationWhenInUseUsageDescription" = "Because an app to display your current address but that has no access to your location is rather pointless.";
