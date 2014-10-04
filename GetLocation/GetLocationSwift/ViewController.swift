@@ -123,11 +123,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate
         {
             _locationMgr = CLLocationManager()
             _locationMgr.delegate = self
-            
+
             // on iOS 8 you need to explicitly request authorization
-            if (NSString(string: UIDevice.currentDevice().systemVersion).doubleValue >= 8) && (_locationMgr.respondsToSelector("requestWhenInUseAuthorization"))
+            let iosVersion = NSOperatingSystemVersion(majorVersion: 8, minorVersion: 0, patchVersion: 0)
+            if NSProcessInfo.processInfo().isOperatingSystemAtLeastVersion(iosVersion)
             {
-                _locationMgr.requestWhenInUseAuthorization()
+                _locationMgr?.requestWhenInUseAuthorization()
             }
             
             _locationMgr.startUpdatingLocation()

@@ -15,6 +15,8 @@
 		6C537E8F19DF73AE00A58F55 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A7C1CFB91924A894008F42A8 /* InfoPlist.strings */; };
 		6C537E9119DF742A00A58F55 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7C1CFC21924A894008F42A8 /* Main.storyboard */; };
 		6C537E9219DF751400A58F55 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7C1CFC81924A895008F42A8 /* Images.xcassets */; };
+		6C537E9819DFF73600A58F55 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6C537E9719DFF73600A58F55 /* Info.plist */; };
+		6C537E9919DFF73600A58F55 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6C537E9719DFF73600A58F55 /* Info.plist */; };
 		A7C1CFB11924A894008F42A8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C1CFB01924A894008F42A8 /* Foundation.framework */; };
 		A7C1CFB31924A894008F42A8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C1CFB21924A894008F42A8 /* CoreGraphics.framework */; };
 		A7C1CFB51924A894008F42A8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C1CFB41924A894008F42A8 /* UIKit.framework */; };
@@ -32,14 +34,13 @@
 
 /* Begin PBXFileReference section */
 		6C537E6319DF4D1E00A58F55 /* GetLocationSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GetLocationSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		6C537E6619DF4D1E00A58F55 /* GetLocationSwift-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GetLocationSwift-Info.plist"; sourceTree = "<group>"; };
 		6C537E6719DF4D1E00A58F55 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6C537E6919DF4D1E00A58F55 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		6C537E9719DFF73600A58F55 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A7C1CFAD1924A894008F42A8 /* GetLocation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GetLocation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7C1CFB01924A894008F42A8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A7C1CFB21924A894008F42A8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		A7C1CFB41924A894008F42A8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		A7C1CFB81924A894008F42A8 /* GetLocation-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GetLocation-Info.plist"; sourceTree = "<group>"; };
 		A7C1CFBA1924A894008F42A8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A7C1CFBC1924A894008F42A8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A7C1CFBE1924A894008F42A8 /* GetLocation-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GetLocation-Prefix.pch"; sourceTree = "<group>"; };
@@ -91,17 +92,8 @@
 			children = (
 				6C537E6719DF4D1E00A58F55 /* AppDelegate.swift */,
 				6C537E6919DF4D1E00A58F55 /* ViewController.swift */,
-				6C537E6519DF4D1E00A58F55 /* Supporting Files */,
 			);
 			path = GetLocationSwift;
-			sourceTree = "<group>";
-		};
-		6C537E6519DF4D1E00A58F55 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				6C537E6619DF4D1E00A58F55 /* GetLocationSwift-Info.plist */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		6C537E9019DF73CF00A58F55 /* Shared Resources */ = {
@@ -110,6 +102,7 @@
 				A7C1CFC81924A895008F42A8 /* Images.xcassets */,
 				A7C1CFC21924A894008F42A8 /* Main.storyboard */,
 				A7C1CFB91924A894008F42A8 /* InfoPlist.strings */,
+				6C537E9719DFF73600A58F55 /* Info.plist */,
 			);
 			name = "Shared Resources";
 			sourceTree = "<group>";
@@ -165,7 +158,6 @@
 		A7C1CFB71924A894008F42A8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				A7C1CFB81924A894008F42A8 /* GetLocation-Info.plist */,
 				A7C1CFBC1924A894008F42A8 /* main.m */,
 				A7C1CFBE1924A894008F42A8 /* GetLocation-Prefix.pch */,
 			);
@@ -255,6 +247,7 @@
 			files = (
 				6C537E9219DF751400A58F55 /* Images.xcassets in Resources */,
 				6C537E8F19DF73AE00A58F55 /* InfoPlist.strings in Resources */,
+				6C537E9919DFF73600A58F55 /* Info.plist in Resources */,
 				6C537E9119DF742A00A58F55 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -265,6 +258,7 @@
 			files = (
 				A7C1CFC91924A895008F42A8 /* Images.xcassets in Resources */,
 				A7C1CFBB1924A894008F42A8 /* InfoPlist.strings in Resources */,
+				6C537E9819DFF73600A58F55 /* Info.plist in Resources */,
 				A7C1CFC41924A894008F42A8 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -327,7 +321,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/GetLocationSwift/GetLocationSwift-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -342,7 +336,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				INFOPLIST_FILE = "$(SRCROOT)/GetLocationSwift/GetLocationSwift-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -426,7 +420,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GetLocation/GetLocation-Prefix.pch";
-				INFOPLIST_FILE = "GetLocation/GetLocation-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				PRODUCT_NAME = GetLocation;
 				WRAPPER_EXTENSION = app;
 			};
@@ -439,7 +433,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GetLocation/GetLocation-Prefix.pch";
-				INFOPLIST_FILE = "GetLocation/GetLocation-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				PRODUCT_NAME = GetLocation;
 				WRAPPER_EXTENSION = app;
 			};
