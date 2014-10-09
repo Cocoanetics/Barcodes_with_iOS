@@ -1,0 +1,18 @@
+
+/* Class = "IBUILabel"; text = "Address"; ObjectID = "Edc-iq-z7D"; */
+"Edc-iq-z7D.text" = "Address";
+
+/* Class = "IBUIButton"; normalTitle = "Copy"; ObjectID = "JhT-5k-Njv"; */
+"JhT-5k-Njv.normalTitle" = "Copy";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "Nfj-Op-q76"; */
+"Nfj-Op-q76.text" = "Label";
+
+/* Class = "IBUILabel"; text = "Latitude"; ObjectID = "NlI-f1-T9Q"; */
+"NlI-f1-T9Q.text" = "Latitude";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "aCi-Ta-osM"; */
+"aCi-Ta-osM.text" = "Label";
+
+/* Class = "IBUILabel"; text = "Longitude"; ObjectID = "laD-ey-LEw"; */
+"laD-ey-LEw.text" = "Longitude";
