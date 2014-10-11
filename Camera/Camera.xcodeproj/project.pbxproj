@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6CF45A4619E9443800B3FE2F /* DTCameraPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF45A4519E9443800B3FE2F /* DTCameraPreviewController.swift */; };
+		6CF45A4819E9445600B3FE2F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF45A4719E9445600B3FE2F /* AppDelegate.swift */; };
+		6CF45A4A19E9447200B3FE2F /* DTAVFoundationFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF45A4919E9447200B3FE2F /* DTAVFoundationFunctions.swift */; };
+		6CF45A4C19E944A100B3FE2F /* DTVideoPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF45A4B19E944A100B3FE2F /* DTVideoPreviewView.swift */; };
+		6CF45A4D19E945A000B3FE2F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A78FEEB718291B07000E9C6B /* Main.storyboard */; };
+		6CF45A4E19E945A900B3FE2F /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A78FEEAD18291B07000E9C6B /* Info.plist */; };
+		6CF45A4F19E945AA00B3FE2F /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A78FEEAD18291B07000E9C6B /* Info.plist */; };
+		6CF45A5019E945AE00B3FE2F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A78FEEBD18291B07000E9C6B /* Images.xcassets */; };
+		6CF45A5219E946E100B3FE2F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6CF45A5119E946E000B3FE2F /* Default-568h@2x.png */; };
 		A78FEEA618291B07000E9C6B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A78FEEA518291B07000E9C6B /* Foundation.framework */; };
 		A78FEEA818291B07000E9C6B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A78FEEA718291B07000E9C6B /* CoreGraphics.framework */; };
 		A78FEEAA18291B07000E9C6B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A78FEEA918291B07000E9C6B /* UIKit.framework */; };
@@ -24,11 +33,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6CF45A2219E9438D00B3FE2F /* CameraSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CameraSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6CF45A4519E9443800B3FE2F /* DTCameraPreviewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTCameraPreviewController.swift; sourceTree = "<group>"; };
+		6CF45A4719E9445600B3FE2F /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		6CF45A4919E9447200B3FE2F /* DTAVFoundationFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTAVFoundationFunctions.swift; sourceTree = "<group>"; };
+		6CF45A4B19E944A100B3FE2F /* DTVideoPreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTVideoPreviewView.swift; sourceTree = "<group>"; };
+		6CF45A5119E946E000B3FE2F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		A78FEEA218291B07000E9C6B /* Camera.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Camera.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A78FEEA518291B07000E9C6B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A78FEEA718291B07000E9C6B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		A78FEEA918291B07000E9C6B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		A78FEEAD18291B07000E9C6B /* Camera-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Camera-Info.plist"; sourceTree = "<group>"; };
+		A78FEEAD18291B07000E9C6B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Camera/Info.plist; sourceTree = "<group>"; };
 		A78FEEB118291B07000E9C6B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A78FEEB318291B07000E9C6B /* Camera-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Camera-Prefix.pch"; sourceTree = "<group>"; };
 		A78FEEB418291B07000E9C6B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -36,7 +51,7 @@
 		A78FEEB818291B07000E9C6B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A78FEEBA18291B07000E9C6B /* DTCameraPreviewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DTCameraPreviewController.h; sourceTree = "<group>"; };
 		A78FEEBB18291B07000E9C6B /* DTCameraPreviewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DTCameraPreviewController.m; sourceTree = "<group>"; };
-		A78FEEBD18291B07000E9C6B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		A78FEEBD18291B07000E9C6B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Camera/Images.xcassets; sourceTree = "<group>"; };
 		A78FEEC418291B07000E9C6B /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		A78FEEDA18292830000E9C6B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		A78FEEDC18292DCA000E9C6B /* DTVideoPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTVideoPreviewView.h; sourceTree = "<group>"; };
@@ -49,6 +64,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		6CF45A1F19E9438D00B3FE2F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A78FEE9F18291B07000E9C6B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -66,10 +88,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6CF45A2319E9438D00B3FE2F /* Swift */ = {
+			isa = PBXGroup;
+			children = (
+				6CF45A4719E9445600B3FE2F /* AppDelegate.swift */,
+				6CF45A4519E9443800B3FE2F /* DTCameraPreviewController.swift */,
+				6CF45A4919E9447200B3FE2F /* DTAVFoundationFunctions.swift */,
+				6CF45A4B19E944A100B3FE2F /* DTVideoPreviewView.swift */,
+			);
+			name = Swift;
+			path = CameraSwift;
+			sourceTree = "<group>";
+		};
+		6CF45A4419E943C100B3FE2F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A78FEEB718291B07000E9C6B /* Main.storyboard */,
+				A78FEEAD18291B07000E9C6B /* Info.plist */,
+				A78FEEBD18291B07000E9C6B /* Images.xcassets */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		A78FEE9918291B07000E9C6B = {
 			isa = PBXGroup;
 			children = (
-				A78FEEAB18291B07000E9C6B /* Camera */,
+				6CF45A5119E946E000B3FE2F /* Default-568h@2x.png */,
+				6CF45A4419E943C100B3FE2F /* Resources */,
+				A78FEEAB18291B07000E9C6B /* ObjC */,
+				6CF45A2319E9438D00B3FE2F /* Swift */,
 				A78FEEA418291B07000E9C6B /* Frameworks */,
 				A78FEEA318291B07000E9C6B /* Products */,
 			);
@@ -79,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				A78FEEA218291B07000E9C6B /* Camera.app */,
+				6CF45A2219E9438D00B3FE2F /* CameraSwift.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -98,28 +146,26 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		A78FEEAB18291B07000E9C6B /* Camera */ = {
+		A78FEEAB18291B07000E9C6B /* ObjC */ = {
 			isa = PBXGroup;
 			children = (
 				A78FEEB418291B07000E9C6B /* AppDelegate.h */,
 				A78FEEB518291B07000E9C6B /* AppDelegate.m */,
-				A78FEEB718291B07000E9C6B /* Main.storyboard */,
 				A7D72705182BF782003CCB33 /* DTAVFoundationFunctions.h */,
 				A7D72706182BF7A4003CCB33 /* DTAVFoundationFunctions.m */,
 				A78FEEBA18291B07000E9C6B /* DTCameraPreviewController.h */,
 				A78FEEBB18291B07000E9C6B /* DTCameraPreviewController.m */,
 				A78FEEDC18292DCA000E9C6B /* DTVideoPreviewView.h */,
 				A78FEEDD18292DCA000E9C6B /* DTVideoPreviewView.m */,
-				A78FEEBD18291B07000E9C6B /* Images.xcassets */,
 				A78FEEAC18291B07000E9C6B /* Supporting Files */,
 			);
+			name = ObjC;
 			path = Camera;
 			sourceTree = "<group>";
 		};
 		A78FEEAC18291B07000E9C6B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				A78FEEAD18291B07000E9C6B /* Camera-Info.plist */,
 				A78FEEB118291B07000E9C6B /* main.m */,
 				A78FEEB318291B07000E9C6B /* Camera-Prefix.pch */,
 			);
@@ -129,6 +175,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		6CF45A2119E9438D00B3FE2F /* CameraSwift */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6CF45A4219E9438F00B3FE2F /* Build configuration list for PBXNativeTarget "CameraSwift" */;
+			buildPhases = (
+				6CF45A1E19E9438D00B3FE2F /* Sources */,
+				6CF45A1F19E9438D00B3FE2F /* Frameworks */,
+				6CF45A2019E9438D00B3FE2F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CameraSwift;
+			productName = CameraSwift;
+			productReference = 6CF45A2219E9438D00B3FE2F /* CameraSwift.app */;
+			productType = "com.apple.product-type.application";
+		};
 		A78FEEA118291B07000E9C6B /* Camera */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A78FEED418291B07000E9C6B /* Build configuration list for PBXNativeTarget "Camera" */;
@@ -154,6 +217,11 @@
 			attributes = {
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = Cocoanetics;
+				TargetAttributes = {
+					6CF45A2119E9438D00B3FE2F = {
+						CreatedOnToolsVersion = 6.0.1;
+					};
+				};
 			};
 			buildConfigurationList = A78FEE9D18291B07000E9C6B /* Build configuration list for PBXProject "Camera" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -169,23 +237,47 @@
 			projectRoot = "";
 			targets = (
 				A78FEEA118291B07000E9C6B /* Camera */,
+				6CF45A2119E9438D00B3FE2F /* CameraSwift */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		6CF45A2019E9438D00B3FE2F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6CF45A5019E945AE00B3FE2F /* Images.xcassets in Resources */,
+				6CF45A5219E946E100B3FE2F /* Default-568h@2x.png in Resources */,
+				6CF45A4F19E945AA00B3FE2F /* Info.plist in Resources */,
+				6CF45A4D19E945A000B3FE2F /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A78FEEA018291B07000E9C6B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				A78FEEBE18291B07000E9C6B /* Images.xcassets in Resources */,
 				A78FEEB918291B07000E9C6B /* Main.storyboard in Resources */,
+				6CF45A4E19E945A900B3FE2F /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		6CF45A1E19E9438D00B3FE2F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6CF45A4819E9445600B3FE2F /* AppDelegate.swift in Sources */,
+				6CF45A4619E9443800B3FE2F /* DTCameraPreviewController.swift in Sources */,
+				6CF45A4A19E9447200B3FE2F /* DTAVFoundationFunctions.swift in Sources */,
+				6CF45A4C19E944A100B3FE2F /* DTVideoPreviewView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A78FEE9E18291B07000E9C6B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -207,11 +299,47 @@
 				A78FEEB818291B07000E9C6B /* Base */,
 			);
 			name = Main.storyboard;
+			path = Camera;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		6CF45A3E19E9438F00B3FE2F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "$(SRCROOT)/Camera/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		6CF45A3F19E9438F00B3FE2F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "$(SRCROOT)/Camera/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		A78FEED218291B07000E9C6B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -289,7 +417,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Camera/Camera-Prefix.pch";
-				INFOPLIST_FILE = "Camera/Camera-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Camera/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -304,7 +432,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Camera/Camera-Prefix.pch";
-				INFOPLIST_FILE = "Camera/Camera-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Camera/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -315,6 +443,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		6CF45A4219E9438F00B3FE2F /* Build configuration list for PBXNativeTarget "CameraSwift" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6CF45A3E19E9438F00B3FE2F /* Debug */,
+				6CF45A3F19E9438F00B3FE2F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		A78FEE9D18291B07000E9C6B /* Build configuration list for PBXProject "Camera" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
