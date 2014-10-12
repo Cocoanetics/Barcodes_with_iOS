@@ -7,39 +7,39 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6C8C9C0C19E937180059F860 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8C9C0B19E937180059F860 /* AppDelegate.swift */; };
-		6C8C9C0E19E937790059F860 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8C9C0D19E937790059F860 /* ViewController.swift */; };
-		6C8C9C0F19E937EE0059F860 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7516A19192B7D600030AAAF /* Images.xcassets */; };
-		6C8C9C1019E937F30059F860 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7516A13192B7D600030AAAF /* Main.storyboard */; };
+		6CF23EFB19EA91D100F400DF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CF23EF619EA91D100F400DF /* AppDelegate.m */; };
+		6CF23EFC19EA91D100F400DF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CF23EF819EA91D100F400DF /* main.m */; };
+		6CF23EFD19EA91D100F400DF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CF23EFA19EA91D100F400DF /* ViewController.m */; };
+		6CF23F0219EA91D800F400DF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6CF23EFF19EA91D800F400DF /* Main.storyboard */; };
+		6CF23F0319EA91D800F400DF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6CF23EFF19EA91D800F400DF /* Main.storyboard */; };
+		6CF23F0419EA91D800F400DF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CF23F0119EA91D800F400DF /* Images.xcassets */; };
+		6CF23F0519EA91D800F400DF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CF23F0119EA91D800F400DF /* Images.xcassets */; };
+		6CF23F0919EA91E300F400DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF23F0719EA91E300F400DF /* AppDelegate.swift */; };
+		6CF23F0A19EA91E300F400DF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF23F0819EA91E300F400DF /* ViewController.swift */; };
 		A7516A02192B7D600030AAAF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7516A01192B7D600030AAAF /* Foundation.framework */; };
 		A7516A04192B7D600030AAAF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7516A03192B7D600030AAAF /* CoreGraphics.framework */; };
 		A7516A06192B7D600030AAAF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7516A05192B7D600030AAAF /* UIKit.framework */; };
-		A7516A0E192B7D600030AAAF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A7516A0D192B7D600030AAAF /* main.m */; };
-		A7516A12192B7D600030AAAF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A7516A11192B7D600030AAAF /* AppDelegate.m */; };
-		A7516A15192B7D600030AAAF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7516A13192B7D600030AAAF /* Main.storyboard */; };
-		A7516A18192B7D600030AAAF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7516A17192B7D600030AAAF /* ViewController.m */; };
-		A7516A1A192B7D600030AAAF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7516A19192B7D600030AAAF /* Images.xcassets */; };
 		A77B53B3192B807000ACBE14 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A77B53B2192B807000ACBE14 /* CoreBluetooth.framework */; };
 		A77B53B5192B81AC00ACBE14 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A77B53B4192B81AC00ACBE14 /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		6C8C9BE819E9362F0059F860 /* BeaconEmitterSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeaconEmitterSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		6C8C9C0B19E937180059F860 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		6C8C9C0D19E937790059F860 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		6CF23EF319EA91BD00F400DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6CF23EF519EA91D100F400DF /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		6CF23EF619EA91D100F400DF /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		6CF23EF719EA91D100F400DF /* BeaconEmitter-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BeaconEmitter-Prefix.pch"; sourceTree = "<group>"; };
+		6CF23EF819EA91D100F400DF /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		6CF23EF919EA91D100F400DF /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		6CF23EFA19EA91D100F400DF /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		6CF23F0019EA91D800F400DF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		6CF23F0119EA91D800F400DF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		6CF23F0719EA91E300F400DF /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		6CF23F0819EA91E300F400DF /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		A75169FE192B7D600030AAAF /* BeaconEmitter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeaconEmitter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7516A01192B7D600030AAAF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A7516A03192B7D600030AAAF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		A7516A05192B7D600030AAAF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		A7516A09192B7D600030AAAF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = BeaconEmitter/Info.plist; sourceTree = "<group>"; };
-		A7516A0D192B7D600030AAAF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		A7516A0F192B7D600030AAAF /* BeaconEmitter-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BeaconEmitter-Prefix.pch"; sourceTree = "<group>"; };
-		A7516A10192B7D600030AAAF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		A7516A11192B7D600030AAAF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		A7516A14192B7D600030AAAF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		A7516A16192B7D600030AAAF /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		A7516A17192B7D600030AAAF /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		A7516A19192B7D600030AAAF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = BeaconEmitter/Images.xcassets; sourceTree = "<group>"; };
 		A7516A20192B7D600030AAAF /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		A77B53B2192B807000ACBE14 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		A77B53B4192B81AC00ACBE14 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -68,32 +68,52 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6C8C9BE919E9362F0059F860 /* Swift */ = {
+		6CF23EF419EA91D100F400DF /* ObjC */ = {
 			isa = PBXGroup;
 			children = (
-				6C8C9C0B19E937180059F860 /* AppDelegate.swift */,
-				6C8C9C0D19E937790059F860 /* ViewController.swift */,
+				6CF23EF519EA91D100F400DF /* AppDelegate.h */,
+				6CF23EF619EA91D100F400DF /* AppDelegate.m */,
+				6CF23EF919EA91D100F400DF /* ViewController.h */,
+				6CF23EFA19EA91D100F400DF /* ViewController.m */,
+				6CF23F0B19EA923000F400DF /* Supporting Files */,
 			);
-			name = Swift;
-			path = BeaconEmitterSwift;
+			path = ObjC;
 			sourceTree = "<group>";
 		};
-		6C8C9C0A19E9368B0059F860 /* Resources */ = {
+		6CF23EFE19EA91D800F400DF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				A7516A19192B7D600030AAAF /* Images.xcassets */,
-				A7516A13192B7D600030AAAF /* Main.storyboard */,
+				6CF23EFF19EA91D800F400DF /* Main.storyboard */,
+				6CF23F0119EA91D800F400DF /* Images.xcassets */,
 			);
-			name = Resources;
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		6CF23F0619EA91E300F400DF /* Swift */ = {
+			isa = PBXGroup;
+			children = (
+				6CF23F0719EA91E300F400DF /* AppDelegate.swift */,
+				6CF23F0819EA91E300F400DF /* ViewController.swift */,
+			);
+			path = Swift;
+			sourceTree = "<group>";
+		};
+		6CF23F0B19EA923000F400DF /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				6CF23EF719EA91D100F400DF /* BeaconEmitter-Prefix.pch */,
+				6CF23EF819EA91D100F400DF /* main.m */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		A75169F5192B7D600030AAAF = {
 			isa = PBXGroup;
 			children = (
-				A7516A09192B7D600030AAAF /* Info.plist */,
-				6C8C9C0A19E9368B0059F860 /* Resources */,
-				A7516A07192B7D600030AAAF /* ObjC */,
-				6C8C9BE919E9362F0059F860 /* Swift */,
+				6CF23EF319EA91BD00F400DF /* Info.plist */,
+				6CF23EFE19EA91D800F400DF /* Resources */,
+				6CF23EF419EA91D100F400DF /* ObjC */,
+				6CF23F0619EA91E300F400DF /* Swift */,
 				A7516A00192B7D600030AAAF /* Frameworks */,
 				A75169FF192B7D600030AAAF /* Products */,
 			);
@@ -119,28 +139,6 @@
 				A7516A20192B7D600030AAAF /* XCTest.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		A7516A07192B7D600030AAAF /* ObjC */ = {
-			isa = PBXGroup;
-			children = (
-				A7516A10192B7D600030AAAF /* AppDelegate.h */,
-				A7516A11192B7D600030AAAF /* AppDelegate.m */,
-				A7516A16192B7D600030AAAF /* ViewController.h */,
-				A7516A17192B7D600030AAAF /* ViewController.m */,
-				A7516A08192B7D600030AAAF /* Supporting Files */,
-			);
-			name = ObjC;
-			path = BeaconEmitter;
-			sourceTree = "<group>";
-		};
-		A7516A08192B7D600030AAAF /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				A7516A0D192B7D600030AAAF /* main.m */,
-				A7516A0F192B7D600030AAAF /* BeaconEmitter-Prefix.pch */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -225,8 +223,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6C8C9C0F19E937EE0059F860 /* Images.xcassets in Resources */,
-				6C8C9C1019E937F30059F860 /* Main.storyboard in Resources */,
+				6CF23F0319EA91D800F400DF /* Main.storyboard in Resources */,
+				6CF23F0519EA91D800F400DF /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,8 +232,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A7516A1A192B7D600030AAAF /* Images.xcassets in Resources */,
-				A7516A15192B7D600030AAAF /* Main.storyboard in Resources */,
+				6CF23F0219EA91D800F400DF /* Main.storyboard in Resources */,
+				6CF23F0419EA91D800F400DF /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,8 +244,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6C8C9C0E19E937790059F860 /* ViewController.swift in Sources */,
-				6C8C9C0C19E937180059F860 /* AppDelegate.swift in Sources */,
+				6CF23F0A19EA91E300F400DF /* ViewController.swift in Sources */,
+				6CF23F0919EA91E300F400DF /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,22 +253,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A7516A18192B7D600030AAAF /* ViewController.m in Sources */,
-				A7516A12192B7D600030AAAF /* AppDelegate.m in Sources */,
-				A7516A0E192B7D600030AAAF /* main.m in Sources */,
+				6CF23EFD19EA91D100F400DF /* ViewController.m in Sources */,
+				6CF23EFC19EA91D100F400DF /* main.m in Sources */,
+				6CF23EFB19EA91D100F400DF /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		A7516A13192B7D600030AAAF /* Main.storyboard */ = {
+		6CF23EFF19EA91D800F400DF /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				A7516A14192B7D600030AAAF /* Base */,
+				6CF23F0019EA91D800F400DF /* Base */,
 			);
 			name = Main.storyboard;
-			path = BeaconEmitter;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -288,7 +285,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/BeaconEmitter/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -305,7 +302,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				INFOPLIST_FILE = "$(SRCROOT)/BeaconEmitter/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -389,8 +386,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "BeaconEmitter/BeaconEmitter-Prefix.pch";
-				INFOPLIST_FILE = "$(SRCROOT)/BeaconEmitter/Info.plist";
+				GCC_PREFIX_HEADER = "ObjC/BeaconEmitter-Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -402,8 +399,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "BeaconEmitter/BeaconEmitter-Prefix.pch";
-				INFOPLIST_FILE = "$(SRCROOT)/BeaconEmitter/Info.plist";
+				GCC_PREFIX_HEADER = "ObjC/BeaconEmitter-Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
