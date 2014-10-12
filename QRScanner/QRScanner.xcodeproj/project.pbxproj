@@ -7,55 +7,55 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6CF45A7A19E9482000B3FE2F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF45A7919E9482000B3FE2F /* AppDelegate.swift */; };
-		6CF45A7C19E9484800B3FE2F /* DTCameraPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF45A7B19E9484800B3FE2F /* DTCameraPreviewController.swift */; };
-		6CF45A7E19E9486800B3FE2F /* DTAVFoundationFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF45A7D19E9486800B3FE2F /* DTAVFoundationFunctions.swift */; };
-		6CF45A8019E9488A00B3FE2F /* DTVideoPreviewInterestBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF45A7F19E9488A00B3FE2F /* DTVideoPreviewInterestBox.swift */; };
-		6CF45A8219E948A400B3FE2F /* DTVideoPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF45A8119E948A400B3FE2F /* DTVideoPreviewView.swift */; };
-		6CF45A8419E9490C00B3FE2F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7E290A2185713BD00A9BE73 /* Main.storyboard */; };
-		6CF45A8519E9490F00B3FE2F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7E290A8185713BD00A9BE73 /* Images.xcassets */; };
+		6C3A579B19EA894800954E5A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3A579619EA894800954E5A /* AppDelegate.swift */; };
+		6C3A579C19EA894800954E5A /* DTAVFoundationFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3A579719EA894800954E5A /* DTAVFoundationFunctions.swift */; };
+		6C3A579D19EA894800954E5A /* DTCameraPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3A579819EA894800954E5A /* DTCameraPreviewController.swift */; };
+		6C3A579E19EA894800954E5A /* DTVideoPreviewInterestBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3A579919EA894800954E5A /* DTVideoPreviewInterestBox.swift */; };
+		6C3A579F19EA894800954E5A /* DTVideoPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3A579A19EA894800954E5A /* DTVideoPreviewView.swift */; };
+		6C3A57AD19EA89AA00954E5A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C3A57A219EA89AA00954E5A /* AppDelegate.m */; };
+		6C3A57AE19EA89AA00954E5A /* DTAVFoundationFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C3A57A419EA89AA00954E5A /* DTAVFoundationFunctions.m */; };
+		6C3A57AF19EA89AA00954E5A /* DTCameraPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C3A57A619EA89AA00954E5A /* DTCameraPreviewController.m */; };
+		6C3A57B019EA89AA00954E5A /* DTVideoPreviewInterestBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C3A57A819EA89AA00954E5A /* DTVideoPreviewInterestBox.m */; };
+		6C3A57B119EA89AA00954E5A /* DTVideoPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C3A57AA19EA89AA00954E5A /* DTVideoPreviewView.m */; };
+		6C3A57B219EA89AA00954E5A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C3A57AB19EA89AA00954E5A /* main.m */; };
+		6C3A57B719EA8A0100954E5A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C3A57B419EA8A0100954E5A /* Main.storyboard */; };
+		6C3A57B819EA8A0100954E5A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C3A57B419EA8A0100954E5A /* Main.storyboard */; };
+		6C3A57B919EA8A0100954E5A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6C3A57B619EA8A0100954E5A /* Images.xcassets */; };
+		6C3A57BA19EA8A0100954E5A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6C3A57B619EA8A0100954E5A /* Images.xcassets */; };
 		A7E29091185713BD00A9BE73 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7E29090185713BD00A9BE73 /* Foundation.framework */; };
 		A7E29093185713BD00A9BE73 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7E29092185713BD00A9BE73 /* CoreGraphics.framework */; };
 		A7E29095185713BD00A9BE73 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7E29094185713BD00A9BE73 /* UIKit.framework */; };
-		A7E2909D185713BD00A9BE73 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E2909C185713BD00A9BE73 /* main.m */; };
-		A7E290A1185713BD00A9BE73 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E290A0185713BD00A9BE73 /* AppDelegate.m */; };
-		A7E290A4185713BD00A9BE73 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7E290A2185713BD00A9BE73 /* Main.storyboard */; };
-		A7E290A9185713BD00A9BE73 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7E290A8185713BD00A9BE73 /* Images.xcassets */; };
-		A7E290CB1857141800A9BE73 /* DTAVFoundationFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E290C61857141800A9BE73 /* DTAVFoundationFunctions.m */; };
-		A7E290CC1857141800A9BE73 /* DTCameraPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E290C81857141800A9BE73 /* DTCameraPreviewController.m */; };
-		A7E290CD1857141800A9BE73 /* DTVideoPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E290CA1857141800A9BE73 /* DTVideoPreviewView.m */; };
 		A7E290CF1857142F00A9BE73 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7E290CE1857142F00A9BE73 /* AVFoundation.framework */; };
-		A7E290D41858A89B00A9BE73 /* DTVideoPreviewInterestBox.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E290D31858A89B00A9BE73 /* DTVideoPreviewInterestBox.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6C3A579619EA894800954E5A /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		6C3A579719EA894800954E5A /* DTAVFoundationFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTAVFoundationFunctions.swift; sourceTree = "<group>"; };
+		6C3A579819EA894800954E5A /* DTCameraPreviewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTCameraPreviewController.swift; sourceTree = "<group>"; };
+		6C3A579919EA894800954E5A /* DTVideoPreviewInterestBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTVideoPreviewInterestBox.swift; sourceTree = "<group>"; };
+		6C3A579A19EA894800954E5A /* DTVideoPreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTVideoPreviewView.swift; sourceTree = "<group>"; };
+		6C3A57A119EA89AA00954E5A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		6C3A57A219EA89AA00954E5A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		6C3A57A319EA89AA00954E5A /* DTAVFoundationFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTAVFoundationFunctions.h; sourceTree = "<group>"; };
+		6C3A57A419EA89AA00954E5A /* DTAVFoundationFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTAVFoundationFunctions.m; sourceTree = "<group>"; };
+		6C3A57A519EA89AA00954E5A /* DTCameraPreviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTCameraPreviewController.h; sourceTree = "<group>"; };
+		6C3A57A619EA89AA00954E5A /* DTCameraPreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTCameraPreviewController.m; sourceTree = "<group>"; };
+		6C3A57A719EA89AA00954E5A /* DTVideoPreviewInterestBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTVideoPreviewInterestBox.h; sourceTree = "<group>"; };
+		6C3A57A819EA89AA00954E5A /* DTVideoPreviewInterestBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTVideoPreviewInterestBox.m; sourceTree = "<group>"; };
+		6C3A57A919EA89AA00954E5A /* DTVideoPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTVideoPreviewView.h; sourceTree = "<group>"; };
+		6C3A57AA19EA89AA00954E5A /* DTVideoPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTVideoPreviewView.m; sourceTree = "<group>"; };
+		6C3A57AB19EA89AA00954E5A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		6C3A57AC19EA89AA00954E5A /* QRScanner-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "QRScanner-Prefix.pch"; sourceTree = "<group>"; };
+		6C3A57B519EA8A0100954E5A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		6C3A57B619EA8A0100954E5A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		6C3A57BB19EA8A1B00954E5A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6CF45A5719E947CC00B3FE2F /* QRScannerSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QRScannerSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		6CF45A7919E9482000B3FE2F /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		6CF45A7B19E9484800B3FE2F /* DTCameraPreviewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTCameraPreviewController.swift; sourceTree = "<group>"; };
-		6CF45A7D19E9486800B3FE2F /* DTAVFoundationFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTAVFoundationFunctions.swift; sourceTree = "<group>"; };
-		6CF45A7F19E9488A00B3FE2F /* DTVideoPreviewInterestBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTVideoPreviewInterestBox.swift; sourceTree = "<group>"; };
-		6CF45A8119E948A400B3FE2F /* DTVideoPreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTVideoPreviewView.swift; sourceTree = "<group>"; };
 		A7E2908D185713BD00A9BE73 /* QRScanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QRScanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7E29090185713BD00A9BE73 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A7E29092185713BD00A9BE73 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		A7E29094185713BD00A9BE73 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		A7E29098185713BD00A9BE73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = QRScanner/Info.plist; sourceTree = "<group>"; };
-		A7E2909C185713BD00A9BE73 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		A7E2909E185713BD00A9BE73 /* QRScanner-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "QRScanner-Prefix.pch"; sourceTree = "<group>"; };
-		A7E2909F185713BD00A9BE73 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		A7E290A0185713BD00A9BE73 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		A7E290A3185713BD00A9BE73 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		A7E290A8185713BD00A9BE73 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = QRScanner/Images.xcassets; sourceTree = "<group>"; };
 		A7E290AF185713BD00A9BE73 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		A7E290C51857141800A9BE73 /* DTAVFoundationFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTAVFoundationFunctions.h; sourceTree = "<group>"; };
-		A7E290C61857141800A9BE73 /* DTAVFoundationFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTAVFoundationFunctions.m; sourceTree = "<group>"; };
-		A7E290C71857141800A9BE73 /* DTCameraPreviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTCameraPreviewController.h; sourceTree = "<group>"; };
-		A7E290C81857141800A9BE73 /* DTCameraPreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTCameraPreviewController.m; sourceTree = "<group>"; };
-		A7E290C91857141800A9BE73 /* DTVideoPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTVideoPreviewView.h; sourceTree = "<group>"; };
-		A7E290CA1857141800A9BE73 /* DTVideoPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTVideoPreviewView.m; sourceTree = "<group>"; };
 		A7E290CE1857142F00A9BE73 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		A7E290D21858A89B00A9BE73 /* DTVideoPreviewInterestBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTVideoPreviewInterestBox.h; sourceTree = "<group>"; };
-		A7E290D31858A89B00A9BE73 /* DTVideoPreviewInterestBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTVideoPreviewInterestBox.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,35 +80,61 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6CF45A5819E947CD00B3FE2F /* Swift */ = {
+		6C3A579519EA894800954E5A /* Swift */ = {
 			isa = PBXGroup;
 			children = (
-				6CF45A7919E9482000B3FE2F /* AppDelegate.swift */,
-				6CF45A7B19E9484800B3FE2F /* DTCameraPreviewController.swift */,
-				6CF45A7D19E9486800B3FE2F /* DTAVFoundationFunctions.swift */,
-				6CF45A7F19E9488A00B3FE2F /* DTVideoPreviewInterestBox.swift */,
-				6CF45A8119E948A400B3FE2F /* DTVideoPreviewView.swift */,
+				6C3A579619EA894800954E5A /* AppDelegate.swift */,
+				6C3A579719EA894800954E5A /* DTAVFoundationFunctions.swift */,
+				6C3A579819EA894800954E5A /* DTCameraPreviewController.swift */,
+				6C3A579919EA894800954E5A /* DTVideoPreviewInterestBox.swift */,
+				6C3A579A19EA894800954E5A /* DTVideoPreviewView.swift */,
 			);
-			name = Swift;
-			path = QRScannerSwift;
+			path = Swift;
 			sourceTree = "<group>";
 		};
-		6CF45A8319E948C100B3FE2F /* Resources */ = {
+		6C3A57A019EA89AA00954E5A /* ObjC */ = {
 			isa = PBXGroup;
 			children = (
-				A7E290A2185713BD00A9BE73 /* Main.storyboard */,
-				A7E290A8185713BD00A9BE73 /* Images.xcassets */,
+				6C3A57A119EA89AA00954E5A /* AppDelegate.h */,
+				6C3A57A219EA89AA00954E5A /* AppDelegate.m */,
+				6C3A57A319EA89AA00954E5A /* DTAVFoundationFunctions.h */,
+				6C3A57A419EA89AA00954E5A /* DTAVFoundationFunctions.m */,
+				6C3A57A519EA89AA00954E5A /* DTCameraPreviewController.h */,
+				6C3A57A619EA89AA00954E5A /* DTCameraPreviewController.m */,
+				6C3A57A719EA89AA00954E5A /* DTVideoPreviewInterestBox.h */,
+				6C3A57A819EA89AA00954E5A /* DTVideoPreviewInterestBox.m */,
+				6C3A57A919EA89AA00954E5A /* DTVideoPreviewView.h */,
+				6C3A57AA19EA89AA00954E5A /* DTVideoPreviewView.m */,
+				6C3A57BE19EA8B3000954E5A /* Supporting Files */,
 			);
-			name = Resources;
+			path = ObjC;
+			sourceTree = "<group>";
+		};
+		6C3A57B319EA8A0100954E5A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				6C3A57B419EA8A0100954E5A /* Main.storyboard */,
+				6C3A57B619EA8A0100954E5A /* Images.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		6C3A57BE19EA8B3000954E5A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				6C3A57AB19EA89AA00954E5A /* main.m */,
+				6C3A57AC19EA89AA00954E5A /* QRScanner-Prefix.pch */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		A7E29084185713BD00A9BE73 = {
 			isa = PBXGroup;
 			children = (
-				A7E29098185713BD00A9BE73 /* Info.plist */,
-				6CF45A8319E948C100B3FE2F /* Resources */,
-				A7E29096185713BD00A9BE73 /* ObjC */,
-				6CF45A5819E947CD00B3FE2F /* Swift */,
+				6C3A57BB19EA8A1B00954E5A /* Info.plist */,
+				6C3A57B319EA8A0100954E5A /* Resources */,
+				6C3A57A019EA89AA00954E5A /* ObjC */,
+				6C3A579519EA894800954E5A /* Swift */,
 				A7E2908F185713BD00A9BE73 /* Frameworks */,
 				A7E2908E185713BD00A9BE73 /* Products */,
 			);
@@ -133,34 +159,6 @@
 				A7E290AF185713BD00A9BE73 /* XCTest.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		A7E29096185713BD00A9BE73 /* ObjC */ = {
-			isa = PBXGroup;
-			children = (
-				A7E2909F185713BD00A9BE73 /* AppDelegate.h */,
-				A7E290A0185713BD00A9BE73 /* AppDelegate.m */,
-				A7E290C51857141800A9BE73 /* DTAVFoundationFunctions.h */,
-				A7E290C61857141800A9BE73 /* DTAVFoundationFunctions.m */,
-				A7E290C71857141800A9BE73 /* DTCameraPreviewController.h */,
-				A7E290C81857141800A9BE73 /* DTCameraPreviewController.m */,
-				A7E290C91857141800A9BE73 /* DTVideoPreviewView.h */,
-				A7E290CA1857141800A9BE73 /* DTVideoPreviewView.m */,
-				A7E290D21858A89B00A9BE73 /* DTVideoPreviewInterestBox.h */,
-				A7E290D31858A89B00A9BE73 /* DTVideoPreviewInterestBox.m */,
-				A7E29097185713BD00A9BE73 /* Supporting Files */,
-			);
-			name = ObjC;
-			path = QRScanner;
-			sourceTree = "<group>";
-		};
-		A7E29097185713BD00A9BE73 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				A7E2909E185713BD00A9BE73 /* QRScanner-Prefix.pch */,
-				A7E2909C185713BD00A9BE73 /* main.m */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -241,8 +239,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6CF45A8419E9490C00B3FE2F /* Main.storyboard in Resources */,
-				6CF45A8519E9490F00B3FE2F /* Images.xcassets in Resources */,
+				6C3A57B819EA8A0100954E5A /* Main.storyboard in Resources */,
+				6C3A57BA19EA8A0100954E5A /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,8 +248,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A7E290A9185713BD00A9BE73 /* Images.xcassets in Resources */,
-				A7E290A4185713BD00A9BE73 /* Main.storyboard in Resources */,
+				6C3A57B719EA8A0100954E5A /* Main.storyboard in Resources */,
+				6C3A57B919EA8A0100954E5A /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,11 +260,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6CF45A7A19E9482000B3FE2F /* AppDelegate.swift in Sources */,
-				6CF45A7C19E9484800B3FE2F /* DTCameraPreviewController.swift in Sources */,
-				6CF45A8019E9488A00B3FE2F /* DTVideoPreviewInterestBox.swift in Sources */,
-				6CF45A8219E948A400B3FE2F /* DTVideoPreviewView.swift in Sources */,
-				6CF45A7E19E9486800B3FE2F /* DTAVFoundationFunctions.swift in Sources */,
+				6C3A579D19EA894800954E5A /* DTCameraPreviewController.swift in Sources */,
+				6C3A579B19EA894800954E5A /* AppDelegate.swift in Sources */,
+				6C3A579E19EA894800954E5A /* DTVideoPreviewInterestBox.swift in Sources */,
+				6C3A579F19EA894800954E5A /* DTVideoPreviewView.swift in Sources */,
+				6C3A579C19EA894800954E5A /* DTAVFoundationFunctions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,25 +272,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A7E290A1185713BD00A9BE73 /* AppDelegate.m in Sources */,
-				A7E2909D185713BD00A9BE73 /* main.m in Sources */,
-				A7E290CD1857141800A9BE73 /* DTVideoPreviewView.m in Sources */,
-				A7E290CC1857141800A9BE73 /* DTCameraPreviewController.m in Sources */,
-				A7E290CB1857141800A9BE73 /* DTAVFoundationFunctions.m in Sources */,
-				A7E290D41858A89B00A9BE73 /* DTVideoPreviewInterestBox.m in Sources */,
+				6C3A57AF19EA89AA00954E5A /* DTCameraPreviewController.m in Sources */,
+				6C3A57B119EA89AA00954E5A /* DTVideoPreviewView.m in Sources */,
+				6C3A57B019EA89AA00954E5A /* DTVideoPreviewInterestBox.m in Sources */,
+				6C3A57AE19EA89AA00954E5A /* DTAVFoundationFunctions.m in Sources */,
+				6C3A57AD19EA89AA00954E5A /* AppDelegate.m in Sources */,
+				6C3A57B219EA89AA00954E5A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		A7E290A2185713BD00A9BE73 /* Main.storyboard */ = {
+		6C3A57B419EA8A0100954E5A /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				A7E290A3185713BD00A9BE73 /* Base */,
+				6C3A57B519EA8A0100954E5A /* Base */,
 			);
 			name = Main.storyboard;
-			path = QRScanner;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -311,7 +308,7 @@
 					"$(inherited)",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = "$(SRCROOT)/QRScanner/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -328,7 +325,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = "$(SRCROOT)/QRScanner/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -413,8 +410,8 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "QRScanner/QRScanner-Prefix.pch";
-				INFOPLIST_FILE = "$(SRCROOT)/QRScanner/Info.plist";
+				GCC_PREFIX_HEADER = "ObjC/QRScanner-Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -430,8 +427,8 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "QRScanner/QRScanner-Prefix.pch";
-				INFOPLIST_FILE = "$(SRCROOT)/QRScanner/Info.plist";
+				GCC_PREFIX_HEADER = "ObjC/QRScanner-Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
