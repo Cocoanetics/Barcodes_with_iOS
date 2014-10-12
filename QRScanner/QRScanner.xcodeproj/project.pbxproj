@@ -449,6 +449,7 @@
 				6CF45A7419E947CD00B3FE2F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A7E29088185713BD00A9BE73 /* Build configuration list for PBXProject "QRScanner" */ = {
 			isa = XCConfigurationList;
