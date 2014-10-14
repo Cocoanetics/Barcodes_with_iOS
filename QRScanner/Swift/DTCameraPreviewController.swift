@@ -278,7 +278,7 @@ protocol for receiving updates on newly visible barcodes
         
         if (con.supportsVideoOrientation)
         {
-            con.videoOrientation = captureOrientation;
+            con.videoOrientation = captureOrientation
         }
     }
     
@@ -314,9 +314,11 @@ protocol for receiving updates on newly visible barcodes
     // configure torch button for current cam
     func _setupTorchToggleButton()
     {
-        if (_camera!.hasTorch)
-        {
-            toggleTorchButton!.hidden = false
+        if let _camera = _camera {
+            if (_camera.hasTorch)
+            {
+                toggleTorchButton!.hidden = false
+            }
         }
         else
         {
@@ -327,13 +329,13 @@ protocol for receiving updates on newly visible barcodes
     // updates the rect of interest for barcode scanning for the current interest box frame
     func _updateMetadataRectOfInterest()
     {
-        if (_captureSession!.running == false)
+        if (_captureSession?.running == false)
         {
             return
         }
         
         let rectOfInterest : CGRect = _videoPreview!.previewLayer.metadataOutputRectOfInterestForRect(iBox!.frame)
-        _metaDataOutput!.rectOfInterest = rectOfInterest
+        _metaDataOutput?.rectOfInterest = rectOfInterest
     }
     
     // MARK: - View Appearance
@@ -359,15 +361,12 @@ protocol for receiving updates on newly visible barcodes
     {
         super.viewWillAppear(animated)
         
-        // start session so that we don't see a black rectangle, but video
-        _captureSession!.startRunning()
-        
         // need to update capture and preview connections
-        let orientation: UIInterfaceOrientation = interfaceOrientation
-        _updateConnectionsForInterfaceOrientation(orientation)
+//        let orientation: UIInterfaceOrientation = interfaceOrientation
+//        _updateConnectionsForInterfaceOrientation(orientation)
         
         // start session so that we don't see a black rectangle, but video
-        _captureSession!.startRunning()
+        _captureSession?.startRunning()
         
         _setupCamSwitchButton()
         _setupTorchToggleButton()
@@ -384,9 +383,11 @@ protocol for receiving updates on newly visible barcodes
     
     override func shouldAutorotate() -> Bool
     {
-        if (_videoPreview!.previewLayer.connection.supportsVideoOrientation)
+        if let connection = _videoPreview?.previewLayer.connection
         {
-            return true
+            if connection.supportsVideoOrientation {
+                return true
+            }
         }
         
         // prevent UI autorotation to avoid confusing the preview layer
@@ -419,7 +420,7 @@ protocol for receiving updates on newly visible barcodes
     
     @IBAction func snap(sender: UIButton)
     {
-        if (_camera == false)
+        if (_camera == nil)
         {
             return
         }
@@ -509,6 +510,11 @@ protocol for receiving updates on newly visible barcodes
     
     func handleTap(gesture: UITapGestureRecognizer)
     {
+        if (_camera == nil)
+        {
+            return
+        }
+
         if (gesture.state == .Ended)
         {
             // require both focus point and autofocus

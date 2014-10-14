@@ -201,9 +201,11 @@ import Dispatch
             }
         }
         
-        if (_videoPreview!.previewLayer.connection.supportsVideoOrientation)
+        let con: AVCaptureConnection = _videoPreview!.previewLayer.connection
+        
+        if (con.supportsVideoOrientation)
         {
-            _videoPreview!.previewLayer.connection.videoOrientation = captureOrientation;
+            con.videoOrientation = captureOrientation
         }
     }
     
@@ -239,9 +241,11 @@ import Dispatch
     // configure torch button for current cam
     func _setupTorchToggleButton()
     {
-        if (_camera!.hasTorch)
-        {
-            toggleTorchButton!.hidden = false
+        if let _camera = _camera {
+            if (_camera.hasTorch)
+            {
+                toggleTorchButton!.hidden = false
+            }
         }
         else
         {
@@ -273,8 +277,8 @@ import Dispatch
         super.viewWillAppear(animated)
         
         // start session so that we don't see a black rectangle, but video
-        _captureSession!.startRunning()
-        
+        _captureSession?.startRunning()
+
         _setupCamSwitchButton()
         _setupTorchToggleButton()
     }
@@ -288,9 +292,11 @@ import Dispatch
     
     override func shouldAutorotate() -> Bool
     {
-        if (_videoPreview!.previewLayer.connection.supportsVideoOrientation)
+        if let connection = _videoPreview?.previewLayer.connection
         {
-            return true
+            if connection.supportsVideoOrientation {
+                return true
+            }
         }
         
         // prevent UI autorotation to avoid confusing the preview layer
@@ -317,7 +323,7 @@ import Dispatch
     
     @IBAction func snap(sender: UIButton)
     {
-        if (_camera == false)
+        if (_camera == nil)
         {
             return
         }
@@ -404,6 +410,11 @@ import Dispatch
     
     func handleTap(gesture: UITapGestureRecognizer)
     {
+        if (_camera == nil)
+        {
+            return
+        }
+        
         if (gesture.state == .Ended)
         {
             // require both focus point and autofocus
