@@ -7,48 +7,70 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6C49E5AF19EA98620078A6E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C49E5AC19EA98620078A6E9 /* Main.storyboard */; };
+		6C49E5B019EA98620078A6E9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6C49E5AE19EA98620078A6E9 /* Images.xcassets */; };
+		6C49E5C219EA98780078A6E9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C49E5B519EA98780078A6E9 /* AppDelegate.m */; };
+		6C49E5C319EA98780078A6E9 /* DTAVFoundationFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C49E5B719EA98780078A6E9 /* DTAVFoundationFunctions.m */; };
+		6C49E5C419EA98780078A6E9 /* DTCameraPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C49E5B919EA98780078A6E9 /* DTCameraPreviewController.m */; };
+		6C49E5C519EA98780078A6E9 /* DTVideoPreviewInterestBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C49E5BB19EA98780078A6E9 /* DTVideoPreviewInterestBox.m */; };
+		6C49E5C619EA98780078A6E9 /* DTVideoPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C49E5BD19EA98780078A6E9 /* DTVideoPreviewView.m */; };
+		6C49E5C719EA98780078A6E9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C49E5BE19EA98780078A6E9 /* main.m */; };
+		6C49E5C819EA98780078A6E9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C49E5C119EA98780078A6E9 /* ViewController.m */; };
+		6C49E5F219EA9AA90078A6E9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C49E5F119EA9AA90078A6E9 /* AppDelegate.swift */; };
+		6C49E5F419EA9AD20078A6E9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C49E5F319EA9AD20078A6E9 /* ViewController.swift */; };
+		6C49E5FC19EA9C7F0078A6E9 /* DTAVFoundationFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C49E5FB19EA9C7F0078A6E9 /* DTAVFoundationFunctions.swift */; };
+		6C49E5FE19EA9CA20078A6E9 /* DTCameraPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C49E5FD19EA9CA20078A6E9 /* DTCameraPreviewController.swift */; };
+		6C49E60019EA9CC70078A6E9 /* DTVideoPreviewInterestBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C49E5FF19EA9CC70078A6E9 /* DTVideoPreviewInterestBox.swift */; };
+		6C49E60219EA9CE80078A6E9 /* DTVideoPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C49E60119EA9CE80078A6E9 /* DTVideoPreviewView.swift */; };
+		6C49E60319EA9D420078A6E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C49E5AC19EA98620078A6E9 /* Main.storyboard */; };
 		A7284CA118895E7C00EEEA69 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7284CA018895E7C00EEEA69 /* Foundation.framework */; };
 		A7284CA318895E7C00EEEA69 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7284CA218895E7C00EEEA69 /* CoreGraphics.framework */; };
 		A7284CA518895E7C00EEEA69 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7284CA418895E7C00EEEA69 /* UIKit.framework */; };
-		A7284CAD18895E7C00EEEA69 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A7284CAC18895E7C00EEEA69 /* main.m */; };
-		A7284CB118895E7C00EEEA69 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A7284CB018895E7C00EEEA69 /* AppDelegate.m */; };
-		A7284CB418895E7C00EEEA69 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7284CB218895E7C00EEEA69 /* Main.storyboard */; };
-		A7284CB718895E7C00EEEA69 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7284CB618895E7C00EEEA69 /* ViewController.m */; };
-		A7284CB918895E7C00EEEA69 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7284CB818895E7C00EEEA69 /* Images.xcassets */; };
-		A7284CDD18896D3900EEEA69 /* DTAVFoundationFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = A7284CD618896D3900EEEA69 /* DTAVFoundationFunctions.m */; };
-		A7284CDE18896D3900EEEA69 /* DTCameraPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7284CD818896D3900EEEA69 /* DTCameraPreviewController.m */; };
-		A7284CDF18896D3900EEEA69 /* DTVideoPreviewInterestBox.m in Sources */ = {isa = PBXBuildFile; fileRef = A7284CDA18896D3900EEEA69 /* DTVideoPreviewInterestBox.m */; };
-		A7284CE018896D3900EEEA69 /* DTVideoPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7284CDC18896D3900EEEA69 /* DTVideoPreviewView.m */; };
 		A7284CE218896D4F00EEEA69 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7284CE118896D4F00EEEA69 /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6C49E5AD19EA98620078A6E9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		6C49E5AE19EA98620078A6E9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		6C49E5B119EA986B0078A6E9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6C49E5B419EA98780078A6E9 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		6C49E5B519EA98780078A6E9 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		6C49E5B619EA98780078A6E9 /* DTAVFoundationFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTAVFoundationFunctions.h; sourceTree = "<group>"; };
+		6C49E5B719EA98780078A6E9 /* DTAVFoundationFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTAVFoundationFunctions.m; sourceTree = "<group>"; };
+		6C49E5B819EA98780078A6E9 /* DTCameraPreviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTCameraPreviewController.h; sourceTree = "<group>"; };
+		6C49E5B919EA98780078A6E9 /* DTCameraPreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTCameraPreviewController.m; sourceTree = "<group>"; };
+		6C49E5BA19EA98780078A6E9 /* DTVideoPreviewInterestBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTVideoPreviewInterestBox.h; sourceTree = "<group>"; };
+		6C49E5BB19EA98780078A6E9 /* DTVideoPreviewInterestBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTVideoPreviewInterestBox.m; sourceTree = "<group>"; };
+		6C49E5BC19EA98780078A6E9 /* DTVideoPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTVideoPreviewView.h; sourceTree = "<group>"; };
+		6C49E5BD19EA98780078A6E9 /* DTVideoPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTVideoPreviewView.m; sourceTree = "<group>"; };
+		6C49E5BE19EA98780078A6E9 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		6C49E5BF19EA98780078A6E9 /* MovieNight-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MovieNight-Prefix.pch"; sourceTree = "<group>"; };
+		6C49E5C019EA98780078A6E9 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		6C49E5C119EA98780078A6E9 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		6C49E5CF19EA9A480078A6E9 /* MovieNightSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieNightSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C49E5F119EA9AA90078A6E9 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		6C49E5F319EA9AD20078A6E9 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		6C49E5FB19EA9C7F0078A6E9 /* DTAVFoundationFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTAVFoundationFunctions.swift; sourceTree = "<group>"; };
+		6C49E5FD19EA9CA20078A6E9 /* DTCameraPreviewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTCameraPreviewController.swift; sourceTree = "<group>"; };
+		6C49E5FF19EA9CC70078A6E9 /* DTVideoPreviewInterestBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTVideoPreviewInterestBox.swift; sourceTree = "<group>"; };
+		6C49E60119EA9CE80078A6E9 /* DTVideoPreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTVideoPreviewView.swift; sourceTree = "<group>"; };
+		6C49E60419EAA3A70078A6E9 /* MovieNightSwift-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MovieNightSwift-Bridging-Header.h"; sourceTree = "<group>"; };
 		A7284C9D18895E7C00EEEA69 /* MovieNight.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieNight.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7284CA018895E7C00EEEA69 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A7284CA218895E7C00EEEA69 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		A7284CA418895E7C00EEEA69 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		A7284CA818895E7C00EEEA69 /* MovieNight-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MovieNight-Info.plist"; sourceTree = "<group>"; };
-		A7284CAC18895E7C00EEEA69 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		A7284CAE18895E7C00EEEA69 /* MovieNight-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MovieNight-Prefix.pch"; sourceTree = "<group>"; };
-		A7284CAF18895E7C00EEEA69 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		A7284CB018895E7C00EEEA69 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		A7284CB318895E7C00EEEA69 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		A7284CB518895E7C00EEEA69 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		A7284CB618895E7C00EEEA69 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		A7284CB818895E7C00EEEA69 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A7284CBF18895E7C00EEEA69 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		A7284CD518896D3900EEEA69 /* DTAVFoundationFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTAVFoundationFunctions.h; sourceTree = "<group>"; };
-		A7284CD618896D3900EEEA69 /* DTAVFoundationFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTAVFoundationFunctions.m; sourceTree = "<group>"; };
-		A7284CD718896D3900EEEA69 /* DTCameraPreviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTCameraPreviewController.h; sourceTree = "<group>"; };
-		A7284CD818896D3900EEEA69 /* DTCameraPreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTCameraPreviewController.m; sourceTree = "<group>"; };
-		A7284CD918896D3900EEEA69 /* DTVideoPreviewInterestBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTVideoPreviewInterestBox.h; sourceTree = "<group>"; };
-		A7284CDA18896D3900EEEA69 /* DTVideoPreviewInterestBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTVideoPreviewInterestBox.m; sourceTree = "<group>"; };
-		A7284CDB18896D3900EEEA69 /* DTVideoPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTVideoPreviewView.h; sourceTree = "<group>"; };
-		A7284CDC18896D3900EEEA69 /* DTVideoPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTVideoPreviewView.m; sourceTree = "<group>"; };
 		A7284CE118896D4F00EEEA69 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		6C49E5CC19EA9A480078A6E9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A7284C9A18895E7C00EEEA69 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -63,10 +85,65 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6C49E5AB19EA98620078A6E9 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				6C49E5AC19EA98620078A6E9 /* Main.storyboard */,
+				6C49E5AE19EA98620078A6E9 /* Images.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		6C49E5B319EA98780078A6E9 /* ObjC */ = {
+			isa = PBXGroup;
+			children = (
+				6C49E5B419EA98780078A6E9 /* AppDelegate.h */,
+				6C49E5B519EA98780078A6E9 /* AppDelegate.m */,
+				6C49E5B619EA98780078A6E9 /* DTAVFoundationFunctions.h */,
+				6C49E5B719EA98780078A6E9 /* DTAVFoundationFunctions.m */,
+				6C49E5B819EA98780078A6E9 /* DTCameraPreviewController.h */,
+				6C49E5B919EA98780078A6E9 /* DTCameraPreviewController.m */,
+				6C49E5BA19EA98780078A6E9 /* DTVideoPreviewInterestBox.h */,
+				6C49E5BB19EA98780078A6E9 /* DTVideoPreviewInterestBox.m */,
+				6C49E5BC19EA98780078A6E9 /* DTVideoPreviewView.h */,
+				6C49E5BD19EA98780078A6E9 /* DTVideoPreviewView.m */,
+				6C49E5C019EA98780078A6E9 /* ViewController.h */,
+				6C49E5C119EA98780078A6E9 /* ViewController.m */,
+				6C49E5CA19EA988B0078A6E9 /* Supporting Files */,
+			);
+			path = ObjC;
+			sourceTree = "<group>";
+		};
+		6C49E5C919EA98820078A6E9 /* Swift */ = {
+			isa = PBXGroup;
+			children = (
+				6C49E5F119EA9AA90078A6E9 /* AppDelegate.swift */,
+				6C49E5F319EA9AD20078A6E9 /* ViewController.swift */,
+				6C49E5FB19EA9C7F0078A6E9 /* DTAVFoundationFunctions.swift */,
+				6C49E5FD19EA9CA20078A6E9 /* DTCameraPreviewController.swift */,
+				6C49E5FF19EA9CC70078A6E9 /* DTVideoPreviewInterestBox.swift */,
+				6C49E60119EA9CE80078A6E9 /* DTVideoPreviewView.swift */,
+				6C49E60419EAA3A70078A6E9 /* MovieNightSwift-Bridging-Header.h */,
+			);
+			path = Swift;
+			sourceTree = "<group>";
+		};
+		6C49E5CA19EA988B0078A6E9 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				6C49E5BE19EA98780078A6E9 /* main.m */,
+				6C49E5BF19EA98780078A6E9 /* MovieNight-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		A7284C9418895E7C00EEEA69 = {
 			isa = PBXGroup;
 			children = (
-				A7284CA618895E7C00EEEA69 /* MovieNight */,
+				6C49E5B119EA986B0078A6E9 /* Info.plist */,
+				6C49E5AB19EA98620078A6E9 /* Resources */,
+				6C49E5B319EA98780078A6E9 /* ObjC */,
+				6C49E5C919EA98820078A6E9 /* Swift */,
 				A7284C9F18895E7C00EEEA69 /* Frameworks */,
 				A7284C9E18895E7C00EEEA69 /* Products */,
 			);
@@ -76,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				A7284C9D18895E7C00EEEA69 /* MovieNight.app */,
+				6C49E5CF19EA9A480078A6E9 /* MovieNightSwift.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -92,41 +170,26 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		A7284CA618895E7C00EEEA69 /* MovieNight */ = {
-			isa = PBXGroup;
-			children = (
-				A7284CAF18895E7C00EEEA69 /* AppDelegate.h */,
-				A7284CB018895E7C00EEEA69 /* AppDelegate.m */,
-				A7284CB218895E7C00EEEA69 /* Main.storyboard */,
-				A7284CB518895E7C00EEEA69 /* ViewController.h */,
-				A7284CB618895E7C00EEEA69 /* ViewController.m */,
-				A7284CB818895E7C00EEEA69 /* Images.xcassets */,
-				A7284CD518896D3900EEEA69 /* DTAVFoundationFunctions.h */,
-				A7284CD618896D3900EEEA69 /* DTAVFoundationFunctions.m */,
-				A7284CD718896D3900EEEA69 /* DTCameraPreviewController.h */,
-				A7284CD818896D3900EEEA69 /* DTCameraPreviewController.m */,
-				A7284CD918896D3900EEEA69 /* DTVideoPreviewInterestBox.h */,
-				A7284CDA18896D3900EEEA69 /* DTVideoPreviewInterestBox.m */,
-				A7284CDB18896D3900EEEA69 /* DTVideoPreviewView.h */,
-				A7284CDC18896D3900EEEA69 /* DTVideoPreviewView.m */,
-				A7284CA718895E7C00EEEA69 /* Supporting Files */,
-			);
-			path = MovieNight;
-			sourceTree = "<group>";
-		};
-		A7284CA718895E7C00EEEA69 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				A7284CA818895E7C00EEEA69 /* MovieNight-Info.plist */,
-				A7284CAC18895E7C00EEEA69 /* main.m */,
-				A7284CAE18895E7C00EEEA69 /* MovieNight-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		6C49E5CE19EA9A480078A6E9 /* MovieNightSwift */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6C49E5EB19EA9A4D0078A6E9 /* Build configuration list for PBXNativeTarget "MovieNightSwift" */;
+			buildPhases = (
+				6C49E5CB19EA9A480078A6E9 /* Sources */,
+				6C49E5CC19EA9A480078A6E9 /* Frameworks */,
+				6C49E5CD19EA9A480078A6E9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MovieNightSwift;
+			productName = MovieNightSwift;
+			productReference = 6C49E5CF19EA9A480078A6E9 /* MovieNightSwift.app */;
+			productType = "com.apple.product-type.application";
+		};
 		A7284C9C18895E7C00EEEA69 /* MovieNight */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A7284CCF18895E7C00EEEA69 /* Build configuration list for PBXNativeTarget "MovieNight" */;
@@ -152,6 +215,11 @@
 			attributes = {
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = Cocoanetics;
+				TargetAttributes = {
+					6C49E5CE19EA9A480078A6E9 = {
+						CreatedOnToolsVersion = 6.0.1;
+					};
+				};
 			};
 			buildConfigurationList = A7284C9818895E7C00EEEA69 /* Build configuration list for PBXProject "MovieNight" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -167,44 +235,66 @@
 			projectRoot = "";
 			targets = (
 				A7284C9C18895E7C00EEEA69 /* MovieNight */,
+				6C49E5CE19EA9A480078A6E9 /* MovieNightSwift */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		6C49E5CD19EA9A480078A6E9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6C49E60319EA9D420078A6E9 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A7284C9B18895E7C00EEEA69 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A7284CB918895E7C00EEEA69 /* Images.xcassets in Resources */,
-				A7284CB418895E7C00EEEA69 /* Main.storyboard in Resources */,
+				6C49E5AF19EA98620078A6E9 /* Main.storyboard in Resources */,
+				6C49E5B019EA98620078A6E9 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		6C49E5CB19EA9A480078A6E9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6C49E5F419EA9AD20078A6E9 /* ViewController.swift in Sources */,
+				6C49E5FE19EA9CA20078A6E9 /* DTCameraPreviewController.swift in Sources */,
+				6C49E5F219EA9AA90078A6E9 /* AppDelegate.swift in Sources */,
+				6C49E5FC19EA9C7F0078A6E9 /* DTAVFoundationFunctions.swift in Sources */,
+				6C49E60019EA9CC70078A6E9 /* DTVideoPreviewInterestBox.swift in Sources */,
+				6C49E60219EA9CE80078A6E9 /* DTVideoPreviewView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A7284C9918895E7C00EEEA69 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A7284CB718895E7C00EEEA69 /* ViewController.m in Sources */,
-				A7284CE018896D3900EEEA69 /* DTVideoPreviewView.m in Sources */,
-				A7284CB118895E7C00EEEA69 /* AppDelegate.m in Sources */,
-				A7284CAD18895E7C00EEEA69 /* main.m in Sources */,
-				A7284CDE18896D3900EEEA69 /* DTCameraPreviewController.m in Sources */,
-				A7284CDF18896D3900EEEA69 /* DTVideoPreviewInterestBox.m in Sources */,
-				A7284CDD18896D3900EEEA69 /* DTAVFoundationFunctions.m in Sources */,
+				6C49E5C819EA98780078A6E9 /* ViewController.m in Sources */,
+				6C49E5C419EA98780078A6E9 /* DTCameraPreviewController.m in Sources */,
+				6C49E5C219EA98780078A6E9 /* AppDelegate.m in Sources */,
+				6C49E5C619EA98780078A6E9 /* DTVideoPreviewView.m in Sources */,
+				6C49E5C519EA98780078A6E9 /* DTVideoPreviewInterestBox.m in Sources */,
+				6C49E5C719EA98780078A6E9 /* main.m in Sources */,
+				6C49E5C319EA98780078A6E9 /* DTAVFoundationFunctions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		A7284CB218895E7C00EEEA69 /* Main.storyboard */ = {
+		6C49E5AC19EA98620078A6E9 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				A7284CB318895E7C00EEEA69 /* Base */,
+				6C49E5AD19EA98620078A6E9 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -212,6 +302,47 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		6C49E5EC19EA9A4D0078A6E9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Swift/MovieNightSwift-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		6C49E5ED19EA9A4D0078A6E9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Swift/MovieNightSwift-Bridging-Header.h";
+			};
+			name = Release;
+		};
 		A7284CCD18895E7C00EEEA69 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -288,8 +419,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "MovieNight/MovieNight-Prefix.pch";
-				INFOPLIST_FILE = "MovieNight/MovieNight-Info.plist";
+				GCC_PREFIX_HEADER = "Objc/MovieNight-Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -301,8 +432,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "MovieNight/MovieNight-Prefix.pch";
-				INFOPLIST_FILE = "MovieNight/MovieNight-Info.plist";
+				GCC_PREFIX_HEADER = "Objc/MovieNight-Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -311,6 +442,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		6C49E5EB19EA9A4D0078A6E9 /* Build configuration list for PBXNativeTarget "MovieNightSwift" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6C49E5EC19EA9A4D0078A6E9 /* Debug */,
+				6C49E5ED19EA9A4D0078A6E9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		A7284C9818895E7C00EEEA69 /* Build configuration list for PBXProject "MovieNight" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
