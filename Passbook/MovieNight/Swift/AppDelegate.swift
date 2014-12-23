@@ -43,24 +43,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         alert.show()
     }
     
-    func _MD5ForString(string: String) -> String
-    {
-        let data: NSData = string.dataUsingEncoding(NSUTF8StringEncoding)!
-        let result = NSMutableData(length: Int(CC_MD5_DIGEST_LENGTH))
-        let digest = UnsafeMutablePointer<CUnsignedChar>(result.mutableBytes)
-        
-        CC_MD5(data.bytes, CC_LONG(data.length), digest)
-        
-        var output: NSMutableString = ""
-        
-        for i in 0..<Int(CC_MD5_DIGEST_LENGTH)
-        {
-            output.appendFormat("%02x", digest[i])
-        }
-        
-        return String(format: output)
-    }
-    
     func _SHA1ForString(string: String) -> String
     {
         let data: NSData = string.dataUsingEncoding(NSUTF8StringEncoding)!
