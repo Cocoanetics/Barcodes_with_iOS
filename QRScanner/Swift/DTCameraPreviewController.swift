@@ -331,6 +331,8 @@ protocol for receiving updates on newly visible barcodes
     {
         if (_captureSession?.running == false)
         {
+				println("Capture Session is not running yet, " +
+			           "so we wouldn't get a useful rect of interest");
             return
         }
         

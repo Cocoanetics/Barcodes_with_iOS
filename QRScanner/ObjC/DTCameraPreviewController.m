@@ -358,6 +358,8 @@
 {
    if (!_captureSession.isRunning)
    {
+		NSLog(@"Capture Session is not running yet, "\
+				@"so we wouldn't get a useful rect of interest");
       return;
    }
    
