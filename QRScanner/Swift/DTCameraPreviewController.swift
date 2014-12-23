@@ -108,7 +108,7 @@ protocol for receiving updates on newly visible barcodes
             _metaDataOutput!.metadataObjectTypes = tmpArray
         }
         
-        _metaDataOutput!.rectOfInterest = CGRectMake(0.25, 0.25, 0.5, 0.5)
+        _metaDataOutput!.rectOfInterest = CGRectMake(0, 0, 1, 1)
     }
     
     func _setupCamera()
