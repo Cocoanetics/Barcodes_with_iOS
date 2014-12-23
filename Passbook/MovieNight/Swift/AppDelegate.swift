@@ -46,11 +46,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func _SHA1ForString(string: String) -> String
     {
         let data: NSData = string.dataUsingEncoding(NSUTF8StringEncoding)!
-        let result = NSMutableData(length: Int(CC_SHA1_DIGEST_LENGTH))
-        let digest = UnsafeMutablePointer<CUnsignedChar>(result.mutableBytes)
-        
-        CC_SHA1(data.bytes, CC_LONG(data.length), digest)
-        
+		  var digest = [UInt8](count:Int(CC_SHA1_DIGEST_LENGTH), repeatedValue: 0)
+
+		  CC_SHA1(data.bytes, CC_LONG(data.length), &digest)
+		
         var output: NSMutableString = ""
         
         for i in 0..<Int(CC_SHA1_DIGEST_LENGTH)
