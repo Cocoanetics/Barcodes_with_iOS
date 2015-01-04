@@ -55,7 +55,7 @@ import Foundation
         let UUIDString: String = UUIDTextField!.text
         let major: NSInteger = majorTextField!.text.toInt()!
         let minor: NSInteger = minorTextField!.text.toInt()!
-        let UUID: NSUUID = NSUUID(UUIDString: UUIDString)
+        let UUID: NSUUID = NSUUID(UUIDString: UUIDString)!
         
         // identifier cannot be nil, but is inconsequential
         let region: CLBeaconRegion = CLBeaconRegion(proximityUUID: UUID, major: CLBeaconMajorValue(major), minor: CLBeaconMinorValue(minor), identifier: "FooBar")
