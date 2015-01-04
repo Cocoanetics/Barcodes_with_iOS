@@ -165,7 +165,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate
 		// Obtain vCard
 		var people : NSArray = [record]
 		var data: NSData = ABPersonCreateVCardRepresentationWithPeople(people as CFArray).takeRetainedValue()
-		var vcardString: String = NSString(data: data, encoding: NSASCIIStringEncoding)
+		var vcardString: String = NSString(data: data, encoding: NSASCIIStringEncoding)!
 		
 		println(vcardString)
 		
@@ -175,7 +175,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate
 		var filePath: String = documentsDirectory.stringByAppendingPathComponent("pin.loc.vcf")
 		vcardString.writeToFile(filePath, atomically: true, encoding: NSUTF8StringEncoding, error: nil)
 		
-		var url: NSURL = NSURL(string: filePath)
+		var url: NSURL = NSURL(string: filePath)!
 		
 		println("url> \(url.absoluteString)")
 		
