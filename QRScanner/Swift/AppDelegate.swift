@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, DTCameraPreviewController
         previewController.delegate = self
         
         // configure URL detector
-        _urlDetector = NSDataDetector(types: NSTextCheckingType.Link.toRaw(), error: nil)
+        _urlDetector = NSDataDetector(types: NSTextCheckingType.Link.rawValue, error: nil)
         
         return true
     }
