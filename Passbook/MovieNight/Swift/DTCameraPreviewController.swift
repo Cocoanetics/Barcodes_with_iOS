@@ -344,7 +344,7 @@ protocol for receiving updates on newly visible barcodes
     {
         super.viewDidLoad()
         
-        assert(self.view is DTVideoPreviewView, "Wrong root view class \(NSStringFromClass(self.view.dynamicType)) in \(NSStringFromClass(self.dynamicType))")
+        assert(self.view is DTVideoPreviewView, "Wrong root view class \(NSStringFromClass(self.view!.dynamicType)) in \(NSStringFromClass(self.dynamicType))")
         
         _videoPreview = self.view as? DTVideoPreviewView
         
@@ -399,7 +399,7 @@ protocol for receiving updates on newly visible barcodes
     
     // for demonstration all orientations are supported
     override func supportedInterfaceOrientations() -> Int {
-        return Int(UIInterfaceOrientationMask.All.toRaw())
+        return Int(UIInterfaceOrientationMask.All.rawValue)
     }
     
     override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval)
@@ -443,7 +443,7 @@ protocol for receiving updates on newly visible barcodes
             }
             
             let imageData: NSData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(imageSampleBuffer)
-            let image: UIImage = UIImage(data: imageData)
+            let image: UIImage = UIImage(data: imageData)!
             
             UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
             
