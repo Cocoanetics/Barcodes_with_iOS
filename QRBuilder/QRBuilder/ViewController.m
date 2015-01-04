@@ -120,7 +120,7 @@
 
 - (IBAction)print:(UIButton *)sender {
    UIPrintInfo *printInfo = [UIPrintInfo printInfo];
-   printInfo.outputType = UIPrintInfoOutputGeneral;
+   printInfo.outputType = UIPrintInfoOutputGrayscale;
    printInfo.jobName = @"QR Codes";
    printInfo.duplex = UIPrintInfoDuplexNone;
    

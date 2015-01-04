@@ -7,6 +7,7 @@
 //
 
 #import "DTDiscogs.h"
+#import "DTOAuthClient.h"
 
 #define API_ENDPOINT @"http://api.discogs.com"
 #define URLENC(string) [string \
@@ -99,8 +100,17 @@ NSString * const DTDiscogsErrorDomain = @"DTDiscogs";
 {
    NSURL *methodURL = [self _methodURLForPath:path
                                    parameters:parameters];
-   NSURLRequest *request = [NSURLRequest requestWithURL:methodURL];
-   
+   NSMutableURLRequest *request =
+                         [NSMutableURLRequest requestWithURL:methodURL];
+	
+	// add OAuth authorization header
+	if ([self.oauthClient isAuthenticated])
+	{
+		NSString *authHeader =
+              [self.oauthClient authenticationHeaderForRequest:request];
+		[request addValue:authHeader forHTTPHeaderField:@"Authorization"];
+	}
+	
    NSURLSessionDataTask *task = [[self session]
                                  dataTaskWithRequest:request
                                  completionHandler:^(NSData *data,
@@ -185,11 +195,11 @@ NSString * const DTDiscogsErrorDomain = @"DTDiscogs";
    if ([gtin length]==13 && [gtin hasPrefix:@"0"]) {
       gtin = [gtin substringFromIndex:1];
    }
-   
-   NSString *functionPath = @"/database/search";
+
+	NSString *functionPath = @"/database/search";
 	NSDictionary *params = @{@"type": @"release",
 									 @"barcode": gtin};
-   
+	
    [self _performMethodCallWithPath:functionPath
 								 parameters:params
 								 completion:completion];
@@ -203,6 +213,25 @@ NSString * const DTDiscogsErrorDomain = @"DTDiscogs";
    }
    
    return _session;
+}
+
+- (DTOAuthClient *)oauthClient {
+	if (!_oauthClient) {
+		_oauthClient = [[DTOAuthClient alloc]
+                      initWithConsumerKey:@"mDOdjNkiAPSklsVSIrbF"
+                      consumerSecret:@"UvXUCTOgyHKCFEnZpzDThOofaDsZQMyA"
+                      ];
+		
+		// set up URLs
+		_oauthClient.requestTokenURL = [NSURL URLWithString:
+                         @"http://api.discogs.com/oauth/request_token"];
+		_oauthClient.userAuthorizeURL = [NSURL URLWithString:
+                         @"http://www.discogs.com/oauth/authorize"];
+		_oauthClient.accessTokenURL = [NSURL URLWithString:
+                          @"http://api.discogs.com/oauth/access_token"];
+	}
+	
+	return _oauthClient;
 }
 
 @end

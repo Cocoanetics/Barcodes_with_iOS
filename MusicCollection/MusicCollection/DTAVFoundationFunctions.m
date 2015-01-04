@@ -18,6 +18,7 @@ DTAVCaptureVideoOrientationForUIInterfaceOrientation(
 		}
 			
 		case UIInterfaceOrientationPortrait:
+		default:
 		{
 			return AVCaptureVideoOrientationPortrait;
 		}

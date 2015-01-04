@@ -1,3 +1,8 @@
 /* Localized versions of Info.plist keys */
 
-"NSLocationUsageDescription" = "You will be notified about closeby yard sales";
+"NSLocationUsageDescription" = "You will be notified about close by yard sales";
+
+// new iOS 8 usage descriptions
+
+"NSLocationWhenInUseUsageDescription" = "YardSale would like to show your location on the map and look for close by yard sales";
+"NSLocationAlwaysUsageDescription" = "You will be notified about close by yard sales";

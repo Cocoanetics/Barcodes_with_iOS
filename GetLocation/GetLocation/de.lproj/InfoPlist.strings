@@ -1,3 +1,0 @@
-/* Localized versions of Info.plist keys */
-
-"NSLocationUsageDescription" = "Weil eine App zum Anzeigen der aktuellen Position aber ohne Zugriff zur Positionsinfo ziemlich witzlos ist.";

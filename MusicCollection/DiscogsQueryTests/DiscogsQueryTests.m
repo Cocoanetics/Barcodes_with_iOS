@@ -39,13 +39,16 @@
 - (void)setUp {
    [super setUp];
 
-   // warn us if no response is configured for a request
-   [DTURLProtocolStub setMissingResponseBlock:^(NSURLRequest *request) {
-      XCTFail(@"No response configured for request to %@", request.URL);
-      
-      return (NSError *)nil;
-   }];
-   
+	// register protocol stub for normal NSURLConnections
+	[NSURLProtocol registerClass:[DTURLProtocolStub class]];
+	
+	// warn us if no response is configured for a request
+	[DTURLProtocolStub setMissingResponseBlock:^(NSURLRequest *request) {
+		XCTFail(@"No response configured for request to %@", request.URL);
+		
+		return (NSError *)nil;
+	}];
+	
    // record requests to IVAR
    _recordedRequests = [NSMutableArray array];
    
@@ -62,9 +65,6 @@
    
    // semaphore for waiting for end of request
    _requestSemaphore = dispatch_semaphore_create(0);
-   
-   // for demo: alsxo register protocol stub for normal NSURLConnections
-   [NSURLProtocol registerClass:[DTURLProtocolStub class]];
 }
 
 #pragma mark - Setup & Helpers
